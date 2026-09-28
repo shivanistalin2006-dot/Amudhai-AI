@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>அமுதை AI | Amudhai AI - Smart AgriTech & Farming Companion</title>
+  <meta name="description" content="அமுதை AI (Amudhai AI) - உழவர் நலன் மற்றும் அடுத்த தலைமுறை வேளாண் நுண்ணறிவு. பயிர் நோய் கண்டறிதல், மண் வள பகுப்பாய்வு, சந்தை விலை மற்றும் வானிலை ஆலோசனை.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-lang="ta">
+  <!-- Atmospheric Background Glows -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Header / Navigation -->
+  <header class="app-header" id="mainHeader">
+    <div class="header-container">
+      <div class="brand-group">
+        <img src="assets/images/logo.jpg" alt="Amudhai AI Logo" class="brand-logo" id="appLogo">
+        <div class="brand-text">
+          <div class="brand-title-row">
+            <span class="brand-title">அமுதை <span class="brand-ai">AI</span></span>
+            <span class="version-badge">v2.4 Live</span>
+          </div>
+          <p class="brand-subtitle" data-i18n="tagline">அடுத்த தலைமுறை வேளாண் நுண்ணறிவு</p>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#scanner" class="nav-link active" data-i18n="nav_scanner"><i data-lucide="scan-line"></i> பயிர் ஸ்கேனர்</a>
+        <a href="#soil" class="nav-link" data-i18n="nav_soil"><i data-lucide="test-tube-2"></i> மண் வளம்</a>
+        <a href="#weather" class="nav-link" data-i18n="nav_weather"><i data-lucide="cloud-sun"></i> வானிலை</a>
+        <a href="#mandi" class="nav-link" data-i18n="nav_mandi"><i data-lucide="trending-up"></i> சந்தை நிலவரம்</a>
+        <a href="#chat" class="nav-link" data-i18n="nav_bot"><i data-lucide="message-square-heart"></i> அமுதை பாட்</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Language Switcher -->
+        <div class="lang-switch-container">
+          <button class="lang-btn active" id="btnLangTa" onclick="setLanguage('ta')">தமிழ்</button>
+          <button class="lang-btn" id="btnLangEn" onclick="setLanguage('en')">English</button>
+        </div>
+
+        <a href="https://github.com/shivanistalin2006-dot/Amudhai-AI" target="_blank" rel="noopener noreferrer" class="github-btn" title="GitHub Repo" id="repoLink">
+          <i data-lucide="github"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-wrapper">
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="hero-card">
+        <div class="hero-content">
+          <div class="hero-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="hero_pill">உழவர்களுக்கான நவீன செயற்கை நுண்ணறிவு தளம்</span>
+          </div>
+          <h1 class="hero-heading" data-i18n="hero_title">
+            விவசாயத்தில் புதுமை, <br>
+            <span class="gradient-text">அமுதை AI உங்கள் கையில்!</span>
+          </h1>
+          <p class="hero-desc" data-i18n="hero_desc">
+            பயிர் இலை நோய்களை நொடியில் கண்டறிந்து, இயற்கை மற்றும் அறிவியல் ரீதியான சிகிச்சை முறைகள், மண் வள மேலாண்மை, நேரடி உழவர் சந்தை நிலவரங்களை தமிழில் உடனுக்குடன் பெறுங்கள்.
+          </p>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">98.4%</span>
+              <span class="stat-label" data-i18n="stat_accuracy">துல்லியமான நோய் கணிப்பு</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">45+</span>
+              <span class="stat-label" data-i18n="stat_crops">பயிர் & இலை வகைகள்</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-number">38</span>
+              <span class="stat-label" data-i18n="stat_districts">தமிழக மாவட்ட நேரலை</span>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a href="#scanner" class="btn btn-primary" id="ctaScanBtn">
+              <i data-lucide="scan"></i>
+              <span data-i18n="cta_scan">பயிர் பரிசோதனை செய்</span>
+            </a>
+            <a href="#chat" class="btn btn-secondary" id="ctaChatBtn">
+              <i data-lucide="mic"></i>
+              <span data-i18n="cta_voice">அமுதையிடம் கேளுங்கள்</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-image-wrap">
+            <img src="assets/images/hero_banner.jpg" alt="Amudhai AI Smart Farming Thanjavur" class="hero-img">
+            <div class="hero-floating-badge badge-top">
+              <i data-lucide="shield-check" class="badge-icon-green"></i>
+              <div>
+                <strong data-i18n="badge_iot_title">IoT & Drone AI Live</strong>
+                <span data-i18n="badge_iot_sub">தஞ்சாவூர் நெல் கண்காணிப்பு</span>
+              </div>
+            </div>
+            <div class="hero-floating-badge badge-bottom">
+              <i data-lucide="sprout" class="badge-icon-gold"></i>
+              <div>
+                <strong data-i18n="badge_crop_title">மண் pH: 6.8 (சிறந்தது)</strong>
+                <span data-i18n="badge_crop_sub">பயிர் மகசூல் +28% சாத்தியம்</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: AI Leaf Disease Scanner -->
+    <section class="section-container" id="scanner">
+      <div class="section-header">
+        <div class="section-badge"><i data-lucide="cpu"></i> AI Vision Diagnostic</div>
+        <h2 class="section-title" data-i18n="scanner_title">ஸ்மார்ட் பயிர் இலை நோய் ஸ்கேனர்</h2>
+        <p class="section-subtitle" data-i18n="scanner_subtitle">
+          பயிர் இலையின் புகைப்படத்தை பதிவேற்றவும் அல்லது கீழே உள்ள மாதிரிகளை தேர்வு செய்து AI ஆய்வை உடனடியாக பார்க்கவும்.
+        </p>
+      </div>
+
+      <div class="scanner-grid">
+        <!-- Scanner Input & Display Card -->
+        <div class="scanner-card glass-panel">
+          <div class="scanner-presets-bar">
+            <span class="presets-label" data-i18n="samples_label"><i data-lucide="sparkles"></i> மாதிரி படங்கள்:</span>
+            <button class="preset-btn active" id="presetBlightBtn" onclick="loadSampleImage('blight')">
+              🍅 <span data-i18n="sample_tomato">தக்காளி இலை கருகல்</span>
+            </button>
+            <button class="preset-btn" id="presetHealthyBtn" onclick="loadSampleImage('healthy')">
+              🌾 <span data-i18n="sample_rice">ஆரோக்கியமான நெல்</span>
+            </button>
+          </div>
+
+          <div class="scanner-viewport-box" id="dropZone">
+            <div class="scanner-view-inner" id="scannerViewInner">
+              <img src="assets/images/sample_early_blight.jpg" alt="Leaf Sample" id="leafPreviewImg" class="preview-img">
+              <div class="scan-laser-line" id="scanLaser"></div>
+              
+              <div class="scan-status-overlay" id="scanOverlay">
+                <div class="scan-spinner"></div>
+                <p id="scanStatusText" data-i18n="scanning_status">இலை நுண்ணாய்வு நடைபெறுகிறது...</p>
+              </div>
+            </div>
+
+            <!-- Upload Bar inside card -->
+            <div class="upload-drop-info">
+              <label for="fileUploadInput" class="upload-trigger-btn" id="uploadLabel">
+                <i data-lucide="upload-cloud"></i>
+                <span data-i18n="upload_btn">சொந்த இலை படத்தை பதிவேற்றுக</span>
+              </label>
+              <input type="file" id="fileUploadInput" accept="image/*" style="display:none;" onchange="handleUserUpload(event)">
+              <span class="upload-hint" data-i18n="upload_hint">JPG, PNG அல்லது கேமரா புகைப்படம்</span>
+            </div>
+          </div>
+
+          <div class="scanner-card-footer">
+            <button class="btn btn-primary full-width" id="btnTriggerScan" onclick="triggerAIScan()">
+              <i data-lucide="scan-face"></i>
+              <span data-i18n="btn_reanalyze">AI மீண்டும் பரிசோதனை செய்</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Diagnosis Result Card -->
+        <div class="result-card glass-panel" id="diagnosisResultCard">
+          <div class="result-card-header">
+            <div>
+              <div class="ai-chip"><i data-lucide="sparkle"></i> Amudhai Vision Model v2.4</div>
+              <h3 class="result-disease-name" id="resultDiseaseName">தக்காளி இலை கருகல் நோய் (Early Blight)</h3>
+              <p class="result-crop-name" id="resultCropName">பயிர்: தக்காளி (Solanum lycopersicum)</p>
+            </div>
+            <div class="confidence-badge" id="confidenceBadge">
+              <span class="conf-value" id="confValue">97.6%</span>
+              <span class="conf-label" data-i18n="conf_label">நம்பகத்தன்மை</span>
+            </div>
+          </div>
+
+          <div class="audio-listen-bar">
+            <button class="audio-play-btn" id="btnAudioDiagnosis" onclick="speakCurrentDiagnosis()">
+              <i data-lucide="volume-2"></i>
+              <span data-i18n="audio_listen">தமிழில் கேட்க (Listen Aloud)</span>
+            </button>
+            <span class="audio-hint" data-i18n="audio_hint">உழவர்களுக்கான குரல் வழிகாட்டி</span>
+          </div>
+
+          <div class="diagnosis-tabs">
+            <button class="diag-tab-btn active" id="tabOrganicBtn" onclick="switchDiagTab('organic')">
+              🌱 <span data-i18n="tab_organic">இயற்கை தீர்வு (Organic)</span>
+            </button>
+            <button class="diag-tab-btn" id="tabChemicalBtn" onclick="switchDiagTab('chemical')">
+              🧪 <span data-i18n="tab_chemical">மருந்து தெளிப்பு (Bio/Chemical)</span>
+            </button>
+            <button class="diag-tab-btn" id="tabSymptomsBtn" onclick="switchDiagTab('symptoms')">
+              🔍 <span data-i18n="tab_symptoms">அறிகுறிகள் & காரணங்கள்</span>
+            </button>
+          </div>
+
+          <div class="diagnosis-tab-content" id="tabContentBox">
+            <!-- Dynamic Content populated via JS -->
+          </div>
+
+          <div class="severity-meter-box">
+            <div class="severity-labels">
+              <span data-i18n="risk_level">தாக்க நிலை (Urgency Level):</span>
+              <span class="severity-tag moderate" id="severityTag">மிதமான தாக்கம் (Moderate)</span>
+            </div>
+            <div class="meter-bar">
+              <div class="meter-fill" id="meterFill" style="width: 65%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Soil Health & NPK Analyzer -->
+    <section class="section-container" id="soil">
+      <div class="section-header">
+        <div class="section-badge"><i data-lucide="flask-conical"></i> Smart Soil Intelligence</div>
+        <h2 class="section-title" data-i18n="soil_title">மண் வள பகுப்பாய்வு & உகந்த பயிர் பரிந்துரை</h2>
+        <p class="section-subtitle" data-i18n="soil_subtitle">
+          உங்கள் வயலின் தழைச்சத்து (N), மணிச்சத்து (P), சாம்பல் சத்து (K) மற்றும் pH அளவுகளை சரிசெய்து உடனடி பரிந்துரையை பெறுங்கள்.
+        </p>
+      </div>
+
+      <div class="soil-grid">
+        <!-- Interactive Controls -->
+        <div class="soil-controls-card glass-panel">
+          <div class="control-group">
+            <label class="control-label" for="soilTypeSelect">
+              <span data-i18n="soil_type_lbl"><i data-lucide="layers"></i> மண்ணின் வகை (Soil Type):</span>
+            </label>
+            <select id="soilTypeSelect" class="custom-select" onchange="calculateSoilHealth()">
+              <option value="red" selected>செம்மண் (Red Loam Soil)</option>
+              <option value="black">கரிசல் மண் (Black Cotton Soil)</option>
+              <option value="alluvial">வண்டல் மண் (Alluvial River Soil)</option>
+              <option value="sandy">மணல் கலந்த மண் (Sandy Loam)</option>
+            </select>
+          </div>
+
+          <!-- Nitrogen Slider -->
+          <div class="slider-group">
+            <div class="slider-header">
+              <span><strong class="n-color">N</strong> - <span data-i18n="nitrogen_lbl">தழைச்சத்து (Nitrogen)</span></span>
+              <span class="slider-val" id="valN">240 kg/ha</span>
+            </div>
+            <input type="range" id="sliderN" min="50" max="500" value="240" step="10" oninput="updateSoilValues()">
+            <div class="slider-scale"><span>குறைவு (Low)</span><span>மத்திமம் (Medium)</span><span>அதிகம் (High)</span></div>
+          </div>
+
+          <!-- Phosphorus Slider -->
+          <div class="slider-group">
+            <div class="slider-header">
+              <span><strong class="p-color">P</strong> - <span data-i18n="phosphorus_lbl">மணிச்சத்து (Phosphorus)</span></span>
+              <span class="slider-val" id="valP">22 kg/ha</span>
+            </div>
+            <input type="range" id="sliderP" min="5" max="100" value="22" step="1" oninput="updateSoilValues()">
+            <div class="slider-scale"><span>குறைவு</span><span>மத்திமம்</span><span>அதிகம்</span></div>
+          </div>
+
+          <!-- Potassium Slider -->
+          <div class="slider-group">
+            <div class="slider-header">
+              <span><strong class="k-color">K</strong> - <span data-i18n="potassium_lbl">சாம்பல் சத்து (Potassium)</span></span>
+              <span class="slider-val" id="valK">180 kg/ha</span>
+            </div>
+            <input type="range" id="sliderK" min="50" max="450" value="180" step="10" oninput="updateSoilValues()">
+            <div class="slider-scale"><span>குறைவு</span><span>மத்திமம்</span><span>அதிகம்</span></div>
+          </div>
+
+          <!-- pH Slider -->
+          <div class="slider-group">
+            <div class="slider-header">
+              <span><strong class="ph-color">pH</strong> - <span data-i18n="ph_lbl">மண்ணின் அமில/காரத்தன்மை</span></span>
+              <span class="slider-val" id="valPH">6.8 pH</span>
+            </div>
+            <input type="range" id="sliderPH" min="4.0" max="9.5" value="6.8" step="0.1" oninput="updateSoilValues()">
+            <div class="slider-scale"><span>அமிலம் (Acidic)</span><span>நடுநிலை (Neutral)</span><span>காரம் (Alkaline)</span></div>
+          </div>
+        </div>
+
+        <!-- Soil Recommendations Card -->
+        <div class="soil-output-card glass-panel" id="soilOutputCard">
+          <div class="soil-score-header">
+            <div class="score-circle-wrap">
+              <div class="score-circle" id="soilScoreCircle">
+                <span class="score-num" id="soilScoreNum">88</span>
+                <span class="score-unit">/100</span>
+              </div>
+            </div>
+            <div class="score-text">
+              <span class="score-status-badge" id="soilStatusBadge" data-i18n="soil_optimal">மிகச் சிறந்த மண் நலம் (Optimal)</span>
+              <h3 class="soil-heading" id="soilRecommendationHeading">பயிர் சாகுபடிக்கு உகந்த ஆரோக்கியமான நிலை</h3>
+              <p class="soil-summary-p" id="soilSummaryP">மண்ணின் pH மற்றும் ஊட்டச்சத்து சமநிலை நெல், கரும்பு, மற்றும் வாழை போன்ற பிரதான பயிர்களுக்கு மிகவும் உகந்தது.</p>
+            </div>
+          </div>
+
+          <div class="recommended-crops-box">
+            <h4 class="box-title" data-i18n="rec_crops_title"><i data-lucide="check-circle-2"></i> பரிந்துரைக்கப்படும் பயிர்கள் (Best Suited Crops):</h4>
+            <div class="crop-pill-list" id="cropPillList">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <div class="fertilizer-recommendation-box">
+            <h4 class="box-title" data-i18n="bio_fert_title"><i data-lucide="leaf"></i> இயற்கை உர மேலாண்மை ஆலோசனை:</h4>
+            <div class="fert-content" id="fertAdviceContent">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Weather & Hyperlocal Irrigation Guide -->
+    <section class="section-container" id="weather">
+      <div class="section-header">
+        <div class="section-badge"><i data-lucide="cloud-rain"></i> Hyperlocal Forecast</div>
+        <h2 class="section-title" data-i18n="weather_title">வானிலை & துல்லிய பாசன வழிகாட்டி</h2>
+        <p class="section-subtitle" data-i18n="weather_subtitle">
+          உங்கள் வட்டாரத்தின் மழை வாய்ப்பு, காற்றின் ஈரப்பதம் மற்றும் பாசன நேர மேலாண்மை.
+        </p>
+      </div>
+
+      <div class="weather-wrapper glass-panel">
+        <div class="weather-top-bar">
+          <div class="district-picker">
+            <label for="districtSelect" data-i18n="select_district_lbl"><i data-lucide="map-pin"></i> மாவட்டம் தேர்வு செய்க:</label>
+            <select id="districtSelect" class="custom-select-small" onchange="updateWeatherData()">
+              <option value="thanjavur" selected>தஞ்சாவூர் (Thanjavur)</option>
+              <option value="madurai">மதுரை (Madurai)</option>
+              <option value="coimbatore">கோயம்புத்தூர் (Coimbatore)</option>
+              <option value="trichy">திருச்சிராப்பள்ளி (Tiruchirappalli)</option>
+              <option value="salem">சேலம் (Salem)</option>
+              <option value="tirunelveli">திருநெல்வேலி (Tirunelveli)</option>
+              <option value="villupuram">விழுப்புரம் (Villupuram)</option>
+              <option value="erode">ஈரோடு (Erode)</option>
+            </select>
+          </div>
+          <div class="weather-updated-tag">
+            <span class="pulse-dot"></span>
+            <span data-i18n="live_sensor_data">நேரலை சாட்டிலைட் & IoT தரவு</span>
+          </div>
+        </div>
+
+        <div class="weather-metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon"><i data-lucide="thermometer"></i></div>
+            <div class="metric-info">
+              <span class="metric-label" data-i18n="temp_lbl">வெப்பநிலை</span>
+              <strong class="metric-value" id="weatherTemp">31.4°C</strong>
+              <span class="metric-sub" id="weatherTempFeel">உணரப்படுவது 33°C</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon"><i data-lucide="droplets"></i></div>
+            <div class="metric-info">
+              <span class="metric-label" data-i18n="humidity_lbl">காற்றின் ஈரப்பதம்</span>
+              <strong class="metric-value" id="weatherHumidity">74%</strong>
+              <span class="metric-sub" data-i18n="humidity_status">பயிர் வளர்ச்சிக்கு உகந்தது</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon"><i data-lucide="cloud-rain"></i></div>
+            <div class="metric-info">
+              <span class="metric-label" data-i18n="rain_lbl">மழை வாய்ப்பு</span>
+              <strong class="metric-value" id="weatherRain">68%</strong>
+              <span class="metric-sub" id="weatherRainAlert">மாலை மிதமான மழை</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon"><i data-lucide="wind"></i></div>
+            <div class="metric-info">
+              <span class="metric-label" data-i18n="wind_lbl">காற்றின் வேகம்</span>
+              <strong class="metric-value" id="weatherWind">14 km/h</strong>
+              <span class="metric-sub" data-i18n="wind_status">மருந்து தெளிக்க மிதமான காற்று</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Smart Irrigation Banner -->
+        <div class="irrigation-alert-banner" id="irrigationAlert">
+          <div class="irrigation-icon"><i data-lucide="alert-circle"></i></div>
+          <div class="irrigation-text">
+            <h4 class="irrigation-title" id="irrigationTitle" data-i18n="irrigation_title">AI பாசன வழிகாட்டுதல்: இன்று மாலை நீர் பாய்ச்சுவதை தவிர்க்கவும்!</h4>
+            <p class="irrigation-desc" id="irrigationDesc" data-i18n="irrigation_desc">
+              அடுத்த 6 மணி நேரத்தில் 68% மழைப்பொழிவு கணிக்கப்பட்டுள்ளதால், கூடுதல் நீர் தேங்குவதை தடுக்க மோட்டார் பாசனத்தை தற்காலிகமாக நிறுத்துவது மின்சாரம் மற்றும் நீர் விரயத்தை தடுக்கும்.
+            </p>
+          </div>
+          <button class="irrigation-btn" onclick="speakWeatherAlert()">
+            <i data-lucide="volume-2"></i>
+            <span data-i18n="listen_audio">அறிவிப்பு கேட்க</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Live Tamil Nadu Mandi & Uzhavar Santhai Prices -->
+    <section class="section-container" id="mandi">
+      <div class="section-header">
+        <div class="section-badge"><i data-lucide="banknote"></i> Live Market Intel</div>
+        <h2 class="section-title" data-i18n="mandi_title">உழவர் சந்தை & நேரடி ஒழுங்குமுறை விற்பனைக் கூடம்</h2>
+        <p class="section-subtitle" data-i18n="mandi_subtitle">
+          தமிழக முக்கிய சந்தைகளின் இன்றைய நேரலை விலை நிலவரம் மற்றும் விலை உயர்வு/குறைவு மாற்றங்கள்.
+        </p>
+      </div>
+
+      <div class="mandi-container glass-panel">
+        <div class="mandi-filter-bar">
+          <div class="filter-tabs">
+            <button class="filter-tab active" onclick="filterMandi('all')" id="mandiTabAll" data-i18n="mandi_all">அனைத்தும்</button>
+            <button class="filter-tab" onclick="filterMandi('veg')" id="mandiTabVeg" data-i18n="mandi_veg">காய்கறிகள்</button>
+            <button class="filter-tab" onclick="filterMandi('grain')" id="mandiTabGrain" data-i18n="mandi_grain">தானியங்கள்</button>
+            <button class="filter-tab" onclick="filterMandi('cash')" id="mandiTabCash" data-i18n="mandi_cash">பணப்பயிர்கள்</button>
+          </div>
+          <div class="mandi-search-box">
+            <i data-lucide="search"></i>
+            <input type="text" id="mandiSearchInput" placeholder="பயிரின் பெயர் தேடுக (Search crop)..." oninput="searchMandi()">
+          </div>
+        </div>
+
+        <div class="mandi-table-responsive">
+          <table class="mandi-table" id="mandiTable">
+            <thead>
+              <tr>
+                <th data-i18n="th_crop">பயிர் / விளைபொருள்</th>
+                <th data-i18n="th_mandi">முதன்மை சந்தை</th>
+                <th data-i18n="th_avg_price">சராசரி விலை (Avg Price)</th>
+                <th data-i18n="th_range">விலை வரம்பு (குறைந்த - அதிக)</th>
+                <th data-i18n="th_trend">போக்கு (Trend)</th>
+                <th data-i18n="th_action">AI ஆலோசனை</th>
+              </tr>
+            </thead>
+            <tbody id="mandiTableBody">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Amudhai AI Agri-Bot Chatbot -->
+    <section class="section-container" id="chat">
+      <div class="section-header">
+        <div class="section-badge"><i data-lucide="bot"></i> 24/7 Farmer Assistant</div>
+        <h2 class="section-title" data-i18n="chat_title">அமுதை வேளாண் நுண்ணறிவு பாட் (Amudhai AI Bot)</h2>
+        <p class="section-subtitle" data-i18n="chat_subtitle">
+          பயிர் பாதுகாப்பு, இயற்கை பூச்சி விரட்டிகள், உர மேலாண்மை அல்லது அரசு மானியங்கள் பற்றி எதையும் தமிழிலோ ஆங்கிலத்திலோ கேட்டு அறியுங்கள்!
+        </p>
+      </div>
+
+      <div class="chat-wrapper glass-panel">
+        <div class="chat-header-bar">
+          <div class="chat-bot-avatar">
+            <img src="assets/images/logo.jpg" alt="Amudhai Bot">
+            <span class="online-indicator"></span>
+          </div>
+          <div class="chat-bot-info">
+            <h3 class="bot-name">அமுதை வேளாண் ஆலோசகர் (Amudhai AI)</h3>
+            <span class="bot-status" data-i18n="bot_ready">பயிற்சி பெற்ற வேளாண் நுண்ணறிவு தயார்</span>
+          </div>
+          <button class="clear-chat-btn" onclick="resetChat()" title="Reset Chat" id="resetChatBtn">
+            <i data-lucide="rotate-ccw"></i>
+          </button>
+        </div>
+
+        <!-- Quick Prompts Chips -->
+        <div class="quick-chips-bar" id="quickChipsBar">
+          <button class="chip-btn" onclick="sendQuickPrompt('தக்காளி இலை சுருட்டல் நோய்க்கு என்ன தீர்வு?')">
+            🍅 <span data-i18n="chip_tomato">தக்காளி இலை சுருட்டல் தீர்வு</span>
+          </button>
+          <button class="chip-btn" onclick="sendQuickPrompt('இயற்கை ஐந்து இலை கஷாயம் தயாரிக்கும் முறை என்ன?')">
+            🌿 <span data-i18n="chip_extract">ஐந்து இலை கஷாயம் செய்முறை</span>
+          </button>
+          <button class="chip-btn" onclick="sendQuickPrompt('நெல் பயிருக்கு தழைச்சத்து பற்றாக்குறை அறிகுறிகள் என்ன?')">
+            🌾 <span data-i18n="chip_paddy">நெல் தழைச்சத்து பற்றாக்குறை</span>
+          </button>
+          <button class="chip-btn" onclick="sendQuickPrompt('PM கிசான் மற்றும் வேளாண்மை அரசு மானிய திட்டங்கள் விவரம்')">
+            🏛️ <span data-i18n="chip_scheme">வேளாண் அரசு மானியங்கள்</span>
+          </button>
+        </div>
+
+        <!-- Message History Container -->
+        <div class="chat-messages-container" id="chatMessages">
+          <div class="chat-msg bot-msg">
+            <div class="msg-avatar">🌾</div>
+            <div class="msg-bubble">
+              <p data-i18n="bot_welcome">
+                வணக்கம் உழவர் தோழரே! 🙏 நான் <strong>அமுதை AI</strong>. உங்கள் பயிர் நலம், நோய் தீர்வுகள், இயற்கை பூச்சி விரட்டி முறைகள், அல்லது சந்தை நிலவரங்கள் பற்றி எதுவாக இருந்தாலும் என்னிடம் கேட்கலாம். கீழேயுள்ள பரிந்துரைகளை கிளிக் செய்யலாம் அல்லது தட்டச்சு செய்யலாம்!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form class="chat-input-bar" id="chatForm" onsubmit="handleChatSubmit(event)">
+          <button type="button" class="voice-input-btn" id="voiceInputBtn" onclick="toggleVoiceInput()" title="Voice Input">
+            <i data-lucide="mic"></i>
+          </button>
+          <input type="text" id="chatTextInput" placeholder="உங்கள் வேளாண் கேள்வியை இங்கே கேட்கவும் (Type your query)..." autocomplete="off">
+          <button type="submit" class="chat-send-btn" id="sendBtn">
+            <i data-lucide="send"></i>
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <img src="assets/images/logo.jpg" alt="Amudhai Logo" class="footer-logo">
+          <span class="footer-title">அமுதை <span class="brand-ai">AI</span></span>
+        </div>
+        <p class="footer-tagline" data-i18n="footer_tagline">தமிழக விவசாயிகளின் உற்ற தோழன் • தமிழ் & ஆங்கில இருமொழி வேளாண் AI தளம்.</p>
+        <div class="helpline-badge">
+          <i data-lucide="phone-call"></i>
+          <span>கிசான் உதவி எண் (Kisan Call Center): <strong>1800-180-1551</strong> (இலவசம்)</span>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4 class="footer-col-title" data-i18n="footer_tools">சேவைகள்</h4>
+        <a href="#scanner" data-i18n="nav_scanner">பயிர் நோய் ஸ்கேனர்</a>
+        <a href="#soil" data-i18n="nav_soil">மண் வள பகுப்பாய்வு</a>
+        <a href="#weather" data-i18n="nav_weather">வானிலை ஆலோசனை</a>
+        <a href="#mandi" data-i18n="nav_mandi">சந்தை நிலவரம்</a>
+      </div>
+
+      <div class="footer-credit">
+        <h4 class="footer-col-title" data-i18n="footer_about">படைப்பு</h4>
+        <p class="creator-name">உருவாக்கியவர்: <strong>Shivani Stalin</strong></p>
+        <p class="footer-repo">
+          <a href="https://github.com/shivanistalin2006-dot/Amudhai-AI" target="_blank" rel="noopener noreferrer">
+            <i data-lucide="github"></i> github.com/shivanistalin2006-dot/Amudhai-AI
+          </a>
+        </p>
+        <p class="copyright-text">© 2026 Amudhai AI. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Audio Indicator Toast -->
+  <div class="audio-toast" id="audioToast">
+    <i data-lucide="volume-2" class="toast-icon"></i>
+    <span id="audioToastText">குரல் ஒலிக்கிறது...</span>
+    <button class="toast-close-btn" onclick="stopSpeech()">✕</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
