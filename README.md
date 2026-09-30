@@ -200,4 +200,6 @@ Running ZeroPlate AI Ecosystem End-to-End Verification Test Suite...
 ## 📄 License & Credits
 
 Built with ❤️ by **Shivani Stalin** for **ZeroPlate AI**.  
-Repository: [https://github.com/shivanistalin2006-dot/Amudhai-AI](https://github.com/shivanistalin2006-dot/Amudhai-AI)
+Repository: [https://github.com/shivanistalin2006-dot/ZeroPlate-AI](https://github.com/shivanistalin2006-dot/ZeroPlate-AI)
+Live Showcase: [https://shivanistalin2006-dot.github.io/ZeroPlate-AI/](https://shivanistalin2006-dot.github.io/ZeroPlate-AI/)
+
