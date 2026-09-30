@@ -41,6 +41,146 @@ export interface CategoryWaste {
   color: string;
 }
 
+export interface WastePredictionCategory {
+  category: string;
+  predictedKg: number;
+  risk: 'HIGH' | 'MEDIUM' | 'LOW';
+  potentialLossInr: number;
+  percentage: number;
+  color: string;
+}
+
+export interface SmartRecommendationItem {
+  id: string;
+  icon: string;
+  name: string;
+  batchId: string;
+  expiry: string;
+  risk: 'HIGH' | 'MEDIUM' | 'LOW';
+  recommendation: string;
+  suggestedDish: string;
+}
+
+export interface UseBeforeWasteRecipe {
+  id: string;
+  name: string;
+  description: string;
+  atRiskIngredients: string[];
+  uses: string[];
+  wasteAvoidance: 'High' | 'Medium';
+  wasteSavedKg: string;
+  servings: string;
+  prepTime: string;
+  chefNote: string;
+}
+
+export const aiWastePrediction7Days = {
+  totalPredictedKg: 28,
+  totalPotentialLossInr: 4850,
+  label: "AI prediction — prototype simulation",
+  categories: [
+    { category: 'Vegetables', predictedKg: 12, risk: 'HIGH' as const, potentialLossInr: 1800, percentage: 42.8, color: '#F43F5E' },
+    { category: 'Fruits & Produce', predictedKg: 8, risk: 'MEDIUM' as const, potentialLossInr: 1200, percentage: 28.5, color: '#F59E0B' },
+    { category: 'Dairy', predictedKg: 5, risk: 'MEDIUM' as const, potentialLossInr: 1250, percentage: 17.8, color: '#F59E0B' },
+    { category: 'Grains', predictedKg: 3, risk: 'LOW' as const, potentialLossInr: 600, percentage: 10.7, color: '#10B981' },
+  ]
+};
+
+export const aiSmartRecommendations: SmartRecommendationItem[] = [
+  {
+    id: 'rec-1',
+    icon: '🍅',
+    name: 'Country Tomatoes',
+    batchId: 'BATCH-1042',
+    expiry: '2 days remaining',
+    risk: 'HIGH',
+    recommendation: 'Prioritize this batch for today\'s menu to avoid unnecessary food waste.',
+    suggestedDish: 'Paneer Tomato Curry / Rasam'
+  },
+  {
+    id: 'rec-2',
+    icon: '🥛',
+    name: 'Fresh Cow Milk',
+    batchId: 'BATCH-M201',
+    expiry: 'Tomorrow',
+    risk: 'HIGH',
+    recommendation: 'Prioritize milk-based dishes today (convert remaining volume to curd/paneer).',
+    suggestedDish: 'Evening Curd / Spiced Buttermilk'
+  },
+  {
+    id: 'rec-3',
+    icon: '🥬',
+    name: 'Fresh Spinach',
+    batchId: 'BATCH-SP33',
+    expiry: '1 day',
+    risk: 'HIGH',
+    recommendation: 'Use in today\'s lunch preparation (Keerai Kootu / Spinach Dal).',
+    suggestedDish: 'Spinach Dal (Keerai Paruppu)'
+  },
+  {
+    id: 'rec-4',
+    icon: '🧀',
+    name: 'Malai Paneer',
+    batchId: 'BATCH-P088',
+    expiry: '3 days',
+    risk: 'MEDIUM',
+    recommendation: 'Move Batch P088 to priority consumption for tomorrow\'s special curry menu.',
+    suggestedDish: 'Paneer Tomato Curry'
+  }
+];
+
+export const useBeforeWasteRecipes: UseBeforeWasteRecipe[] = [
+  {
+    id: 'rec-paneer-curry',
+    name: 'Paneer Tomato Curry',
+    description: 'A rich, savory tomato-onion gravy paired with fresh malai paneer cubes, infused with ginger and mild spices.',
+    atRiskIngredients: ['🍅 Tomato', '🧅 Onion', '🧀 Paneer'],
+    uses: ['✓ Tomato (Batch BATCH-1042)', '✓ Onion (Batch BATCH-ON99)', '✓ Paneer (Batch BATCH-P088)'],
+    wasteAvoidance: 'High',
+    wasteSavedKg: '24 kg',
+    servings: '120 Portions',
+    prepTime: '35 mins',
+    chefNote: 'Depletes 18 kg country tomatoes and 6 kg paneer 48h before expiration.'
+  },
+  {
+    id: 'rec-spinach-dal',
+    name: 'Spinach Dal (Keerai Paruppu)',
+    description: 'Tender fresh spinach slow-cooked with yellow toor dal, tempered with mustard seeds, garlic, and dried red chilies.',
+    atRiskIngredients: ['🥬 Spinach', '🥣 Toor Dal', '🧅 Onion'],
+    uses: ['✓ Spinach (Batch BATCH-SP33)', '✓ Toor Dal (Batch BATCH-DL12)', '✓ Onion (Batch BATCH-ON99)'],
+    wasteAvoidance: 'High',
+    wasteSavedKg: '28 kg',
+    servings: '150 Portions',
+    prepTime: '25 mins',
+    chefNote: 'Utilizes 100% of high-risk Spinach Batch SP33 before 24-hour microbial threshold.'
+  },
+  {
+    id: 'rec-veg-rice',
+    name: 'Mixed Vegetable Rice (Pulao)',
+    description: 'Fragrant seasoned rice tossed with diced carrots, beans, sweet bell peppers, and fresh cilantro.',
+    atRiskIngredients: ['🥕 Carrots', '🌾 Sona Masoori Rice', '🧅 Onion'],
+    uses: ['✓ Carrots (Batch BATCH-CA19)', '✓ Rice (Batch BATCH-B104)', '✓ Onion (Batch BATCH-ON99)'],
+    wasteAvoidance: 'Medium',
+    wasteSavedKg: '35 kg',
+    servings: '180 Portions',
+    prepTime: '40 mins',
+    chefNote: 'Ideal for consuming mixed vegetable crates alongside FEFO Sona Masoori Rice.'
+  },
+  {
+    id: 'rec-veg-upma',
+    name: 'Vegetable Upma',
+    description: 'A wholesome roasted semolina breakfast dish cooked with tempered diced carrots, onions, tomatoes, and curry leaves.',
+    atRiskIngredients: ['🍅 Tomato', '🧅 Onion', '🥕 Carrots'],
+    uses: ['✓ Tomato (Batch BATCH-1042)', '✓ Onion (Batch BATCH-ON99)', '✓ Carrots (Batch BATCH-CA19)'],
+    wasteAvoidance: 'Medium',
+    wasteSavedKg: '16 kg',
+    servings: '90 Portions',
+    prepTime: '20 mins',
+    chefNote: 'Scheduled for tomorrow morning breakfast service to consume ripe tomatoes.'
+  }
+];
+
+
 export const initialInventory: InventoryItem[] = [
   {
     id: '1',

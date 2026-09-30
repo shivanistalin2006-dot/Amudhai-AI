@@ -11,7 +11,8 @@ import { ReportsView } from './views/ReportsView';
 import { BatchPassportModal } from './components/BatchPassportModal';
 import { AddItemModal } from './components/AddItemModal';
 import { AlertsDrawer } from './components/AlertsDrawer';
-import { initialInventory, initialInsights, InventoryItem, SmartInsight } from './mockData';
+import { RecipeModal } from './components/RecipeModal';
+import { initialInventory, initialInsights, InventoryItem, SmartInsight, UseBeforeWasteRecipe } from './mockData';
 import { CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
 
 export function App() {
@@ -27,6 +28,7 @@ export function App() {
 
   // Modals & Drawers
   const [selectedBatchForPassport, setSelectedBatchForPassport] = useState<InventoryItem | null>(null);
+  const [selectedRecipeForModal, setSelectedRecipeForModal] = useState<UseBeforeWasteRecipe | null>(null);
   const [isAddItemOpen, setIsAddItemOpen] = useState<boolean>(false);
   const [isAlertsOpen, setIsAlertsOpen] = useState<boolean>(false);
 
@@ -132,6 +134,7 @@ export function App() {
                 onNavigate={setActiveTab}
                 onOpenAlerts={() => setIsAlertsOpen(true)}
                 onSelectBatch={(batch) => setSelectedBatchForPassport(batch)}
+                onViewRecipe={(recipe) => setSelectedRecipeForModal(recipe)}
                 onToast={showToast}
               />
             )}
@@ -208,6 +211,15 @@ export function App() {
         items={inventory}
         onSelectBatch={(batch) => setSelectedBatchForPassport(batch)}
         onToast={showToast}
+      />
+
+      <RecipeModal
+        recipe={selectedRecipeForModal}
+        onClose={() => setSelectedRecipeForModal(null)}
+        onAddToMenu={(recipe) => {
+          showToast(`"${recipe.name}" added to today's priority menu.`);
+          setSelectedRecipeForModal(null);
+        }}
       />
 
     </div>

@@ -473,9 +473,172 @@
       gap: 10px;
       animation: toastIn 0.25s ease-out;
     }
-    @keyframes toastIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* AI Prediction & Recommendations Styles */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .sim-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .prediction-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+      .prediction-grid { grid-template-columns: 1fr; }
+    }
+    .pred-bar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .pred-bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pred-bar-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+    .pred-track {
+      width: 100%;
+      height: 10px;
+      background: #f1f5f9;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .pred-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.6s ease;
+    }
+    .risk-high { background: #f43f5e; }
+    .risk-med { background: #f59e0b; }
+    .risk-low { background: #10b981; }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .rec-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .rec-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .rec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .rec-food-icon {
+      font-size: 26px;
+      line-height: 1;
+    }
+    .rec-tag-high {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: #ffe4e6;
+      color: #be123c;
+    }
+    .rec-tag-med {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      background: #fef3c7;
+      color: #b45309;
+    }
+    .rec-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .recipe-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+    .recipe-card:hover {
+      border-color: #a7f3d0;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .risk-ing-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      font-size: 11px;
+      font-weight: 600;
+      color: #991b1b;
     }
 
     /* Landing Screen Styles */
@@ -806,6 +969,500 @@
               <div class="kpi-val">Low Risk <span style="font-size: 13px; color: var(--emerald-600);">(13.2%)</span></div>
               <div class="kpi-footer" style="color: var(--text-muted);">
                 <span>FEFO compliance rating</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================== FEATURE 1: AI WASTE PREDICTION ==================== -->
+          <div style="margin-bottom: 28px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">
+                  <i data-lucide="bar-chart-2" style="color: var(--emerald-600); width: 20px; height: 20px;"></i>
+                  <span>AI Waste Prediction</span>
+                </div>
+                <div class="section-subtitle">
+                  Category-level forecast of food at risk of becoming waste during the next 7 days
+                </div>
+              </div>
+              <div>
+                <span class="sim-tag">
+                  <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i>
+                  AI prediction — prototype simulation
+                </span>
+              </div>
+            </div>
+
+            <div class="prediction-grid">
+              <!-- Visual Bar Chart Card -->
+              <div class="card" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                  <span style="font-weight: 700; font-size: 14px; color: #0f172a;">Predicted Waste by Category (Next 7 Days)</span>
+                  <span style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Based on Consumption Velocity</span>
+                </div>
+
+                <div class="pred-bar-container">
+                  <!-- Vegetables -->
+                  <div class="pred-bar-row">
+                    <div class="pred-bar-meta">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 16px;">🥦</span>
+                        <strong style="color: #0f172a;">Vegetables</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">(Tomatoes, Spinach, Greens)</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 800; color: #be123c;">12 kg</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">(42.9%)</span>
+                        <span class="rec-tag-high">HIGH RISK</span>
+                      </div>
+                    </div>
+                    <div class="pred-track">
+                      <div class="pred-fill risk-high" style="width: 42.9%;"></div>
+                    </div>
+                  </div>
+
+                  <!-- Fruits -->
+                  <div class="pred-bar-row">
+                    <div class="pred-bar-meta">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 16px;">🍎</span>
+                        <strong style="color: #0f172a;">Fruits</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">(Bananas, Apples, Seasonal)</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 800; color: #b45309;">8 kg</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">(28.6%)</span>
+                        <span class="rec-tag-med">MEDIUM RISK</span>
+                      </div>
+                    </div>
+                    <div class="pred-track">
+                      <div class="pred-fill risk-med" style="width: 28.6%;"></div>
+                    </div>
+                  </div>
+
+                  <!-- Dairy -->
+                  <div class="pred-bar-row">
+                    <div class="pred-bar-meta">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 16px;">🥛</span>
+                        <strong style="color: #0f172a;">Dairy</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">(Milk, Fresh Paneer, Curd)</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 800; color: #b45309;">5 kg</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">(17.8%)</span>
+                        <span class="rec-tag-med">MEDIUM RISK</span>
+                      </div>
+                    </div>
+                    <div class="pred-track">
+                      <div class="pred-fill risk-med" style="width: 17.8%;"></div>
+                    </div>
+                  </div>
+
+                  <!-- Grains -->
+                  <div class="pred-bar-row">
+                    <div class="pred-bar-meta">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 16px;">🌾</span>
+                        <strong style="color: #0f172a;">Grains</strong>
+                        <span style="font-size: 11px; color: var(--text-muted);">(Cooked Rice, Rava, Wheat)</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-weight: 800; color: #047857;">3 kg</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">(10.7%)</span>
+                        <span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 9999px; background: #d1fae5; color: #047857;">LOW RISK</span>
+                      </div>
+                    </div>
+                    <div class="pred-track">
+                      <div class="pred-fill risk-low" style="width: 10.7%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Summary Card -->
+              <div class="card" style="margin-bottom: 0; background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+                    <i data-lucide="trending-down" style="color: #be123c;"></i>
+                    <strong style="font-size: 14px; color: #0f172a;">Waste Risk Summary</strong>
+                  </div>
+                  
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                    <div style="background: #fff1f2; border: 1px solid #ffe4e6; padding: 12px; border-radius: var(--radius-md);">
+                      <div style="font-size: 11px; color: #9f1239; font-weight: 600;">Predicted Waste</div>
+                      <div style="font-size: 24px; font-weight: 900; color: #be123c; margin-top: 2px;">28 <span style="font-size: 13px;">kg</span></div>
+                      <div style="font-size: 10px; color: #9f1239; margin-top: 2px;">Next 7-day cumulative</div>
+                    </div>
+
+                    <div style="background: #fff1f2; border: 1px solid #ffe4e6; padding: 12px; border-radius: var(--radius-md);">
+                      <div style="font-size: 11px; color: #9f1239; font-weight: 600;">Potential Loss</div>
+                      <div style="font-size: 24px; font-weight: 900; color: #be123c; margin-top: 2px;">₹4,850</div>
+                      <div style="font-size: 10px; color: #9f1239; margin-top: 2px;">Unmitigated procurement loss</div>
+                    </div>
+                  </div>
+
+                  <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5; padding: 10px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                    <div style="display: flex; align-items: center; gap: 6px; font-weight: 700; color: #0f172a; margin-bottom: 4px;">
+                      <i data-lucide="alert-triangle" style="width: 14px; height: 14px; color: #b45309;"></i> AI Mitigation Prompt:
+                    </div>
+                    Repurposing high-risk vegetables & dairy into today's priority menu can recover up to <strong>92% (₹4,460)</strong> of this at-risk volume.
+                  </div>
+                </div>
+
+                <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 11px; color: var(--text-faint);">Carbon Impact: ~53.2 kg CO₂e</span>
+                  <button class="btn-primary" style="padding: 6px 12px; font-size: 11px;" onclick="document.getElementById('sec-recommendations').scrollIntoView({behavior: 'smooth'})">
+                    View Actions <i data-lucide="arrow-down" style="width: 12px; height: 12px;"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================== FEATURE 2: SMART ACTION RECOMMENDATIONS ==================== -->
+          <div id="sec-recommendations" style="margin-bottom: 28px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">
+                  <i data-lucide="sparkles" style="color: var(--emerald-600); width: 20px; height: 20px;"></i>
+                  <span>AI Smart Recommendations</span>
+                </div>
+                <div class="section-subtitle">
+                  Actionable batch-level guidance to intervene before ingredients spoil
+                </div>
+              </div>
+              <span style="font-size: 12px; color: var(--text-muted); font-weight: 600;">4 Immediate Interventions Available</span>
+            </div>
+
+            <div class="rec-grid">
+              <!-- Tomato Card -->
+              <div class="rec-card">
+                <div>
+                  <div class="rec-header">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span class="rec-food-icon">🍅</span>
+                      <div>
+                        <strong style="font-size: 14px; color: #0f172a;">Country Tomatoes</strong>
+                        <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Batch B1042 • 65 kg</div>
+                      </div>
+                    </div>
+                    <span class="rec-tag-high">HIGH RISK</span>
+                  </div>
+
+                  <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                      <i data-lucide="clock" style="width: 13px; height: 13px; color: #be123c;"></i>
+                      <strong style="color: #be123c;">Expiry: 2 days remaining</strong>
+                    </div>
+                    <p style="color: #334155; line-height: 1.4; margin-top: 6px; background: #f8fafc; padding: 8px 10px; border-radius: 6px; border-left: 3px solid #f43f5e;">
+                      <strong>AI Recommendation:</strong> Prioritize this batch for today's menu to avoid unnecessary food waste.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="rec-actions">
+                  <button class="btn-primary" style="flex: 1; padding: 7px 10px; font-size: 12px; justify-content: center;" onclick="showToastNotification('Added to today\'s priority menu.')">
+                    <i data-lucide="plus-circle" style="width: 14px; height: 14px;"></i> Use in Today's Menu
+                  </button>
+                  <button class="btn-secondary" style="padding: 7px 10px; font-size: 12px;" onclick="viewPassportById('BATCH-1042')">
+                    View Batch
+                  </button>
+                </div>
+              </div>
+
+              <!-- Milk Card -->
+              <div class="rec-card">
+                <div>
+                  <div class="rec-header">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span class="rec-food-icon">🥛</span>
+                      <div>
+                        <strong style="font-size: 14px; color: #0f172a;">Pasteurized Fresh Milk</strong>
+                        <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Batch M201 • 120 L</div>
+                      </div>
+                    </div>
+                    <span class="rec-tag-high">HIGH RISK</span>
+                  </div>
+
+                  <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                      <i data-lucide="clock" style="width: 13px; height: 13px; color: #be123c;"></i>
+                      <strong style="color: #be123c;">Expiry: Tomorrow (1 day left)</strong>
+                    </div>
+                    <p style="color: #334155; line-height: 1.4; margin-top: 6px; background: #f8fafc; padding: 8px 10px; border-radius: 6px; border-left: 3px solid #f43f5e;">
+                      <strong>AI Recommendation:</strong> Prioritize milk-based dishes today.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="rec-actions">
+                  <button class="btn-primary" style="flex: 1; padding: 7px 10px; font-size: 12px; justify-content: center;" onclick="showToastNotification('Added to today\'s priority menu.')">
+                    <i data-lucide="plus-circle" style="width: 14px; height: 14px;"></i> Use in Today's Menu
+                  </button>
+                  <button class="btn-secondary" style="padding: 7px 10px; font-size: 12px;" onclick="viewPassportById('BATCH-M201')">
+                    View Batch
+                  </button>
+                </div>
+              </div>
+
+              <!-- Spinach Card -->
+              <div class="rec-card">
+                <div>
+                  <div class="rec-header">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span class="rec-food-icon">🥬</span>
+                      <div>
+                        <strong style="font-size: 14px; color: #0f172a;">Fresh Spinach (Keerai)</strong>
+                        <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Batch SP33 • 28 kg</div>
+                      </div>
+                    </div>
+                    <span class="rec-tag-high">HIGH RISK</span>
+                  </div>
+
+                  <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                      <i data-lucide="clock" style="width: 13px; height: 13px; color: #be123c;"></i>
+                      <strong style="color: #be123c;">Expiry: 1 day remaining</strong>
+                    </div>
+                    <p style="color: #334155; line-height: 1.4; margin-top: 6px; background: #f8fafc; padding: 8px 10px; border-radius: 6px; border-left: 3px solid #f43f5e;">
+                      <strong>AI Recommendation:</strong> Use in today's lunch preparation.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="rec-actions">
+                  <button class="btn-primary" style="flex: 1; padding: 7px 10px; font-size: 12px; justify-content: center;" onclick="showToastNotification('Added to today\'s priority menu.')">
+                    <i data-lucide="plus-circle" style="width: 14px; height: 14px;"></i> Use in Today's Menu
+                  </button>
+                  <button class="btn-secondary" style="padding: 7px 10px; font-size: 12px;" onclick="viewPassportById('BATCH-SP33')">
+                    View Batch
+                  </button>
+                </div>
+              </div>
+
+              <!-- Paneer Card -->
+              <div class="rec-card">
+                <div>
+                  <div class="rec-header">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span class="rec-food-icon">🧀</span>
+                      <div>
+                        <strong style="font-size: 14px; color: #0f172a;">Malai Paneer</strong>
+                        <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">Batch P088 • 42 kg</div>
+                      </div>
+                    </div>
+                    <span class="rec-tag-med">MEDIUM RISK</span>
+                  </div>
+
+                  <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+                    <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                      <i data-lucide="clock" style="width: 13px; height: 13px; color: #b45309;"></i>
+                      <strong style="color: #b45309;">Expiry: 3 days remaining</strong>
+                    </div>
+                    <p style="color: #334155; line-height: 1.4; margin-top: 6px; background: #f8fafc; padding: 8px 10px; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                      <strong>AI Recommendation:</strong> Move Batch B1042 to priority consumption.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="rec-actions">
+                  <button class="btn-primary" style="flex: 1; padding: 7px 10px; font-size: 12px; justify-content: center;" onclick="showToastNotification('Added to today\'s priority menu.')">
+                    <i data-lucide="plus-circle" style="width: 14px; height: 14px;"></i> Use in Today's Menu
+                  </button>
+                  <button class="btn-secondary" style="padding: 7px 10px; font-size: 12px;" onclick="viewPassportById('BATCH-P088')">
+                    View Batch
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================== FEATURE 3: RECIPE / MENU SUGGESTIONS ("USE BEFORE WASTE") ==================== -->
+          <div style="margin-bottom: 28px;">
+            <div class="section-header">
+              <div>
+                <div class="section-title">
+                  <i data-lucide="utensils" style="color: var(--emerald-600); width: 20px; height: 20px;"></i>
+                  <span>Use Before Waste</span>
+                </div>
+                <div class="section-subtitle">
+                  Smart culinary recipes automatically suggested to consume ingredients nearing expiry
+                </div>
+              </div>
+              <span class="sim-tag" style="background: #ecfdf5; color: #047857; border-color: #a7f3d0;">
+                <i data-lucide="chef-hat" style="width: 13px; height: 13px;"></i>
+                AI Chef Recommendations
+              </span>
+            </div>
+
+            <div class="recipe-grid">
+              <!-- Recipe 1: Paneer Tomato Curry -->
+              <div class="recipe-card">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-size: 24px;">🍲</span>
+                      <div>
+                        <strong style="font-size: 15px; color: #0f172a;">Paneer Tomato Curry</strong>
+                        <div style="font-size: 11px; color: var(--text-muted);">Serves 120 pax • 35 mins</div>
+                      </div>
+                    </div>
+                    <span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 9999px; background: #ecfdf5; color: #047857;">
+                      High Avoidance (88%)
+                    </span>
+                  </div>
+
+                  <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px;">
+                    Combines high-risk country tomatoes with paneer cubes in a spiced aromatic gravy.
+                  </p>
+
+                  <div style="margin-bottom: 8px;">
+                    <div style="font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                      Ingredients at Risk Consumed:
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                      <span class="risk-ing-chip">✓ 🍅 Tomato</span>
+                      <span class="risk-ing-chip">✓ 🧅 Onion</span>
+                      <span class="risk-ing-chip">✓ 🧀 Paneer</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rec-actions">
+                  <button class="btn-primary" style="flex: 1; padding: 7px 10px; font-size: 12px; justify-content: center;" onclick="addRecipeToTodayMenu('Paneer Tomato Curry')">
+                    <i data-lucide="plus" style="width: 13px; height: 13px;"></i> Add to Today's Menu
+                  </button>
+                  <button class="btn-secondary" style="padding: 7px 10px; font-size: 12px;" onclick="openRecipeDetailModal('paneer-curry')">
+                    View Recipe
+                  </button>
+                </div>
+              </div>
+
+              <!-- Recipe 2: Spinach Dal (Keerai Kootu) -->
+              <div class="recipe-card">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-size: 24px;">🥣</span>
+                      <div>
+                        <strong style="font-size: 15px; color: #0f172a;">Spinach Dal (Keerai Kootu)</strong>
+                        <div style="font-size: 11px; color: var(--text-muted);">Serves 150 pax • 25 mins</div>
+                      </div>
+                    </div>
+                    <span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 9999px; background: #ecfdf5; color: #047857;">
+                      High Avoidance (92%)
+                    </span>
+                  </div>
+
+                  <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px;">
+                    Hearty lentils stewed with chopped fresh spinach and tempered with mustard and cumin.
+                  </p>
+
+                  <div style="margin-bottom: 8px;">
+                    <div style="font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                      Ingredients at Risk Consumed:
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                      <span class="risk-ing-chip">✓ 🥬 Spinach</span>
+                      <span class="risk-ing-chip">✓ 🍅 Tomato</span>
+                      <span class="risk-ing-chip">✓ 🫘 Toor Dal</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rec-actions">
+                  <button class="btn-primary" style="flex: 1; padding: 7px 10px; font-size: 12px; justify-content: center;" onclick="addRecipeToTodayMenu('Spinach Dal (Keerai Kootu)')">
+                    <i data-lucide="plus" style="width: 13px; height: 13px;"></i> Add to Today's Menu
+                  </button>
+                  <button class="btn-secondary" style="padding: 7px 10px; font-size: 12px;" onclick="openRecipeDetailModal('spinach-dal')">
+                    View Recipe
+                  </button>
+                </div>
+              </div>
+
+              <!-- Recipe 3: Mixed Vegetable Rice -->
+              <div class="recipe-card">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-size: 24px;">🍛</span>
+                      <div>
+                        <strong style="font-size: 15px; color: #0f172a;">Mixed Vegetable Rice</strong>
+                        <div style="font-size: 11px; color: var(--text-muted);">Serves 200 pax • 40 mins</div>
+                      </div>
+                    </div>
+                    <span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 9999px; background: #fef3c7; color: #b45309;">
+                      Medium Avoidance (75%)
+                    </span>
+                  </div>
+
+                  <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px;">
+                    One-pot spiced pulao incorporating assorted vegetables and fragrant Sona Masoori rice.
+                  </p>
+
+                  <div style="margin-bottom: 8px;">
+                    <div style="font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                      Ingredients at Risk Consumed:
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                      <span class="risk-ing-chip">✓ 🍅 Tomato</span>
+                      <span class="risk-ing-chip">✓ 🧅 Onion</span>
+                      <span class="risk-ing-chip">✓ 🌾 Rice</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rec-actions">
+                  <button class="btn-primary" style="flex: 1; padding: 7px 10px; font-size: 12px; justify-content: center;" onclick="addRecipeToTodayMenu('Mixed Vegetable Rice')">
+                    <i data-lucide="plus" style="width: 13px; height: 13px;"></i> Add to Today's Menu
+                  </button>
+                  <button class="btn-secondary" style="padding: 7px 10px; font-size: 12px;" onclick="openRecipeDetailModal('veg-rice')">
+                    View Recipe
+                  </button>
+                </div>
+              </div>
+
+              <!-- Recipe 4: Vegetable Upma -->
+              <div class="recipe-card">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <span style="font-size: 24px;">🥘</span>
+                      <div>
+                        <strong style="font-size: 15px; color: #0f172a;">Vegetable Upma</strong>
+                        <div style="font-size: 11px; color: var(--text-muted);">Serves 90 pax • 20 mins</div>
+                      </div>
+                    </div>
+                    <span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 9999px; background: #ecfdf5; color: #047857;">
+                      High Avoidance (84%)
+                    </span>
+                  </div>
+
+                  <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px;">
+                    Quick breakfast or tiffin dish utilizing diced onions, tomatoes, and curry leaves.
+                  </p>
+
+                  <div style="margin-bottom: 8px;">
+                    <div style="font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+                      Ingredients at Risk Consumed:
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                      <span class="risk-ing-chip">✓ 🧅 Onion</span>
+                      <span class="risk-ing-chip">✓ 🍅 Tomato</span>
+                      <span class="risk-ing-chip">✓ 🫒 Cooking Oil</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rec-actions">
+                  <button class="btn-primary" style="flex: 1; padding: 7px 10px; font-size: 12px; justify-content: center;" onclick="addRecipeToTodayMenu('Vegetable Upma')">
+                    <i data-lucide="plus" style="width: 13px; height: 13px;"></i> Add to Today's Menu
+                  </button>
+                  <button class="btn-secondary" style="padding: 7px 10px; font-size: 12px;" onclick="openRecipeDetailModal('veg-upma')">
+                    View Recipe
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1460,6 +2117,25 @@
     </div>
   </div>
 
+  <!-- Recipe / Menu Suggestion Modal (Feature #3) -->
+  <div class="modal-backdrop" id="modalRecipe">
+    <div class="modal-box" style="max-width: 580px;">
+      <div class="modal-header" style="background: #f0fdf4;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="chef-hat" style="color: var(--emerald-600);"></i>
+          <strong style="font-size: 16px; color: #0f172a;" id="recipeModalTitle">Paneer Tomato Curry</strong>
+        </div>
+        <button onclick="closeRecipeModal()" style="border: none; background: transparent; cursor: pointer; color: var(--text-muted); font-size: 18px;">&times;</button>
+      </div>
+      <div class="modal-body" id="recipeModalBody">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="modal-footer" id="recipeModalFooter">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== JAVASCRIPT STATE & LOGIC ==================== -->
   <script>
     // Initialize Lucide Icons
@@ -1774,6 +2450,129 @@
       setTimeout(() => {
         box.style.display = 'none';
       }, 4000);
+    }
+
+    // Use Before Waste Recipes Mock Dataset (Feature #3)
+    const recipesData = {
+      'paneer-curry': {
+        name: 'Paneer Tomato Curry',
+        prepTime: '35 mins',
+        servings: 120,
+        avoidance: 'High Avoidance (88%)',
+        atRisk: ['Tomato (Batch B1042)', 'Onion (Batch ON99)', 'Paneer (Batch P088)'],
+        instructions: [
+          'Dice 42 kg paneer into uniform 1-inch cubes and set aside.',
+          'Purée 65 kg near-expiry country tomatoes with fresh ginger, garlic, and green chilies.',
+          'In large cooking cauldrons, sauté finely sliced red onions in oil until golden brown.',
+          'Add coriander powder, cumin, turmeric, garam masala, and stir in tomato purée.',
+          'Simmer for 15 minutes, fold in fresh cream, and gently introduce paneer cubes 5 minutes before meal service.'
+        ],
+        advisory: 'Utilizes 100% of expiring tomato (65 kg) and paneer (42 kg) batches before midnight freshness threshold.'
+      },
+      'spinach-dal': {
+        name: 'Spinach Dal (Keerai Kootu)',
+        prepTime: '25 mins',
+        servings: 150,
+        avoidance: 'High Avoidance (92%)',
+        atRisk: ['Spinach (Batch SP33)', 'Tomato (Batch B1042)', 'Toor Dal (Batch DL12)'],
+        instructions: [
+          'Wash and finely shred 28 kg of fresh spinach (Keerai).',
+          'Pressure-cook 30 kg Toor dal with diced tomatoes, turmeric, and water until soft and mashable.',
+          'Temper mustard seeds, cumin seeds, dried red chilies, and curry leaves in hot oil.',
+          'Add shredded spinach and cook for 5 minutes until tender.',
+          'Combine cooked lentils with spinach, season with salt, and simmer for 8 minutes.'
+        ],
+        advisory: 'Absorbs all remaining 28 kg fresh spinach stock with zero kitchen waste and high nutritional retention.'
+      },
+      'veg-rice': {
+        name: 'Mixed Vegetable Rice',
+        prepTime: '40 mins',
+        servings: 200,
+        avoidance: 'Medium Avoidance (75%)',
+        atRisk: ['Tomato (Batch B1042)', 'Onion (Batch ON99)', 'Rice (Batch B104)'],
+        instructions: [
+          'Rinse 50 kg Sona Masoori rice (Batch B104) and soak in cold water for 20 minutes.',
+          'Sauté whole spices (cinnamon, cloves, cardamom, bay leaves) with sliced onions and diced tomatoes.',
+          'Add mixed vegetable medleys with mint leaves and biryani spice blend.',
+          'Pour measured boiling water (1:2 ratio), bring to a rapid boil, and add drained rice.',
+          'Seal tightly with heavy lid for dum steam cooking for 18 minutes on low flame.'
+        ],
+        advisory: 'FEFO prioritized rotation for oldest batch of Sona Masoori Rice, saving up to 50 kg from prolonged storage.'
+      },
+      'veg-upma': {
+        name: 'Vegetable Upma',
+        prepTime: '20 mins',
+        servings: 90,
+        avoidance: 'High Avoidance (84%)',
+        atRisk: ['Onion (Batch ON99)', 'Tomato (Batch B1042)', 'Cooking Oil (Batch CO55)'],
+        instructions: [
+          'Dry roast semolina (rava) in cauldrons until fragrant and lightly golden.',
+          'Heat sunflower oil, add mustard seeds, split urad dal, chana dal, grated ginger, and curry leaves.',
+          'Add chopped onions and green chilies, sauté until onions turn translucent.',
+          'Stir in diced country tomatoes and cook until pulpy.',
+          'Pour salted water at 1:3 ratio, bring to a rolling boil, and gradually whisk in roasted rava without lump formation.'
+        ],
+        advisory: 'Ideal breakfast reallocation that consumes near-expiry tomatoes and high-volume onion stock.'
+      }
+    };
+
+    function openRecipeDetailModal(id) {
+      const rec = recipesData[id];
+      if (!rec) return;
+
+      document.getElementById('recipeModalTitle').innerText = rec.name;
+
+      const body = document.getElementById('recipeModalBody');
+      body.innerHTML = `
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; color: #15803d;">Waste Avoidance Rating</div>
+            <strong style="font-size: 16px; color: #166534;">${rec.avoidance}</strong>
+          </div>
+          <div style="font-size: 12px; color: #15803d; text-align: right;">
+            <div><strong>${rec.servings} Servings</strong></div>
+            <div>${rec.prepTime} Prep Time</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 12px; font-weight: 700; color: #334155; display: block; margin-bottom: 6px;">Ingredients at Risk Consumed:</label>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            ${rec.atRisk.map(item => `<span class="risk-ing-chip">✓ ${item}</span>`).join('')}
+          </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 12px; font-weight: 700; color: #334155; display: block; margin-bottom: 8px;">Kitchen Preparation Steps:</label>
+          <ol style="margin-left: 20px; font-size: 12px; color: #475569; display: flex; flex-direction: column; gap: 8px; line-height: 1.5;">
+            ${rec.instructions.map(step => `<li>${step}</li>`).join('')}
+          </ol>
+        </div>
+
+        <div style="padding: 12px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 12px; color: #065f46;">
+          <strong>💡 AI Culinary Advisory:</strong> ${rec.advisory}
+        </div>
+      `;
+
+      const footer = document.getElementById('recipeModalFooter');
+      footer.innerHTML = `
+        <button class="btn-secondary" onclick="closeRecipeModal()">Close</button>
+        <button class="btn-primary" onclick="addRecipeToTodayMenu('${rec.name}')">
+          <i data-lucide="plus-circle" style="width: 14px; height: 14px;"></i> Add to Today's Priority Menu
+        </button>
+      `;
+
+      document.getElementById('modalRecipe').classList.add('open');
+      lucide.createIcons();
+    }
+
+    function closeRecipeModal() {
+      document.getElementById('modalRecipe').classList.remove('open');
+    }
+
+    function addRecipeToTodayMenu(recipeName) {
+      closeRecipeModal();
+      showToastNotification(`"${recipeName}" added to today's priority menu.`);
     }
 
     // Initial Setup
