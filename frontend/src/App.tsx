@@ -1,254 +1,218 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
+import { LandingView } from './views/LandingView';
 import { DashboardView } from './views/DashboardView';
-import { ForecastView } from './views/ForecastView';
 import { InventoryView } from './views/InventoryView';
-import { QualityView } from './views/QualityView';
-import { SurplusView } from './views/SurplusView';
-import { NgoNetworkView } from './views/NgoNetworkView';
-import { LogisticsView } from './views/LogisticsView';
-import { FoodProcessingView } from './views/FoodProcessingView';
-import { SustainabilityView } from './views/SustainabilityView';
-import { SettingsView } from './views/SettingsView';
-import { Footer } from './components/Footer';
-import { LoginModal } from './components/LoginModal';
-import { api, User } from './api';
+import { SmartInsightsView } from './views/SmartInsightsView';
+import { WasteAnalyticsView } from './views/WasteAnalyticsView';
+import { QrTraceabilityView } from './views/QrTraceabilityView';
+import { ReportsView } from './views/ReportsView';
+import { BatchPassportModal } from './components/BatchPassportModal';
+import { AddItemModal } from './components/AddItemModal';
+import { AlertsDrawer } from './components/AlertsDrawer';
+import { initialInventory, initialInsights, InventoryItem, SmartInsight } from './mockData';
+import { CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
 
 export function App() {
-  // Current logged in demo user
-  const [currentUser, setCurrentUser] = useState<User>({
-    id: 1,
-    username: 'kitchen_admin',
-    email: 'kitchen@loyola.edu',
-    role: 'institution',
-    organization_name: 'Loyola College Mega Mess',
-    phone: '+91 98400 11223',
-  });
-
+  // Navigation & View Mode
+  const [viewMode, setViewMode] = useState<'landing' | 'app'>('landing');
   const [activeTab, setActiveTab] = useState<string>('dashboard');
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
-  const [lang, setLang] = useState<'en' | 'ta'>('en');
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
 
-  // Shared Data States
-  const [summaryData, setSummaryData] = useState<any>(null);
-  const [summaryLoading, setSummaryLoading] = useState<boolean>(true);
-  const [notifications, setNotifications] = useState<any[]>([]);
-  const [unreadCount, setUnreadCount] = useState<number>(0);
+  // Core Mock State (Frontend-Only, Zero Backend Dependencies)
+  const [inventory, setInventory] = useState<InventoryItem[]>(initialInventory);
+  const [insights, setInsights] = useState<SmartInsight[]>(initialInsights);
 
-  const loadDashboardData = async () => {
-    setSummaryLoading(true);
-    try {
-      const data = await api.getDashboardSummary();
-      setSummaryData(data);
-    } catch (err) {
-      console.error('Error fetching dashboard summary:', err);
-    } finally {
-      setSummaryLoading(false);
+  // Modals & Drawers
+  const [selectedBatchForPassport, setSelectedBatchForPassport] = useState<InventoryItem | null>(null);
+  const [isAddItemOpen, setIsAddItemOpen] = useState<boolean>(false);
+  const [isAlertsOpen, setIsAlertsOpen] = useState<boolean>(false);
+
+  // Toast System
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage((prev) => (prev === msg ? null : prev));
+    }, 4000);
+  };
+
+  // Add Item to Inventory
+  const handleAddItem = (newItem: InventoryItem) => {
+    setInventory((prev) => [newItem, ...prev]);
+
+    // If item is expiring soon, add a simulated AI insight
+    if (newItem.expiryDaysRemaining <= 3) {
+      const newInsight: SmartInsight = {
+        id: `ins-${Date.now()}`,
+        title: `${newItem.name} registered with short expiry (${newItem.expiryDaysRemaining} days)`,
+        description: `New batch ${newItem.batchId} (${newItem.quantity} ${newItem.unit}) scheduled for expedited FEFO kitchen usage.`,
+        category: 'Urgent',
+        recommendedAction: `Incorporate ${newItem.name} into tomorrow's cooking schedule.`,
+        impact: `Protects ${newItem.quantity} ${newItem.unit} from spoilage`,
+        batchId: newItem.batchId,
+        timestamp: 'Just now'
+      };
+      setInsights((prev) => [newInsight, ...prev]);
     }
   };
 
-  const loadNotifications = async (role?: string) => {
-    try {
-      const res = await api.getNotifications(role || currentUser.role);
-      setNotifications(res.notifications || []);
-      setUnreadCount(res.unread_count || 0);
-    } catch (err) {
-      console.error('Error loading notifications:', err);
-    }
+  // Apply AI Action
+  const handleApplyInsight = (insight: SmartInsight) => {
+    showToast(`Action applied: "${insight.recommendedAction}"`);
   };
 
-  useEffect(() => {
-    loadDashboardData();
-    loadNotifications();
-  }, []);
+  // Urgent batch alert count
+  const alertCount = inventory.filter(
+    (i) => i.status === 'High Risk' || i.status === 'Expiring Soon'
+  ).length;
 
-  useEffect(() => {
-    const tabTitles: Record<string, string> = {
-      dashboard: 'Dashboard & Hub',
-      forecast: 'AI Demand Forecaster',
-      inventory: 'Smart FEFO Inventory',
-      quality: 'Food Quality & IoT',
-      surplus: 'Surplus Redistribution',
-      ngos: 'Verified NGO Network',
-      logistics: 'Fleet Dispatch',
-      processing: 'Food Upcycling Units',
-      sustainability: 'ESG Sustainability Audit',
-      settings: 'Platform Settings',
-    };
-    const page = tabTitles[activeTab] || 'Ecosystem';
-    document.title = `ZeroPlate AI | ${page} - Smart Food. Zero Waste.`;
-  }, [activeTab]);
-
-  const handleSwitchUser = async (username: string, role: string) => {
-    const orgMap: Record<string, string> = {
-      kitchen_admin: 'Loyola College Mega Mess',
-      hotel_admin: 'Hotel Annapoorna Grand',
-      ngo_user: 'Akshaya Food Bank Chennai',
-      delivery_driver: 'Murugan K. (GreenExpress 01)',
-      platform_admin: 'ZeroPlate Ecosystem HQ',
-    };
-
-    const newUser: User = {
-      id: username === 'kitchen_admin' ? 1 : username === 'ngo_user' ? 3 : username === 'delivery_driver' ? 4 : 5,
-      username,
-      email: `${username}@zeroplate.ai`,
-      role: role as any,
-      organization_name: orgMap[username] || 'ZeroPlate Partner',
-      phone: '+91 98400 00000',
-    };
-
-    setCurrentUser(newUser);
-    loadNotifications(role);
-
-    // If active tab is not allowed for new role, default to dashboard
-    const roleAllowedTabs: Record<string, string[]> = {
-      institution: ['dashboard', 'forecast', 'inventory', 'quality', 'surplus', 'ngos', 'logistics', 'processing', 'sustainability', 'settings'],
-      ngo: ['dashboard', 'surplus', 'ngos', 'logistics', 'sustainability', 'settings'],
-      delivery: ['dashboard', 'surplus', 'logistics', 'sustainability', 'settings'],
-      admin: ['dashboard', 'forecast', 'inventory', 'quality', 'surplus', 'ngos', 'logistics', 'processing', 'sustainability', 'settings'],
-    };
-
-    if (!roleAllowedTabs[role]?.includes(activeTab)) {
-      setActiveTab('dashboard');
-    }
-  };
-
-  const handleMarkAllRead = async () => {
-    try {
-      await api.markAllNotificationsRead();
-      setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
-      setUnreadCount(0);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleSurplusSuggested = (kg: number) => {
-    loadDashboardData();
-    loadNotifications();
-  };
+  // View: Landing Screen (Requirement #1)
+  if (viewMode === 'landing') {
+    return (
+      <LandingView
+        onGetStarted={() => {
+          setViewMode('app');
+          setActiveTab('dashboard');
+          showToast('Welcome to ZeroPlate AI Dashboard! All mock telemetry active.');
+        }}
+      />
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#F7F8F2] flex">
-      {/* Sidebar */}
-      <Sidebar
-        currentUser={currentUser}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        collapsed={collapsed}
-        setCollapsed={setCollapsed}
-        mobileOpen={mobileOpen}
-        setMobileOpen={setMobileOpen}
-        lang={lang}
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800">
+      
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 max-w-md bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className="w-7 h-7 rounded-lg bg-emerald-500 text-slate-950 flex items-center justify-center font-bold flex-shrink-0">
+            <CheckCircle2 className="w-4 h-4" />
+          </div>
+          <p className="text-xs font-medium leading-snug">{toastMessage}</p>
+        </div>
+      )}
+
+      {/* Main Layout */}
+      <div className="flex-1 flex w-full">
+        
+        {/* Left Sidebar (Requirement #2) */}
+        <Sidebar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+          mobileOpen={mobileOpen}
+          setMobileOpen={setMobileOpen}
+          alertCount={alertCount}
+        />
+
+        {/* Content Area */}
+        <div className="flex-1 flex flex-col min-w-0">
+          
+          {/* Top Navbar */}
+          <Navbar
+            activeTab={activeTab}
+            onToggleMobile={() => setMobileOpen(!mobileOpen)}
+            onOpenAlerts={() => setIsAlertsOpen(true)}
+            onGoToLanding={() => setViewMode('landing')}
+            alertCount={alertCount}
+          />
+
+          {/* Active View Container */}
+          <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+            
+            {activeTab === 'dashboard' && (
+              <DashboardView
+                inventory={inventory}
+                insights={insights}
+                onNavigate={setActiveTab}
+                onOpenAlerts={() => setIsAlertsOpen(true)}
+                onSelectBatch={(batch) => setSelectedBatchForPassport(batch)}
+                onToast={showToast}
+              />
+            )}
+
+            {activeTab === 'inventory' && (
+              <InventoryView
+                inventory={inventory}
+                onOpenAddModal={() => setIsAddItemOpen(true)}
+                onSelectBatch={(batch) => setSelectedBatchForPassport(batch)}
+                onToast={showToast}
+              />
+            )}
+
+            {activeTab === 'insights' && (
+              <SmartInsightsView
+                insights={insights}
+                onApplyAction={handleApplyInsight}
+                onToast={showToast}
+              />
+            )}
+
+            {activeTab === 'analytics' && (
+              <WasteAnalyticsView onToast={showToast} />
+            )}
+
+            {activeTab === 'qr' && (
+              <QrTraceabilityView
+                inventory={inventory}
+                onSelectBatch={(batch) => setSelectedBatchForPassport(batch)}
+                onToast={showToast}
+              />
+            )}
+
+            {activeTab === 'reports' && (
+              <ReportsView onToast={showToast} />
+            )}
+
+          </main>
+
+          {/* Footer */}
+          <footer className="py-4 px-6 border-t border-slate-200/80 bg-white text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-slate-800">ZeroPlate AI</span>
+              <span>•</span>
+              <span>Smart Food Inventory. Less Waste. More Impact.</span>
+            </div>
+            <div className="flex items-center gap-4 text-slate-400">
+              <span>Problem ID: 26234</span>
+              <span>•</span>
+              <span>Smart India Hackathon</span>
+            </div>
+          </footer>
+
+        </div>
+      </div>
+
+      {/* Modals & Drawers */}
+      <BatchPassportModal
+        item={selectedBatchForPassport}
+        onClose={() => setSelectedBatchForPassport(null)}
+        onToast={showToast}
       />
 
-      {/* Main Content Area */}
-      <div
-        className={`flex-1 flex flex-col min-h-screen transition-all duration-300 ease-in-out ${
-          collapsed ? 'md:ml-20' : 'md:ml-64'
-        }`}
-      >
-        {/* Top Navbar */}
-        <Navbar
-          currentUser={currentUser}
-          onSwitchUser={handleSwitchUser}
-          activeTab={activeTab}
-          notifications={notifications}
-          unreadCount={unreadCount}
-          onMarkAllRead={handleMarkAllRead}
-          onRefreshData={() => {
-            loadDashboardData();
-            loadNotifications();
-          }}
-          lang={lang}
-          setLang={setLang}
-          onToggleMobile={() => setMobileOpen(!mobileOpen)}
-          onOpenLogin={() => setIsLoginModalOpen(true)}
-        />
+      <AddItemModal
+        isOpen={isAddItemOpen}
+        onClose={() => setIsAddItemOpen(false)}
+        onAdd={handleAddItem}
+        onToast={showToast}
+      />
 
-        {/* View Router */}
-        <main className="flex-1 p-4 md:p-6 lg:p-8 max-w-7xl w-full mx-auto">
-          {activeTab === 'dashboard' && (
-            <DashboardView
-              summaryData={summaryData}
-              loading={summaryLoading}
-              onNavigate={setActiveTab}
-              lang={lang}
-            />
-          )}
+      <AlertsDrawer
+        isOpen={isAlertsOpen}
+        onClose={() => setIsAlertsOpen(false)}
+        items={inventory}
+        onSelectBatch={(batch) => setSelectedBatchForPassport(batch)}
+        onToast={showToast}
+      />
 
-          {activeTab === 'forecast' && (
-            <ForecastView
-              onSurplusSuggested={handleSurplusSuggested}
-              lang={lang}
-            />
-          )}
-
-          {activeTab === 'inventory' && (
-            <InventoryView lang={lang} />
-          )}
-
-          {activeTab === 'quality' && (
-            <QualityView lang={lang} />
-          )}
-
-          {activeTab === 'surplus' && (
-            <SurplusView
-              currentUser={currentUser}
-              onNavigate={setActiveTab}
-              lang={lang}
-            />
-          )}
-
-          {activeTab === 'ngos' && (
-            <NgoNetworkView
-              onNavigate={setActiveTab}
-              lang={lang}
-            />
-          )}
-
-          {activeTab === 'logistics' && (
-            <LogisticsView
-              currentUser={currentUser}
-              lang={lang}
-            />
-          )}
-
-          {activeTab === 'processing' && (
-            <FoodProcessingView lang={lang} />
-          )}
-
-          {activeTab === 'sustainability' && (
-            <SustainabilityView lang={lang} />
-          )}
-
-          {activeTab === 'settings' && (
-            <SettingsView
-              currentUser={currentUser}
-              onSwitchUser={handleSwitchUser}
-              lang={lang}
-              setLang={setLang}
-            />
-          )}
-        </main>
-
-        {/* Global Footer */}
-        <Footer lang={lang} onNavigate={setActiveTab} />
-
-        {/* Dedicated ZeroPlate AI Login Modal */}
-        <LoginModal
-          isOpen={isLoginModalOpen}
-          onClose={() => setIsLoginModalOpen(false)}
-          currentUser={currentUser}
-          onSwitchUser={handleSwitchUser}
-          lang={lang}
-        />
-      </div>
     </div>
   );
 }
 
 export default App;
+

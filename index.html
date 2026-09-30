@@ -3,1881 +3,1783 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZeroPlate AI — Smart Food Waste Reduction & Redistribution Ecosystem (SIH #26234)</title>
-  <meta name="description" content="ZeroPlate AI is an enterprise-grade AI ecosystem to eliminate institutional food waste using predictive demand forecasting, computer vision quality assurance, OR-Tools logistics, and ESG carbon accounting.">
+  <title>ZeroPlate AI — Smart Food Inventory. Less Waste. More Impact.</title>
+  <meta name="description" content="ZeroPlate AI is an AI-powered smart food waste reduction and food inventory management platform.">
   
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     :root {
-      --bg-base: #06090e;
-      --bg-surface: #0c121b;
-      --bg-surface-elevated: #131c2a;
-      --bg-glass: rgba(12, 18, 27, 0.75);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-accent: rgba(16, 185, 129, 0.3);
-      --emerald-500: #10b981;
-      --emerald-400: #34d399;
+      --bg-app: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F1F5F9;
+      --border-color: #E2E8F0;
+      --emerald-50: #ECFDF5;
+      --emerald-100: #D1FAE5;
+      --emerald-200: #A7F3D0;
+      --emerald-500: #10B981;
       --emerald-600: #059669;
-      --emerald-glow: rgba(16, 185, 129, 0.25);
-      --cyan-400: #22d3ee;
-      --cyan-500: #06b6d4;
-      --amber-400: #fbbf24;
-      --rose-500: #f43f5e;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --text-faint: #64748b;
+      --emerald-700: #047857;
+      --emerald-800: #065F46;
+      --amber-50: #FFFBEB;
+      --amber-100: #FEF3C7;
+      --amber-500: #F59E0B;
+      --amber-700: #B45309;
+      --amber-800: #92400E;
+      --rose-50: #FFF1F2;
+      --rose-100: #FFE4E6;
+      --rose-500: #F43F5E;
+      --rose-700: #BE123C;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-faint: #94A3B8;
       --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 20px;
-      --radius-full: 9999px;
-      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      --font-display: 'Outfit', sans-serif;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background-color: var(--bg-base);
+      font-family: var(--font-sans);
+      background-color: var(--bg-app);
       color: var(--text-main);
-      font-family: var(--font-body);
-      line-height: 1.6;
-      overflow-x: hidden;
-      min-height: 100vh;
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 85% 25%, rgba(6, 182, 212, 0.09) 0%, transparent 35%),
-        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg-base); }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: var(--radius-full); }
-    ::-webkit-scrollbar-thumb:hover { background: var(--emerald-600); }
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-    /* Utilities & Layout */
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Top Banner / SIH Header */
-    .sih-bar {
-      background: linear-gradient(90deg, #064e3b 0%, #0f172a 50%, #083344 100%);
-      border-bottom: 1px solid var(--border-subtle);
-      font-size: 0.825rem;
-      padding: 8px 0;
-      text-align: center;
-      color: #cbd5e1;
+    /* Layout */
+    .app-wrapper {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .sih-badge {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--emerald-400);
-      padding: 2px 10px;
-      border-radius: var(--radius-full);
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      border: 1px solid rgba(16, 185, 129, 0.4);
+      min-height: 100vh;
+      width: 100%;
     }
 
-    /* Main Navigation */
-    .navbar {
+    /* Left Sidebar */
+    .sidebar {
+      width: 256px;
+      background: var(--bg-card);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       position: sticky;
       top: 0;
-      z-index: 100;
-      backdrop-filter: blur(20px);
-      background: var(--bg-glass);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 14px 0;
+      height: 100vh;
+      z-index: 30;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
     }
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .brand-group {
+
+    .brand-box {
+      height: 64px;
+      padding: 0 20px;
       display: flex;
       align-items: center;
       gap: 12px;
-      text-decoration: none;
-      color: inherit;
+      border-bottom: 1px solid var(--border-color);
     }
-    .brand-logo-img {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      object-fit: cover;
-      border: 2px solid var(--emerald-500);
-      box-shadow: 0 0 16px var(--emerald-glow);
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--emerald-600);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
     }
     .brand-title {
-      font-family: var(--font-display);
+      font-size: 1.1rem;
       font-weight: 800;
-      font-size: 1.45rem;
       letter-spacing: -0.5px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
     .brand-title span.ai {
-      background: linear-gradient(135deg, var(--emerald-400), var(--cyan-400));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--emerald-600);
     }
-    .nav-tabs {
-      display: flex;
-      gap: 4px;
-      background: rgba(15, 23, 42, 0.6);
-      padding: 4px;
-      border-radius: var(--radius-full);
-      border: 1px solid var(--border-subtle);
-    }
-    .nav-tab-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 8px 16px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      border-radius: var(--radius-full);
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .nav-tab-btn:hover {
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.04);
-    }
-    .nav-tab-btn.active {
-      background: linear-gradient(135deg, var(--emerald-500), #059669);
-      color: #ffffff;
-      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35);
+    .brand-sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-faint);
+      font-weight: 700;
     }
 
-    .nav-actions {
+    .nav-list {
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-item-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .nav-item-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text-main);
+    }
+    .nav-item-btn.active {
+      background: var(--emerald-50);
+      color: var(--emerald-800);
+      border-color: var(--emerald-200);
+      font-weight: 700;
+    }
+    .nav-item-btn .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-ai {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--emerald-100);
+      color: var(--emerald-800);
+    }
+
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid var(--border-color);
+      background: #fafbfc;
+    }
+    .demo-tag {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Main Content Area */
+    .main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* Top Navbar */
+    .topbar {
+      height: 64px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .topbar-title {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+    .topbar-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .topbar-actions {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .btn-github {
-      background: #1e293b;
-      color: #f8fafc;
+    .btn-alert {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--amber-50);
+      color: var(--amber-800);
+      border: 1px solid var(--amber-200);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-alert:hover {
+      background: var(--amber-100);
+    }
+    .btn-landing-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-landing-toggle:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    /* Page Body */
+    .page-content {
+      padding: 24px;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      flex: 1;
+    }
+
+    /* Common Card */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .kpi-val {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .kpi-footer {
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--emerald-600);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary:hover {
+      background: var(--emerald-700);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
       padding: 8px 14px;
       border-radius: var(--radius-md);
       font-size: 0.85rem;
       font-weight: 600;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--border-subtle);
-      transition: var(--transition);
-    }
-    .btn-github:hover {
-      background: #334155;
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Hero Section */
-    .hero-section {
-      padding: 60px 0 40px;
-      position: relative;
-    }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 48px;
-      align-items: center;
-    }
-    .hero-badge-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      font-size: 0.825rem;
-      font-weight: 600;
-      color: var(--emerald-400);
-      margin-bottom: 20px;
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: 3.2rem;
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -1.5px;
-      margin-bottom: 20px;
-    }
-    .hero-title .gradient-text {
-      background: linear-gradient(135deg, #ffffff 30%, var(--emerald-400) 70%, var(--cyan-400) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-desc {
-      font-size: 1.125rem;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      max-width: 620px;
-    }
-    .hero-cta-group {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--emerald-500), var(--emerald-600));
-      color: white;
-      padding: 14px 26px;
-      border-radius: var(--radius-md);
-      font-weight: 700;
-      font-size: 1rem;
-      border: none;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 20px var(--emerald-glow);
-      transition: var(--transition);
-      text-decoration: none;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-    }
-    .btn-secondary {
-      background: var(--bg-surface-elevated);
-      color: var(--text-main);
-      padding: 14px 24px;
-      border-radius: var(--radius-md);
-      font-weight: 600;
-      font-size: 1rem;
-      border: 1px solid var(--border-subtle);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition);
-      text-decoration: none;
+      gap: 6px;
+      transition: all 0.2s ease;
     }
     .btn-secondary:hover {
-      background: #1e293b;
-      border-color: rgba(255, 255, 255, 0.2);
+      background: var(--bg-subtle);
     }
 
-    .hero-stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border-subtle);
-    }
-    .stat-box {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border-subtle);
-      padding: 14px 16px;
-      border-radius: var(--radius-md);
-    }
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--emerald-400);
-      margin-bottom: 2px;
-    }
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .hero-media-card {
-      position: relative;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.15);
-      background: #000;
-    }
-    .hero-media-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-    .hero-media-card:hover img {
-      transform: scale(1.02);
-    }
-    .hero-floating-badge {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      background: rgba(12, 18, 27, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 12px 18px;
-      border-radius: var(--radius-md);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .live-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--emerald-400);
-      border-radius: 50%;
-      display: inline-block;
-      box-shadow: 0 0 8px var(--emerald-400);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(0.95); opacity: 0.8; }
-    }
-
-    /* Section Headers */
-    .section-header {
-      text-align: center;
-      max-width: 760px;
-      margin: 60px auto 40px;
-    }
-    .section-tag {
-      font-size: 0.825rem;
-      font-weight: 700;
-      color: var(--emerald-400);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 8px;
-      display: inline-block;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 2.3rem;
-      font-weight: 800;
-      letter-spacing: -0.8px;
-      margin-bottom: 14px;
-    }
-    .section-subtitle {
-      font-size: 1rem;
-      color: var(--text-muted);
-    }
-
-    /* Interactive Workspace Container */
-    .workspace-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-      margin-bottom: 60px;
-    }
-    .workspace-header {
-      background: var(--bg-surface-elevated);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .module-selector {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-    .mod-pill {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      padding: 8px 16px;
-      border-radius: var(--radius-md);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-    .mod-pill:hover {
-      color: var(--text-main);
-      background: rgba(255, 255, 255, 0.08);
-    }
-    .mod-pill.active {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--emerald-400);
-      border-color: var(--emerald-500);
-    }
-
-    .workspace-body {
-      padding: 32px;
-      min-height: 520px;
-    }
-
-    /* Tab 1: Demand Forecaster */
-    .forecast-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 32px;
-    }
-    .control-panel {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      padding: 24px;
-      border-radius: var(--radius-md);
-    }
-    .control-group {
-      margin-bottom: 20px;
-    }
-    .control-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--text-main);
-    }
-    .control-val {
-      color: var(--emerald-400);
-      font-family: var(--font-mono);
-    }
-    .range-input {
-      width: 100%;
-      height: 6px;
-      background: #1e293b;
-      border-radius: var(--radius-full);
-      outline: none;
-      -webkit-appearance: none;
-    }
-    .range-input::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--emerald-400);
-      cursor: pointer;
-      box-shadow: 0 0 10px var(--emerald-glow);
-    }
-    .select-input {
-      width: 100%;
-      background: #090e15;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-    }
-    .toggle-group {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .toggle-card {
-      background: #090e15;
-      border: 1px solid var(--border-subtle);
-      padding: 10px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      font-size: 0.825rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: var(--transition);
-    }
-    .toggle-card.active {
-      background: rgba(16, 185, 129, 0.12);
-      border-color: var(--emerald-500);
-      color: var(--emerald-400);
-    }
-
-    .output-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .highlight-card {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.08) 100%);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      padding: 24px;
-      border-radius: var(--radius-md);
-      position: relative;
-    }
-    .highlight-title {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--emerald-400);
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .highlight-number {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      font-weight: 900;
-      color: white;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .ingredient-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .ingredient-item {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      padding: 12px;
-      border-radius: var(--radius-sm);
-      text-align: center;
-    }
-    .ing-name {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-    .ing-qty {
-      font-family: var(--font-mono);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--cyan-400);
-    }
-
-    /* Tab 2: FEFO Inventory */
-    .inventory-table-container {
-      overflow-x: auto;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-surface-elevated);
-    }
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.875rem;
-    }
-    .data-table th {
-      background: #090e15;
-      padding: 14px 18px;
-      color: var(--text-muted);
-      font-weight: 600;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-    .data-table td {
-      padding: 14px 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-    .badge-status {
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-      font-size: 0.75rem;
-      font-weight: 700;
+    /* Badges */
+    .badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-    }
-    .status-fresh { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .status-warning { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
-    .status-danger { background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.3); }
-
-    .recipe-repurpose-box {
-      margin-top: 24px;
-      background: rgba(251, 191, 36, 0.08);
-      border: 1px dashed rgba(251, 191, 36, 0.4);
-      padding: 18px 24px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    /* Tab 3: Computer Vision Quality */
-    .cv-demo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-    }
-    .cv-viewer {
-      position: relative;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      background: #000;
-    }
-    .cv-viewer img {
-      width: 100%;
-      height: 340px;
-      object-fit: cover;
-      display: block;
-    }
-    .cv-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
-    }
-    .cv-box {
-      position: absolute;
-      border: 2px solid;
-      background: rgba(0, 0, 0, 0.2);
-      font-size: 0.7rem;
-      font-family: var(--font-mono);
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
     }
-    .cv-box.pass { border-color: var(--emerald-400); color: var(--emerald-400); }
-    .cv-box.fail { border-color: var(--rose-500); color: var(--rose-500); }
+    .badge-fresh { background: var(--emerald-50); color: var(--emerald-800); border: 1px solid var(--emerald-200); }
+    .badge-expiring { background: var(--amber-50); color: var(--amber-800); border: 1px solid var(--amber-200); }
+    .badge-risk { background: var(--rose-50); color: var(--rose-700); border: 1px solid var(--rose-200); }
 
-    .cv-analysis-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      padding: 24px;
-      border-radius: var(--radius-md);
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-    .freshness-meter {
-      height: 12px;
-      background: #1e293b;
-      border-radius: var(--radius-full);
-      overflow: hidden;
-      position: relative;
-    }
-    .meter-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #f43f5e, #fbbf24, #10b981);
-      transition: width 0.6s ease;
-    }
-
-    /* Tab 4: NGO Redistribution & Routing */
-    .logistics-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 28px;
-    }
-    .radar-canvas-container {
-      background: #04070c;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      position: relative;
-      height: 380px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .radar-sweep {
-      position: absolute;
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      border: 1px dashed rgba(16, 185, 129, 0.2);
-    }
-    .radar-sweep::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      border: 1px dashed rgba(16, 185, 129, 0.3);
-    }
-    .radar-node {
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .radar-node:hover {
-      transform: scale(1.6);
-    }
-    .node-hub {
-      background: var(--cyan-400);
-      box-shadow: 0 0 15px var(--cyan-400);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .node-ngo-1 { background: var(--emerald-400); box-shadow: 0 0 12px var(--emerald-400); top: 30%; left: 35%; }
-    .node-ngo-2 { background: var(--emerald-400); box-shadow: 0 0 12px var(--emerald-400); top: 68%; left: 65%; }
-    .node-ngo-3 { background: var(--amber-400); box-shadow: 0 0 12px var(--amber-400); top: 22%; left: 75%; }
-
-    .route-timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .timeline-step {
-      display: flex;
-      gap: 14px;
-      position: relative;
-    }
-    .step-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: #1e293b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--emerald-400);
-      border: 1px solid var(--border-subtle);
-      flex-shrink: 0;
-    }
-    .step-content {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      width: 100%;
-    }
-
-    /* Tab 5: ESG Sustainability Calculator */
-    .esg-calculator-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: 32px;
-    }
-    .esg-metrics-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .esg-metric-card {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      padding: 20px;
-      border-radius: var(--radius-md);
-      position: relative;
-      overflow: hidden;
-    }
-    .esg-metric-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--emerald-400);
-    }
-    .esg-val {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 800;
-      color: #ffffff;
-      margin: 8px 0 2px;
-    }
-
-    /* 15-Slide Presentation Deck Viewer */
-    .deck-container {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 32px;
-      margin-bottom: 60px;
-    }
-    .deck-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-    .slide-badge {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--emerald-400);
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      font-weight: 700;
-      font-size: 0.85rem;
-    }
-    .slide-canvas {
-      min-height: 420px;
-      background: #05080e;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 36px;
-      position: relative;
-    }
-    .slide-title-display {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 12px;
-    }
-    .slide-subtitle-display {
-      color: var(--emerald-400);
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 24px;
-    }
-    .slide-bullets {
-      list-style-type: none;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 30px;
-    }
-    .slide-bullets li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 1.05rem;
-      color: #cbd5e1;
-    }
-    .speaker-notes-box {
-      background: rgba(15, 23, 42, 0.8);
-      border-left: 4px solid var(--cyan-400);
-      padding: 16px 20px;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      margin-top: 24px;
-    }
-    .speaker-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--cyan-400);
-      letter-spacing: 1px;
-      margin-bottom: 4px;
-    }
-    .speaker-text {
-      font-size: 0.925rem;
-      color: #94a3b8;
-      font-style: italic;
-    }
-
-    /* Phase 1-8 Technical Dossier Tabs */
-    .dossier-nav {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-    .dossier-btn {
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      padding: 10px 16px;
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .dossier-btn:hover {
-      background: #1e293b;
-      color: #fff;
-    }
-    .dossier-btn.active {
-      background: var(--emerald-600);
-      color: #fff;
-      border-color: var(--emerald-500);
-    }
-    .dossier-content-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 32px;
-      line-height: 1.8;
-      color: #cbd5e1;
-    }
-    .dossier-content-card h3 {
-      font-family: var(--font-display);
-      color: #fff;
-      font-size: 1.5rem;
-      margin: 20px 0 10px;
-    }
-    .dossier-content-card p {
-      margin-bottom: 14px;
-    }
-    .code-block {
-      background: #04070c;
-      border: 1px solid var(--border-subtle);
-      padding: 16px;
-      border-radius: var(--radius-sm);
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: #38bdf8;
+    /* Tables */
+    .table-container {
       overflow-x: auto;
-      margin: 16px 0;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+    }
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+    .custom-table th {
+      background: #F8FAFC;
+      padding: 12px 16px;
+      color: var(--text-muted);
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .custom-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      color: var(--text-main);
+    }
+    .custom-table tr:hover td {
+      background: #fbfcfd;
     }
 
-    /* Footer */
-    .footer {
-      border-top: 1px solid var(--border-subtle);
-      padding: 40px 0;
-      background: #030508;
-      margin-top: 80px;
-      font-size: 0.875rem;
-      color: var(--text-faint);
+    /* Modals & Backdrop */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
     }
-    .footer-inner {
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      animation: modalIn 0.2s ease-out;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
+      background: #fbfcfd;
+    }
+    .modal-body {
+      padding: 24px;
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-color);
+      background: #fbfcfd;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
     }
 
-    /* Responsive */
-    @media (max-width: 960px) {
-      .hero-grid, .forecast-grid, .cv-demo-grid, .logistics-grid, .esg-calculator-grid {
-        grid-template-columns: 1fr;
-      }
-      .hero-title { font-size: 2.3rem; }
-      .hero-stats-row { grid-template-columns: 1fr 1fr; }
-      .nav-tabs { display: none; }
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 110;
+      pointer-events: none;
+    }
+    .toast {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: var(--radius-lg);
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.25s ease-out;
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Landing Screen Styles */
+    .landing-screen {
+      min-height: 100vh;
+      width: 100%;
+      background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 50%, #F8FAFC 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .landing-nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .landing-hero {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .landing-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: var(--emerald-100);
+      color: var(--emerald-800);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .landing-title {
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      color: #0f172a;
+      margin-bottom: 20px;
+    }
+    .landing-title span.grad {
+      color: var(--emerald-600);
+    }
+    .landing-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+    .landing-features {
+      max-width: 1100px;
+      margin: 20px auto 60px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .landing-feat-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 24px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+    }
+    .landing-feat-card .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .landing-title { font-size: 2.4rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- SIH Official Announcement Header -->
-  <div class="sih-bar">
-    <span class="sih-badge">SMART INDIA HACKATHON (SIH)</span>
-    <span><strong>Problem ID: 26234</strong> — AI-Powered Smart Food Waste Reduction & Sustainable Redistribution Ecosystem</span>
-    <span>• Zero-Hardware Cloud Architecture</span>
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastBox" style="display: none;">
+    <div class="toast">
+      <i data-lucide="check-circle" style="color: #34d399;"></i>
+      <span id="toastText">Action completed successfully.</span>
+    </div>
   </div>
 
-  <!-- Main Sticky Navbar -->
-  <header class="navbar">
-    <div class="container nav-inner">
-      <a href="#hero" class="brand-group">
-        <img src="assets/images/logo.jpg" alt="ZeroPlate AI Logo" class="brand-logo-img">
-        <div class="brand-title">
-          ZeroPlate <span class="ai">AI</span>
+  <!-- ==================== 1. LANDING / LOGIN SCREEN (Requirement #1) ==================== -->
+  <div class="landing-screen" id="viewLanding">
+    
+    <!-- Top Landing Header -->
+    <header class="landing-nav">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="brand-logo"><i data-lucide="leaf"></i></div>
+        <div>
+          <span style="font-size: 1.3rem; font-weight: 800; color: #0f172a;">ZeroPlate</span>
+          <span style="font-size: 1.3rem; font-weight: 800; color: var(--emerald-600);">AI</span>
         </div>
-      </a>
-
-      <nav class="nav-tabs">
-        <button class="nav-tab-btn active" onclick="switchMainTab('demo')"><i data-lucide="cpu"></i> Interactive Simulator</button>
-        <button class="nav-tab-btn" onclick="switchMainTab('slides')"><i data-lucide="presentation"></i> 15-Slide Presentation</button>
-        <button class="nav-tab-btn" onclick="switchMainTab('dossier')"><i data-lucide="file-code"></i> Technical Dossier (Phases 1-8)</button>
-      </nav>
-
-      <div class="nav-actions">
-        <a href="https://github.com/shivanistalin2006-dot/ZeroPlate-AI" target="_blank" class="btn-github">
-          <i data-lucide="github"></i> GitHub Source
-        </a>
       </div>
-    </div>
-  </header>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span class="badge badge-fresh">SIH #26234 Live Prototype</span>
+        <button class="btn-primary" onclick="enterDashboard()">
+          Get Started <i data-lucide="arrow-right"></i>
+        </button>
+      </div>
+    </header>
 
-  <!-- Hero Section -->
-  <section class="hero-section" id="hero">
-    <div class="container hero-grid">
+    <!-- Hero Content -->
+    <main class="landing-hero">
+      <div class="landing-tag">
+        <i data-lucide="sparkles"></i> Smart Food Inventory & Waste Reduction
+      </div>
+      <h1 class="landing-title">
+        Smart Food Inventory. <br>
+        <span class="grad">Less Waste. More Impact.</span>
+      </h1>
+      <p class="landing-desc">
+        ZeroPlate AI stops institutional food waste before it happens. Featuring predictive First-Expiry, First-Out (FEFO) scheduling, simulated AI menu repurposing, and digital QR batch passports.
+      </p>
       <div>
-        <div class="hero-badge-tag">
-          <i data-lucide="sparkles"></i> Autonomous FoodTech & ESG Intelligence
+        <button class="btn-primary" style="padding: 14px 32px; font-size: 1rem;" onclick="enterDashboard()">
+          Get Started <i data-lucide="arrow-right"></i>
+        </button>
+      </div>
+    </main>
+
+    <!-- 3 Story Feature Cards -->
+    <section class="landing-features">
+      <div class="landing-feat-card">
+        <div class="icon-box" style="background: var(--emerald-50); color: var(--emerald-700);">
+          <i data-lucide="package-search"></i>
         </div>
-        <h1 class="hero-title">
-          Smart Food. <br>
-          <span class="gradient-text">Zero Waste.</span> Every Meal Counts.
-        </h1>
-        <p class="hero-desc">
-          ZeroPlate AI transforms institutional dining into an intelligent closed-loop ecosystem. Using predictive machine learning, zero-hardware smartphone computer vision, and OR-Tools routing, we eliminate overproduction at the stove and redistribute safe surplus to NGOs in under 90 seconds.
+        <h3 style="font-weight: 800; margin-bottom: 8px;">Smart FEFO Inventory</h3>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Automated batch rotation ensures near-expiry ingredients are consumed first, cutting pantry spoilage by 75%.
         </p>
-
-        <div class="hero-cta-group">
-          <a href="#workspace" class="btn-primary" onclick="switchMainTab('demo')">
-            <i data-lucide="play-circle"></i> Launch Live Simulator
-          </a>
-          <a href="#workspace" class="btn-secondary" onclick="switchMainTab('slides')">
-            <i data-lucide="presentation"></i> View SIH Slide Deck
-          </a>
-        </div>
-
-        <div class="hero-stats-row">
-          <div class="stat-box">
-            <div class="stat-number">148,200+</div>
-            <div class="stat-label">Meals Served</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-number">37,050 kg</div>
-            <div class="stat-label">Waste Diverted</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-number">92.6 T</div>
-            <div class="stat-label">CO₂e Avoided</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-number">₹44.5 L</div>
-            <div class="stat-label">Rupees Saved</div>
-          </div>
-        </div>
       </div>
 
-      <div class="hero-media-card">
-        <img src="assets/images/hero_banner.jpg" alt="ZeroPlate AI Computer Vision Food Analysis">
-        <div class="hero-floating-badge">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="live-dot"></span>
-            <span style="font-size: 0.85rem; font-weight: 700; color: #fff;">CV Freshness Scanner Active</span>
-          </div>
-          <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--emerald-400);">FI: 96.4% (Grade A+)</span>
+      <div class="landing-feat-card">
+        <div class="icon-box" style="background: var(--amber-50); color: var(--amber-700);">
+          <i data-lucide="brain"></i>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Interactive Workspace Section -->
-  <main class="container" id="workspace">
-
-    <!-- VIEW 1: INTERACTIVE SIMULATOR (5 MODULES) -->
-    <div id="view-demo">
-      <div class="section-header">
-        <span class="section-tag">Interactive Proof of Concept</span>
-        <h2 class="section-title">ZeroPlate AI Live Modular Engine</h2>
-        <p class="section-subtitle">Experience our 5 core algorithmic modules in action without external hardware or IoT dependencies.</p>
+        <h3 style="font-weight: 800; margin-bottom: 8px;">AI Smart Intelligence</h3>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Predicts expiry decay and suggests immediate chef actions: e.g. converting near-expiry tomatoes into rasam.
+        </p>
       </div>
 
-      <div class="workspace-card">
-        <div class="workspace-header">
-          <div class="module-selector">
-            <button class="mod-pill active" id="btn-mod-forecast" onclick="switchModule('forecast')">
-              <i data-lucide="trending-up"></i> 1. AI Demand Forecasting
-            </button>
-            <button class="mod-pill" id="btn-mod-inventory" onclick="switchModule('inventory')">
-              <i data-lucide="boxes"></i> 2. Smart FEFO Inventory
-            </button>
-            <button class="mod-pill" id="btn-mod-quality" onclick="switchModule('quality')">
-              <i data-lucide="scan-face"></i> 3. CV Quality & Freshness
-            </button>
-            <button class="mod-pill" id="btn-mod-logistics" onclick="switchModule('logistics')">
-              <i data-lucide="navigation"></i> 4. NGO Matching & OR-Tools
-            </button>
-            <button class="mod-pill" id="btn-mod-esg" onclick="switchModule('esg')">
-              <i data-lucide="leaf"></i> 5. ESG Carbon Accounting
-            </button>
+      <div class="landing-feat-card">
+        <div class="icon-box" style="background: #e0f2fe; color: #0284c7;">
+          <i data-lucide="qr-code"></i>
+        </div>
+        <h3 style="font-weight: 800; margin-bottom: 8px;">QR Batch Traceability</h3>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Digital Smart Batch Passports link farm origin, storage telemetry, and certified safety compliance.
+        </p>
+      </div>
+    </section>
+
+    <!-- Landing Footer -->
+    <footer style="padding: 24px; text-align: center; border-top: 1px solid var(--border-color); font-size: 12px; color: var(--text-muted);">
+      ZeroPlate AI • Smart India Hackathon Presentation Prototype • Zero Hardware Required
+    </footer>
+
+  </div>
+
+  <!-- ==================== MAIN APPLICATION SHELL (Requirement #2-8) ==================== -->
+  <div class="app-wrapper" id="viewApp" style="display: none;">
+    
+    <!-- LEFT SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-box">
+          <div class="brand-logo"><i data-lucide="leaf"></i></div>
+          <div>
+            <div class="brand-title">ZeroPlate <span class="ai">AI</span></div>
+            <div class="brand-sub">Smart Food Tech</div>
           </div>
-          <span style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">Backend: FastAPI + Scikit-Learn</span>
         </div>
 
-        <div class="workspace-body">
+        <ul class="nav-list">
+          <li>
+            <button class="nav-item-btn active" id="nav-dashboard" onclick="switchTab('dashboard')">
+              <span class="nav-left"><i data-lucide="layout-dashboard"></i> Dashboard</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" id="nav-inventory" onclick="switchTab('inventory')">
+              <span class="nav-left"><i data-lucide="boxes"></i> Inventory</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" id="nav-insights" onclick="switchTab('insights')">
+              <span class="nav-left"><i data-lucide="sparkles"></i> Smart Insights</span>
+              <span class="badge-ai">AI</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" id="nav-analytics" onclick="switchTab('analytics')">
+              <span class="nav-left"><i data-lucide="bar-chart-3"></i> Waste Analytics</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" id="nav-qr" onclick="switchTab('qr')">
+              <span class="nav-left"><i data-lucide="qr-code"></i> QR Traceability</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" id="nav-reports" onclick="switchTab('reports')">
+              <span class="nav-left"><i data-lucide="file-text"></i> Reports</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="demo-tag">
+          <span style="font-weight: 700; color: #0f172a;">SIH 2024 Demo Prototype</span>
+          <span>Zero backend dependencies. Pure frontend state.</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN APP AREA -->
+    <div class="main-area">
+      
+      <!-- Top Navbar -->
+      <header class="topbar">
+        <div>
+          <div class="topbar-title" id="pageTitleDisplay">Ecosystem Dashboard</div>
+          <div class="topbar-sub" id="pageSubDisplay">Real-time institutional food inventory & waste prevention metrics</div>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="btn-alert" onclick="openAlertsModal()">
+            <i data-lucide="alert-triangle"></i>
+            <span>3 Alerts</span>
+          </button>
+          <button class="btn-landing-toggle" onclick="exitToLanding()">
+            <i data-lucide="home"></i> Landing
+          </button>
+        </div>
+      </header>
+
+      <!-- Active Page Body -->
+      <main class="page-content">
+
+        <!-- ==================== 2. DASHBOARD VIEW ==================== -->
+        <div id="tabContent-dashboard">
           
-          <!-- MODULE 1: AI DEMAND FORECASTING -->
-          <div id="mod-forecast-content">
-            <div class="forecast-grid">
-              <div class="control-panel">
-                <h3 style="font-size: 1.15rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
-                  <i data-lucide="sliders" style="color: var(--emerald-400);"></i> Production Forecasting Controls
-                </h3>
-
-                <div class="control-group">
-                  <div class="control-label">
-                    <span>Expected Student Attendance</span>
-                    <span class="control-val" id="lbl-attendance">1,200 Students</span>
-                  </div>
-                  <input type="range" min="300" max="2500" value="1200" step="50" class="range-input" id="range-attendance" oninput="runForecastModel()">
-                </div>
-
-                <div class="control-group">
-                  <div class="control-label">
-                    <span>Safety Risk Buffer (%)</span>
-                    <span class="control-val" id="lbl-buffer">5.0%</span>
-                  </div>
-                  <input type="range" min="0" max="15" value="5" step="0.5" class="range-input" id="range-buffer" oninput="runForecastModel()">
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label">Meal Type</label>
-                  <select class="select-input" id="sel-meal" onchange="runForecastModel()">
-                    <option value="Lunch">Lunch (Standard Meals, Sambar, Veg)</option>
-                    <option value="Dinner">Dinner (Chapati, Dal, Curry)</option>
-                    <option value="Breakfast">Breakfast (Idli, Pongal, Chutney)</option>
-                  </select>
-                </div>
-
-                <div class="control-group">
-                  <label class="control-label">Calendar & Environmental Events</label>
-                  <div class="toggle-group">
-                    <div class="toggle-card active" id="chk-exam" onclick="toggleOption('chk-exam')">
-                      <i data-lucide="graduation-cap"></i> Exam Period (-12%)
-                    </div>
-                    <div class="toggle-card" id="chk-rain" onclick="toggleOption('chk-rain')">
-                      <i data-lucide="cloud-rain"></i> Heavy Rain (-8%)
-                    </div>
-                  </div>
-                </div>
+          <!-- Food Waste Alert Banner (Requirement #7) -->
+          <div style="background: var(--amber-50); border: 1px solid var(--amber-200); padding: 14px 20px; border-radius: var(--radius-lg); margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: var(--amber-100); color: var(--amber-800); display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                <i data-lucide="alert-triangle"></i>
               </div>
+              <div>
+                <strong style="color: #0f172a; font-size: 14px;">⚠️ 3 batches require immediate attention</strong>
+                <p style="font-size: 12px; color: var(--text-muted);">Country Tomatoes (2d left) and Fresh Spinach (1d left) near expiry threshold.</p>
+              </div>
+            </div>
+            <button class="btn-primary" style="background: var(--amber-700); padding: 8px 14px; font-size: 12px;" onclick="openAlertsModal()">
+              Take Action
+            </button>
+          </div>
 
-              <div class="output-panel">
-                <div class="highlight-card">
-                  <div class="highlight-title">AI Ensemble Recommended Cooking Quantity</div>
-                  <div class="highlight-number" id="out-prep-meals">1,109 Portions</div>
-                  <p style="font-size: 0.9rem; color: #94a3b8;">
-                    Eliminates an estimated <strong style="color: var(--emerald-400);" id="out-waste-avoided">135 kg</strong> of overproduction waste compared to static buffer cooking.
-                  </p>
-                </div>
+          <!-- 5 Required KPI Cards (Requirement #2) -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span>Total Food Inventory</span>
+                <i data-lucide="package" style="color: var(--emerald-600);"></i>
+              </div>
+              <div class="kpi-val" id="kpi-total-inventory">1,250 <span style="font-size: 14px; color: var(--text-muted);">kg</span></div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">
+                <i data-lucide="check-circle" style="width: 14px; height: 14px;"></i> 8 active batches
+              </div>
+            </div>
 
-                <h4 style="font-size: 0.95rem; color: #fff; margin-top: 8px;">Automated Recipe Raw Material Breakdown</h4>
-                <div class="ingredient-grid">
-                  <div class="ingredient-item">
-                    <div class="ing-name">Raw Rice / Grains</div>
-                    <div class="ing-qty" id="qty-rice">166.4 kg</div>
-                  </div>
-                  <div class="ingredient-item">
-                    <div class="ing-name">Lentils / Dal</div>
-                    <div class="ing-qty" id="qty-dal">44.4 kg</div>
-                  </div>
-                  <div class="ingredient-item">
-                    <div class="ing-name">Fresh Veggies</div>
-                    <div class="ing-qty" id="qty-veg">133.1 kg</div>
-                  </div>
-                  <div class="ingredient-item">
-                    <div class="ing-name">Cooking Oil</div>
-                    <div class="ing-qty" id="qty-oil">13.3 L</div>
-                  </div>
-                  <div class="ingredient-item">
-                    <div class="ing-name">Spices & Salt</div>
-                    <div class="ing-qty" id="qty-spices">6.7 kg</div>
-                  </div>
-                  <div class="ingredient-item">
-                    <div class="ing-name">Estimated Cost</div>
-                    <div class="ing-qty" id="qty-cost" style="color: var(--amber-400);">₹27,725</div>
-                  </div>
-                </div>
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span>Items Expiring Soon</span>
+                <i data-lucide="clock" style="color: var(--amber-500);"></i>
+              </div>
+              <div class="kpi-val" style="color: var(--amber-800);" id="kpi-expiring-count">3 <span style="font-size: 14px; color: var(--text-muted);">batches</span></div>
+              <div class="kpi-footer" style="color: var(--amber-700);">
+                <i data-lucide="alert-circle" style="width: 14px; height: 14px;"></i> 135 kg needs FEFO burn
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span>Waste Prevented</span>
+                <i data-lucide="trending-down" style="color: var(--emerald-600);"></i>
+              </div>
+              <div class="kpi-val">1,420 <span style="font-size: 14px; color: var(--text-muted);">kg</span></div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">
+                <span>+86.8% reduction rate</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span>Estimated Cost Saved</span>
+                <i data-lucide="dollar-sign" style="color: var(--emerald-600);"></i>
+              </div>
+              <div class="kpi-val" style="color: var(--emerald-700);">₹1.84 Lakhs</div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">
+                <span>Verified grocery conservation</span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span>Food Waste Risk</span>
+                <i data-lucide="shield-check" style="color: var(--emerald-600);"></i>
+              </div>
+              <div class="kpi-val">Low Risk <span style="font-size: 13px; color: var(--emerald-600);">(13.2%)</span></div>
+              <div class="kpi-footer" style="color: var(--text-muted);">
+                <span>FEFO compliance rating</span>
               </div>
             </div>
           </div>
 
-          <!-- MODULE 2: SMART INVENTORY (FEFO) -->
-          <div id="mod-inventory-content" style="display: none;">
-            <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <h3 style="font-size: 1.15rem; color: #fff;">Algorithmic First-Expiry, First-Out (FEFO) Inventory</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted);">Stock batches prioritized dynamically to prevent spoilage before cooking.</p>
+          <!-- Bottom Columns: Top Insights & Recent Activity -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+            
+            <!-- AI Insights Summary Card -->
+            <div class="card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <i data-lucide="sparkles" style="color: var(--emerald-600);"></i>
+                  <h3 style="font-size: 15px; font-weight: 800;">Top AI Kitchen Recommendations</h3>
+                </div>
+                <button class="btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="switchTab('insights')">
+                  View All
+                </button>
               </div>
-              <span class="badge-status status-fresh"><i data-lucide="check"></i> 8 Batches Monitored</span>
+
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="padding: 12px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                    <strong style="font-size: 13px;">Tomatoes likely to expire within 2 days</strong>
+                    <span class="badge badge-risk">Urgent</span>
+                  </div>
+                  <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Batch BATCH-1042 (65 kg) will exceed freshness threshold in 48 hours.</p>
+                  <div style="font-size: 12px; color: var(--emerald-800); font-weight: 600;">
+                    💡 Action: Move near-expiry items to today's dinner menu (Tomato Rasam / Soup).
+                  </div>
+                </div>
+
+                <div style="padding: 12px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                    <strong style="font-size: 13px;">Prioritize Batch B104 for kitchen usage</strong>
+                    <span class="badge badge-fresh">Optimization</span>
+                  </div>
+                  <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">FEFO algorithm prioritizes 450 kg Sona Masoori Rice for boiling today.</p>
+                  <div style="font-size: 12px; color: var(--emerald-800); font-weight: 600;">
+                    💡 Action: Tag Batch B104 for today's lunch preparation.
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="inventory-table-container">
-              <table class="data-table">
+            <!-- Recent Activity Card -->
+            <div class="card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <i data-lucide="activity" style="color: var(--text-muted);"></i>
+                  <h3 style="font-size: 15px; font-weight: 800;">Recent Kitchen Activity</h3>
+                </div>
+                <span style="font-size: 11px; color: var(--text-faint);">Live Feed</span>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--emerald-500); margin-top: 6px; flex-shrink: 0;"></span>
+                  <div>
+                    <div style="font-size: 13px; font-weight: 700;">Batch BATCH-1042 Flagged Near Expiry</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Country Tomatoes (65 kg) marked for Rasam menu repurposing • 20 mins ago</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--emerald-500); margin-top: 6px; flex-shrink: 0;"></span>
+                  <div>
+                    <div style="font-size: 13px; font-weight: 700;">FEFO Kitchen Batch Consumed</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">45 kg Sona Masoori Rice logged for lunch service • 1 hour ago</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--emerald-500); margin-top: 6px; flex-shrink: 0;"></span>
+                  <div>
+                    <div style="font-size: 13px; font-weight: 700;">New Food Batch Scanned with QR Passport</div>
+                    <div style="font-size: 12px; color: var(--text-muted);">Batch BATCH-SP33 (Fresh Spinach, 28 kg) stored in Crisper 03 • 3 hours ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ==================== 3. SMART INVENTORY VIEW (Requirement #3) ==================== -->
+        <div id="tabContent-inventory" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">Smart Food Inventory</h2>
+              <p style="font-size: 12px; color: var(--text-muted);">First-Expiry, First-Out (FEFO) digital batch rotation & storage registry</p>
+            </div>
+            <button class="btn-primary" onclick="openAddModal()">
+              <i data-lucide="plus"></i> Add Item
+            </button>
+          </div>
+
+          <!-- Filter / Search Controls -->
+          <div class="card" style="padding: 16px; margin-bottom: 16px;">
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <input type="text" id="inventorySearch" placeholder="Search ingredient, batch ID, or supplier..." oninput="filterInventory()" style="flex: 1; min-width: 240px; padding: 10px 14px; font-size: 13px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none; background: #fafbfc;">
+              
+              <select id="categoryFilter" onchange="filterInventory()" style="padding: 10px 14px; font-size: 13px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none; background: #fafbfc; color: var(--text-main);">
+                <option value="All">All Categories</option>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Grains">Grains</option>
+                <option value="Pulses">Pulses</option>
+                <option value="Oils & Spices">Oils & Spices</option>
+              </select>
+
+              <select id="statusFilter" onchange="filterInventory()" style="padding: 10px 14px; font-size: 13px; border: 1px solid var(--border-color); border-radius: var(--radius-md); outline: none; background: #fafbfc; color: var(--text-main);">
+                <option value="All">All Statuses</option>
+                <option value="Fresh">Fresh</option>
+                <option value="Expiring Soon">Expiring Soon</option>
+                <option value="High Risk">High Risk</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Inventory Table -->
+          <div class="table-container">
+            <table class="custom-table" id="inventoryTable">
+              <thead>
+                <tr>
+                  <th>Ingredient Name</th>
+                  <th>Category</th>
+                  <th>Quantity</th>
+                  <th>Batch ID</th>
+                  <th>Expiry Date</th>
+                  <th>Supplier</th>
+                  <th>Storage Unit</th>
+                  <th>Waste Risk</th>
+                  <th>Status</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTableBody">
+                <!-- Dynamically populated via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ==================== 4. AI SMART INSIGHTS VIEW (Requirement #4) ==================== -->
+        <div id="tabContent-insights" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">AI Smart Inventory Intelligence</h2>
+                <span class="badge badge-fresh">Simulated AI Model</span>
+              </div>
+              <p style="font-size: 12px; color: var(--text-muted);">Predictive consumption velocity, microbial decay half-life & automatic menu alterations</p>
+            </div>
+            <button class="btn-secondary" onclick="refreshInsights()">
+              <i data-lucide="refresh-cw" id="refreshIcon"></i> Refresh AI Analysis
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px;" id="insightsContainer">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+
+        <!-- ==================== 5. WASTE ANALYTICS VIEW (Requirement #5) ==================== -->
+        <div id="tabContent-analytics" style="display: none;">
+          <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">Waste Analytics</h2>
+            <p style="font-size: 12px; color: var(--text-muted);">Historical food waste prevention telemetry, category breakdown & cost savings</p>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-header"><span>Weekly Waste Prevented</span><i data-lucide="trending-down"></i></div>
+              <div class="kpi-val">740 kg</div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">Across 14 cooking batches</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header"><span>Financial Savings</span><i data-lucide="dollar-sign"></i></div>
+              <div class="kpi-val" style="color: var(--emerald-700);">₹1,84,600</div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">Direct budget conservation</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header"><span>Avoided Emissions</span><i data-lucide="leaf"></i></div>
+              <div class="kpi-val">1.84 T</div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">2.5 kg CO₂e / kg food</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header"><span>Waste Reduction Rate</span><i data-lucide="award"></i></div>
+              <div class="kpi-val" style="color: var(--emerald-700);">86.8%</div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">Compared to pre-AI baseline</div>
+            </div>
+          </div>
+
+          <!-- Visual Bar Charts Container -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px;">
+            
+            <!-- Weekly Chart -->
+            <div class="card">
+              <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Weekly Food Waste vs. Prevented (kg)</h3>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Past 7 days kitchen waste comparison</p>
+              
+              <div style="display: flex; align-items: flex-end; justify-content: space-between; height: 180px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); gap: 10px;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;">
+                  <div style="width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 140px;">
+                    <div style="height: 105px; width: 14px; background: var(--emerald-500); border-radius: 4px 4px 0 0;" title="95 kg Prevented"></div>
+                    <div style="height: 30px; width: 14px; background: var(--rose-500); border-radius: 4px 4px 0 0;" title="28 kg Waste"></div>
+                  </div>
+                  <span style="font-size: 11px; font-weight: bold; color: var(--text-muted);">Mon</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;">
+                  <div style="width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 140px;">
+                    <div style="height: 120px; width: 14px; background: var(--emerald-500); border-radius: 4px 4px 0 0;" title="110 kg Prevented"></div>
+                    <div style="height: 22px; width: 14px; background: var(--rose-500); border-radius: 4px 4px 0 0;" title="21 kg Waste"></div>
+                  </div>
+                  <span style="font-size: 11px; font-weight: bold; color: var(--text-muted);">Tue</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;">
+                  <div style="width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 140px;">
+                    <div style="height: 135px; width: 14px; background: var(--emerald-500); border-radius: 4px 4px 0 0;" title="125 kg Prevented"></div>
+                    <div style="height: 16px; width: 14px; background: var(--rose-500); border-radius: 4px 4px 0 0;" title="16 kg Waste"></div>
+                  </div>
+                  <span style="font-size: 11px; font-weight: bold; color: var(--text-muted);">Wed</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;">
+                  <div style="width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 140px;">
+                    <div style="height: 115px; width: 14px; background: var(--emerald-500); border-radius: 4px 4px 0 0;" title="105 kg Prevented"></div>
+                    <div style="height: 20px; width: 14px; background: var(--rose-500); border-radius: 4px 4px 0 0;" title="19 kg Waste"></div>
+                  </div>
+                  <span style="font-size: 11px; font-weight: bold; color: var(--text-muted);">Thu</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;">
+                  <div style="width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 140px;">
+                    <div style="height: 140px; width: 14px; background: var(--emerald-500); border-radius: 4px 4px 0 0;" title="130 kg Prevented"></div>
+                    <div style="height: 12px; width: 14px; background: var(--rose-500); border-radius: 4px 4px 0 0;" title="12 kg Waste"></div>
+                  </div>
+                  <span style="font-size: 11px; font-weight: bold; color: var(--text-muted);">Fri</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;">
+                  <div style="width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 140px;">
+                    <div style="height: 95px; width: 14px; background: var(--emerald-500); border-radius: 4px 4px 0 0;" title="85 kg Prevented"></div>
+                    <div style="height: 9px; width: 14px; background: var(--rose-500); border-radius: 4px 4px 0 0;" title="9 kg Waste"></div>
+                  </div>
+                  <span style="font-size: 11px; font-weight: bold; color: var(--text-muted);">Sat</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;">
+                  <div style="width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 140px;">
+                    <div style="height: 85px; width: 14px; background: var(--emerald-500); border-radius: 4px 4px 0 0;" title="75 kg Prevented"></div>
+                    <div style="height: 7px; width: 14px; background: var(--rose-500); border-radius: 4px 4px 0 0;" title="7 kg Waste"></div>
+                  </div>
+                  <span style="font-size: 11px; font-weight: bold; color: var(--text-muted);">Sun</span>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 12px;">
+                <span>🟢 Emerald: Waste Prevented</span>
+                <span>🔴 Rose: Leftover Waste</span>
+              </div>
+            </div>
+
+            <!-- Category Breakdown -->
+            <div class="card">
+              <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 4px;">Waste by Food Category</h3>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">Percentage distribution across pantry items</p>
+
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                    <strong>Vegetables & Greens</strong>
+                    <span style="color: var(--text-muted);">38% (42.5 kg)</span>
+                  </div>
+                  <div style="width: 100%; height: 8px; background: #f1f5f9; border-radius: 999px; overflow: hidden;">
+                    <div style="width: 38%; height: 100%; background: var(--emerald-500);"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                    <strong>Cooked Meals Surplus</strong>
+                    <span style="color: var(--text-muted);">28% (31.4 kg)</span>
+                  </div>
+                  <div style="width: 100%; height: 8px; background: #f1f5f9; border-radius: 999px; overflow: hidden;">
+                    <div style="width: 28%; height: 100%; background: #0284c7;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                    <strong>Dairy Products</strong>
+                    <span style="color: var(--text-muted);">18% (20.2 kg)</span>
+                  </div>
+                  <div style="width: 100%; height: 8px; background: #f1f5f9; border-radius: 999px; overflow: hidden;">
+                    <div style="width: 18%; height: 100%; background: var(--amber-500);"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                    <strong>Grains & Bakery</strong>
+                    <span style="color: var(--text-muted);">16% (17.9 kg)</span>
+                  </div>
+                  <div style="width: 100%; height: 8px; background: #f1f5f9; border-radius: 999px; overflow: hidden;">
+                    <div style="width: 16%; height: 100%; background: #6366f1;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ==================== 6. QR TRACEABILITY VIEW (Requirement #6) ==================== -->
+        <div id="tabContent-qr" style="display: none;">
+          <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">Smart Batch Passport</h2>
+            <p style="font-size: 12px; color: var(--text-muted);">Digital farm origin, storage temperature telemetry & food safety passport</p>
+          </div>
+
+          <div class="card">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; align-items: center;">
+              
+              <!-- QR Code Card -->
+              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-xl); text-align: center;">
+                <div style="padding: 16px; background: #ffffff; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); margin-bottom: 16px; border: 1px solid var(--border-color);">
+                  <svg width="160" height="160" viewBox="0 0 120 120" fill="none">
+                    <rect x="8" y="8" width="34" height="34" rx="4" fill="#0F172A" />
+                    <rect x="14" y="14" width="22" height="22" fill="white" />
+                    <rect x="18" y="18" width="14" height="14" rx="2" fill="#059669" />
+
+                    <rect x="78" y="8" width="34" height="34" rx="4" fill="#0F172A" />
+                    <rect x="84" y="14" width="22" height="22" fill="white" />
+                    <rect x="88" y="18" width="14" height="14" rx="2" fill="#059669" />
+
+                    <rect x="8" y="78" width="34" height="34" rx="4" fill="#0F172A" />
+                    <rect x="14" y="84" width="22" height="22" fill="white" />
+                    <rect x="18" y="88" width="14" height="14" rx="2" fill="#059669" />
+
+                    <rect x="48" y="10" width="8" height="6" fill="#059669" />
+                    <rect x="48" y="24" width="12" height="8" fill="#0F172A" />
+                    <rect x="12" y="48" width="8" height="16" fill="#059669" />
+                    <rect x="28" y="52" width="8" height="8" fill="#0F172A" />
+
+                    <rect x="46" y="46" width="28" height="28" rx="6" fill="#059669" />
+                    <circle cx="60" cy="60" r="7" fill="white" />
+                    <circle cx="60" cy="60" r="3" fill="#059669" />
+
+                    <rect x="82" y="48" width="10" height="8" fill="#0F172A" />
+                    <rect x="96" y="52" width="8" height="12" fill="#059669" />
+                    <rect x="48" y="84" width="14" height="8" fill="#0F172A" />
+                    <rect x="74" y="90" width="8" height="10" fill="#059669" />
+                  </svg>
+                </div>
+                <strong style="font-family: var(--font-mono); font-size: 15px;">BATCH-1042</strong>
+                <p style="font-size: 12px; color: var(--text-muted);">Smart Food Passport QR Placeholder</p>
+                <button class="btn-primary" style="margin-top: 16px; width: 100%; justify-content: center;" onclick="openPassportModal()">
+                  <i data-lucide="eye"></i> View Batch Passport
+                </button>
+              </div>
+
+              <!-- Batch Details (Requirement #6) -->
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                  <span class="badge badge-expiring">Expiring Soon (2 days left)</span>
+                  <span style="font-size: 12px; color: var(--text-muted);">Verified Batch</span>
+                </div>
+
+                <h3 style="font-size: 24px; font-weight: 900; margin-bottom: 4px;">Country Tomatoes</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Category: <strong>Vegetables</strong> • Quantity: <strong>65.0 kg</strong></p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px; margin-bottom: 20px;">
+                  <div style="padding: 10px; background: #fafbfc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted); font-size: 11px; display: block;">Supplier</span>
+                    <strong>ABC Farms</strong>
+                  </div>
+                  <div style="padding: 10px; background: #fafbfc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted); font-size: 11px; display: block;">Source Location</span>
+                    <strong>Chennai, Tamil Nadu</strong>
+                  </div>
+                  <div style="padding: 10px; background: #fafbfc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted); font-size: 11px; display: block;">Received Date</span>
+                    <strong>2026-09-27</strong>
+                  </div>
+                  <div style="padding: 10px; background: #fafbfc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted); font-size: 11px; display: block;">Expiry Date</span>
+                    <strong style="color: var(--rose-700);">2026-10-02</strong>
+                  </div>
+                  <div style="padding: 10px; background: #fafbfc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted); font-size: 11px; display: block;">Storage Temperature</span>
+                    <strong style="color: #0284c7;">12°C (Cold Storage #2)</strong>
+                  </div>
+                  <div style="padding: 10px; background: #fafbfc; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted); font-size: 11px; display: block;">Current Status</span>
+                    <strong style="color: var(--emerald-700);">Certified Safe</strong>
+                  </div>
+                </div>
+
+                <div style="padding: 12px; background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: var(--radius-md); font-size: 12px;">
+                  <strong style="color: var(--amber-800);">AI Recommendation:</strong> Move to today's dinner menu (Tomato Rasam / Soup) to avoid ₹3,900 loss.
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== 8. REPORTS VIEW (Requirement #8) ==================== -->
+        <div id="tabContent-reports" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">Reports & Audit Summary</h2>
+              <p style="font-size: 12px; color: var(--text-muted);">Institutional food consumption & waste reduction performance statement</p>
+            </div>
+            <button class="btn-primary" onclick="downloadReport()">
+              <i data-lucide="download"></i> Download Report
+            </button>
+          </div>
+
+          <!-- 5 Required Report Metric Cards (Requirement #8) -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-header"><span>Total Food Received</span><i data-lucide="package"></i></div>
+              <div class="kpi-val">8,450 kg</div>
+              <div class="kpi-footer" style="color: var(--text-muted);">Gross intake this term</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header"><span>Food Consumed</span><i data-lucide="check-circle"></i></div>
+              <div class="kpi-val" style="color: var(--emerald-800);">7,810 kg</div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">92.4% meal utilization</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header"><span>Food Wasted</span><i data-lucide="alert-triangle"></i></div>
+              <div class="kpi-val" style="color: var(--rose-700);">112 kg</div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">-738 kg vs baseline</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header"><span>Waste Reduction</span><i data-lucide="award"></i></div>
+              <div class="kpi-val" style="color: var(--emerald-700);">86.8%</div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">Exceeds national goal</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-header"><span>Money Saved</span><i data-lucide="dollar-sign"></i></div>
+              <div class="kpi-val" style="color: var(--emerald-700);">₹1,84,600</div>
+              <div class="kpi-footer" style="color: var(--emerald-700);">Grocery budget conserved</div>
+            </div>
+          </div>
+
+          <!-- Summary Audit Table -->
+          <div class="card">
+            <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 12px;">Detailed Food Category Audit</h3>
+            <div class="table-container">
+              <table class="custom-table">
                 <thead>
                   <tr>
-                    <th>Batch ID</th>
-                    <th>Ingredient Item</th>
                     <th>Category</th>
-                    <th>Stock Qty</th>
-                    <th>Expiry Countdown</th>
-                    <th>FEFO Priority</th>
-                    <th>Safety Status</th>
+                    <th>Received (kg)</th>
+                    <th>Consumed (kg)</th>
+                    <th>Wasted (kg)</th>
+                    <th>Utilization Rate</th>
+                    <th>Cost Saved</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style="font-family: var(--font-mono);">#BT-TOM-082</td>
-                    <td><strong>Country Tomatoes</strong></td>
-                    <td>Vegetables</td>
-                    <td>65.0 kg</td>
-                    <td style="color: var(--amber-400); font-weight: 700;">28 Hours Remaining</td>
-                    <td><span style="color: var(--rose-500); font-weight: 700;">Rank #1 (Burn First)</span></td>
-                    <td><span class="badge-status status-warning">Near Expiry</span></td>
+                    <td><strong>Vegetables & Produce</strong></td>
+                    <td>2,800 kg</td>
+                    <td>2,640 kg</td>
+                    <td>42 kg</td>
+                    <td>94.2%</td>
+                    <td>₹65,200</td>
                   </tr>
                   <tr>
-                    <td style="font-family: var(--font-mono);">#BT-ONI-104</td>
-                    <td><strong>Bellary Onions</strong></td>
-                    <td>Vegetables</td>
-                    <td>140.0 kg</td>
-                    <td>6 Days Remaining</td>
-                    <td>Rank #4</td>
-                    <td><span class="badge-status status-fresh">Fresh</span></td>
+                    <td><strong>Grains & Cereals</strong></td>
+                    <td>3,200 kg</td>
+                    <td>3,080 kg</td>
+                    <td>18 kg</td>
+                    <td>96.2%</td>
+                    <td>₹48,400</td>
                   </tr>
                   <tr>
-                    <td style="font-family: var(--font-mono);">#BT-RIC-220</td>
-                    <td><strong>Sona Masoori Rice</strong></td>
-                    <td>Grains & Rice</td>
-                    <td>420.0 kg</td>
-                    <td>75 Days Remaining</td>
-                    <td>Rank #8</td>
-                    <td><span class="badge-status status-fresh">Fresh</span></td>
+                    <td><strong>Dairy & Chilled</strong></td>
+                    <td>1,450 kg</td>
+                    <td>1,360 kg</td>
+                    <td>32 kg</td>
+                    <td>93.7%</td>
+                    <td>₹41,000</td>
                   </tr>
                   <tr>
-                    <td style="font-family: var(--font-mono);">#BT-DAL-301</td>
-                    <td><strong>Toor Dal (Premium)</strong></td>
-                    <td>Pulses</td>
-                    <td>90.0 kg</td>
-                    <td>45 Days Remaining</td>
-                    <td>Rank #6</td>
-                    <td><span class="badge-status status-fresh">Fresh</span></td>
+                    <td><strong>Pulses & Oils</strong></td>
+                    <td>1,000 kg</td>
+                    <td>960 kg</td>
+                    <td>20 kg</td>
+                    <td>96.0%</td>
+                    <td>₹30,000</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-
-            <div class="recipe-repurpose-box">
-              <div style="display: flex; align-items: center; gap: 14px;">
-                <i data-lucide="lightbulb" style="color: var(--amber-400); width: 28px; height: 28px;"></i>
-                <div>
-                  <div style="font-weight: 700; color: #fff; font-size: 0.95rem;">AI Menu Substitution Trigger: Tomato Rasam / Puree</div>
-                  <div style="font-size: 0.85rem; color: #cbd5e1;">65 kg of Country Tomatoes will expire in 28 hours. System recommends adjusting dinner menu to utilize 40 kg today.</div>
-                </div>
-              </div>
-              <button class="btn-primary" style="padding: 8px 16px; font-size: 0.85rem;" onclick="alert('Menu substitution accepted! Tomorrow\'s dinner menu updated to Tomato Rasam.')">
-                Accept Menu Substitution
-              </button>
-            </div>
           </div>
-
-          <!-- MODULE 3: COMPUTER VISION QUALITY SCAN -->
-          <div id="mod-quality-content" style="display: none;">
-            <div class="cv-demo-grid">
-              <div class="cv-viewer">
-                <img src="assets/images/quality_comparison.jpg" alt="Food Quality Comparison" id="cv-demo-image">
-                <div class="cv-overlay">
-                  <!-- Simulated Bounding Boxes -->
-                  <div class="cv-box pass" style="top: 25%; left: 10%; width: 35%; height: 50%;">
-                    [YOLO] Fresh Thali: 96.8%
-                  </div>
-                  <div class="cv-box fail" style="top: 25%; left: 55%; width: 35%; height: 50%;">
-                    [YOLO] Spoiled Sample: 32.1%
-                  </div>
-                </div>
-              </div>
-
-              <div class="cv-analysis-card">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                  <h3 style="font-size: 1.15rem; color: #fff;">Zero-Hardware Freshness Verification</h3>
-                  <span class="badge-status status-fresh"><i data-lucide="shield-check"></i> FSSAI Protocol Validated</span>
-                </div>
-
-                <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
-                    <span>Calculated Freshness Index ($F_I$)</span>
-                    <strong style="color: var(--emerald-400); font-family: var(--font-mono);">96.4% (Grade A+)</strong>
-                  </div>
-                  <div class="freshness-meter">
-                    <div class="meter-fill" style="width: 96.4%;"></div>
-                  </div>
-                </div>
-
-                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-sm); font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
-                  <div style="display: flex; justify-content: space-between;">
-                    <span style="color: var(--text-muted);">CIE L*a*b* Color Shift ($\Delta E$):</span>
-                    <span style="color: #fff; font-family: var(--font-mono);">1.84 (Acceptable &lt; 3.0)</span>
-                  </div>
-                  <div style="display: flex; justify-content: space-between;">
-                    <span style="color: var(--text-muted);">Ambient Temp (Chennai Weather API):</span>
-                    <span style="color: #fff; font-family: var(--font-mono);">29.4°C | 68% RH</span>
-                  </div>
-                  <div style="display: flex; justify-content: space-between;">
-                    <span style="color: var(--text-muted);">Preparation Timestamp:</span>
-                    <span style="color: #fff; font-family: var(--font-mono);">12:30 PM (Today)</span>
-                  </div>
-                  <div style="display: flex; justify-content: space-between;">
-                    <span style="color: var(--text-muted);">Safe Holding Window Remaining:</span>
-                    <span style="color: var(--emerald-400); font-weight: 700; font-family: var(--font-mono);">3 Hours 25 Mins</span>
-                  </div>
-                </div>
-
-                <div style="display: flex; gap: 10px;">
-                  <button class="btn-primary" style="width: 100%; justify-content: center;" onclick="alert('Food certified safe by Chef! Batch published to NGO Network.')">
-                    <i data-lucide="check-circle"></i> Chef Digital Sign-Off & Publish
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- MODULE 4: NGO MATCHING & OR-TOOLS ROUTING -->
-          <div id="mod-logistics-content" style="display: none;">
-            <div class="logistics-grid">
-              <div class="radar-canvas-container">
-                <div class="radar-sweep"></div>
-                <div class="radar-node node-hub" title="Loyola Mega Mess (Kitchen Donor)"></div>
-                <div class="radar-node node-ngo-1" title="Annai Teresa Shelter (Match: 94%)"></div>
-                <div class="radar-node node-ngo-2" title="Akshaya Food Bank (Match: 88%)"></div>
-                <div class="radar-node node-ngo-3" title="Karunai Home (Match: 72%)"></div>
-                <div style="position: absolute; bottom: 12px; left: 16px; font-size: 0.75rem; color: var(--text-faint);">
-                  OpenStreetMap Spatial Mesh • OR-Tools VRPTW Solver
-                </div>
-              </div>
-
-              <div class="route-timeline">
-                <div style="margin-bottom: 8px;">
-                  <h3 style="font-size: 1.15rem; color: #fff;">Automated Allocation & Transit Plan</h3>
-                  <p style="font-size: 0.85rem; color: var(--text-muted);">Claimed within 68 seconds • EV Delivery Scheduled</p>
-                </div>
-
-                <div class="timeline-step">
-                  <div class="step-icon"><i data-lucide="check"></i></div>
-                  <div class="step-content">
-                    <div style="font-weight: 700; color: #fff; font-size: 0.85rem;">NGO Match Selected: Annai Teresa Shelter</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Distance: 4.2 km • Capacity: 80 Persons • Matching Score: 94.2%</div>
-                  </div>
-                </div>
-
-                <div class="timeline-step">
-                  <div class="step-icon"><i data-lucide="lock"></i></div>
-                  <div class="step-content">
-                    <div style="font-weight: 700; color: #fff; font-size: 0.85rem;">Redis Concurrency Lock Acquired</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">SET listing_lock:492 NX EX 10 (Zero duplicate claims)</div>
-                  </div>
-                </div>
-
-                <div class="timeline-step">
-                  <div class="step-icon"><i data-lucide="truck"></i></div>
-                  <div class="step-content">
-                    <div style="font-weight: 700; color: #fff; font-size: 0.85rem;">OR-Tools EV Van Dispatched</div>
-                    <div style="font-size: 0.75rem; color: var(--emerald-400);">ETA: 18 mins (Arrival at 01:15 PM — 3h 15m before expiry)</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- MODULE 5: ESG & SUSTAINABILITY CALCULATOR -->
-          <div id="mod-esg-content" style="display: none;">
-            <div class="esg-calculator-grid">
-              <div class="control-panel">
-                <h3 style="font-size: 1.15rem; margin-bottom: 16px; color: #fff;">ESG Audit Impact Calculator</h3>
-                <div class="control-group">
-                  <div class="control-label">
-                    <span>Surplus Food Diverted from Landfill (kg)</span>
-                    <span class="control-val" id="lbl-esg-kg">1,500 kg</span>
-                  </div>
-                  <input type="range" min="100" max="10000" value="1500" step="50" class="range-input" id="range-esg-kg" oninput="runEsgModel()">
-                </div>
-                <p style="font-size: 0.8rem; color: var(--text-muted);">
-                  Conversion Factors: UNEP / IPCC Tier 1 = 2.5 kg CO₂e / kg food waste; Virtual agricultural water = 1,500 L / kg; Institutional meal value = ₹120 / kg.
-                </p>
-              </div>
-
-              <div class="esg-metrics-grid">
-                <div class="esg-metric-card">
-                  <div class="stat-label">Landfill GHG Avoided</div>
-                  <div class="esg-val" id="val-esg-co2">3,750 kg</div>
-                  <div style="font-size: 0.75rem; color: var(--text-muted);">Metric tonnes of CO₂e prevented</div>
-                </div>
-                <div class="esg-metric-card">
-                  <div class="stat-label">Virtual Water Saved</div>
-                  <div class="esg-val" id="val-esg-water">2.25 M L</div>
-                  <div style="font-size: 0.75rem; color: var(--text-muted);">Freshwater agricultural footprint</div>
-                </div>
-                <div class="esg-metric-card">
-                  <div class="stat-label">Financial Value Saved</div>
-                  <div class="esg-val" id="val-esg-inr" style="color: var(--amber-400);">₹1,80,000</div>
-                  <div style="font-size: 0.75rem; color: var(--text-muted);">Direct food procurement capital</div>
-                </div>
-                <div class="esg-metric-card">
-                  <div class="stat-label">Hungry People Fed</div>
-                  <div class="esg-val" id="val-esg-meals" style="color: var(--emerald-400);">4,500 Meals</div>
-                  <div style="font-size: 0.75rem; color: var(--text-muted);">Safe nutritious servings provided</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
+
+      </main>
+
+      <!-- App Footer -->
+      <footer style="padding: 16px 24px; border-top: 1px solid var(--border-color); background: #ffffff; font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: gap: 8px;">
+        <div>ZeroPlate AI • Smart Food Inventory. Less Waste. More Impact.</div>
+        <div>Problem ID: 26234 • Smart India Hackathon Prototype</div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ==================== MODALS & DRAWERS ==================== -->
+
+  <!-- Add Item Modal (Requirement #3) -->
+  <div class="modal-backdrop" id="modalAdd">
+    <div class="modal-box">
+      <div class="modal-header">
+        <strong style="font-size: 16px;">Add New Inventory Item</strong>
+        <button onclick="closeAddModal()" style="border: none; background: transparent; cursor: pointer; color: var(--text-muted); font-size: 18px;">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="addItemForm" onsubmit="handleFormSubmit(event)" style="display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Ingredient Name *</label>
+            <input type="text" id="addName" required placeholder="e.g. Fresh Paneer, Sona Masoori Rice" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 13px;">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Category</label>
+              <select id="addCategory" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 13px;">
+                <option value="Vegetables">Vegetables</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Grains">Grains</option>
+                <option value="Pulses">Pulses</option>
+                <option value="Oils & Spices">Oils & Spices</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Expiry Date *</label>
+              <input type="date" id="addExpiry" required value="2026-10-06" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 13px;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Quantity (kg/L) *</label>
+              <input type="number" id="addQuantity" required min="1" placeholder="e.g. 50" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 13px;">
+            </div>
+            <div>
+              <label style="font-size: 12px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Storage Unit</label>
+              <select id="addStorage" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 13px;">
+                <option value="Cold Storage Room #2">Cold Storage Room #2</option>
+                <option value="Chilled Walk-in Cooler">Chilled Walk-in Cooler</option>
+                <option value="Dry Grain Silo A">Dry Grain Silo A</option>
+                <option value="Crisper Unit 03">Crisper Unit 03</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Supplier Name</label>
+            <input type="text" id="addSupplier" placeholder="e.g. ABC Farms, Aavin Dairy" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 13px;">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeAddModal()">Cancel</button>
+        <button class="btn-primary" onclick="document.getElementById('addItemForm').requestSubmit()">Save Item</button>
       </div>
     </div>
+  </div>
 
-    <!-- VIEW 2: 15-SLIDE PRESENTATION DECK -->
-    <div id="view-slides" style="display: none;">
-      <div class="section-header">
-        <span class="section-tag">Hackathon Pitch Deck</span>
-        <h2 class="section-title">15-Slide Master Presentation</h2>
-        <p class="section-subtitle">Complete slide deck with technical diagrams, architectural breakdowns, and jury defense notes.</p>
-      </div>
-
-      <div class="deck-container">
-        <div class="deck-controls">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <span class="slide-badge" id="slide-counter">Slide 1 of 15</span>
-            <span style="font-size: 0.85rem; color: var(--text-muted);" id="slide-theme-tag">Theme: Executive Overview</span>
-          </div>
-          <div style="display: flex; gap: 10px;">
-            <button class="btn-secondary" onclick="prevSlide()"><i data-lucide="arrow-left"></i> Previous</button>
-            <button class="btn-primary" onclick="nextSlide()">Next <i data-lucide="arrow-right"></i></button>
-          </div>
+  <!-- Smart Batch Passport Modal (Requirement #6) -->
+  <div class="modal-backdrop" id="modalPassport">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="qr-code" style="color: var(--emerald-600);"></i>
+          <strong style="font-size: 16px;">Smart Batch Passport</strong>
         </div>
-
-        <div class="slide-canvas">
-          <h2 class="slide-title-display" id="slide-title">1. ZeroPlate AI: Vision & Overview</h2>
-          <div class="slide-subtitle-display" id="slide-subtitle">AI-Powered Smart Food Waste Reduction & Sustainable Redistribution Ecosystem</div>
-          
-          <ul class="slide-bullets" id="slide-bullets">
-            <!-- Populated via Javascript -->
-          </ul>
-
-          <div class="speaker-notes-box">
-            <div class="speaker-title"><i data-lucide="mic"></i> Speaker Script for SIH Jury:</div>
-            <div class="speaker-text" id="slide-speaker-notes">
-              "Respected judges, every day in India, while 190 million people sleep hungry, over 78 million tonnes of food is discarded, and institutional kitchens waste up to 20% of their prepared meals due to unscientific overproduction. ZeroPlate AI is a zero-hardware, end-to-end AI platform that attacks food waste before cooking through predictive forecasting, and redistributes safe surplus within minutes using computer vision and operations research."
-            </div>
-          </div>
-        </div>
+        <button onclick="closePassportModal()" style="border: none; background: transparent; cursor: pointer; color: var(--text-muted); font-size: 18px;">&times;</button>
       </div>
-    </div>
-
-    <!-- VIEW 3: TECHNICAL DOSSIER (PHASES 1 TO 8) -->
-    <div id="view-dossier" style="display: none;">
-      <div class="section-header">
-        <span class="section-tag">Engineering Documentation</span>
-        <h2 class="section-title">Technical Specification Dossier</h2>
-        <p class="section-subtitle">Comprehensive documentation spanning problem research, architecture, AI mathematics, and jury defense.</p>
-      </div>
-
-      <div class="dossier-nav">
-        <button class="dossier-btn active" onclick="loadDossierPhase(1)">Phase 1: Problem & Stats</button>
-        <button class="dossier-btn" onclick="loadDossierPhase(2)">Phase 2: Proposed 5 Modules</button>
-        <button class="dossier-btn" onclick="loadDossierPhase(4)">Phase 4: Software Architecture</button>
-        <button class="dossier-btn" onclick="loadDossierPhase(5)">Phase 5: DFD & Workflows</button>
-        <button class="dossier-btn" onclick="loadDossierPhase(6)">Phase 6: AI Models & Math</button>
-        <button class="dossier-btn" onclick="loadDossierPhase(7)">Phase 7: PostgreSQL Schema</button>
-        <button class="dossier-btn" onclick="loadDossierPhase(8)">Phase 8: Novelty & Jury Q&A</button>
-      </div>
-
-      <div class="dossier-content-card" id="dossier-content-body">
+      <div class="modal-body" id="passportBody">
         <!-- Injected via JavaScript -->
       </div>
-    </div>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>
-        <div style="font-weight: 700; color: #fff; font-size: 1rem; margin-bottom: 4px;">ZeroPlate AI 🍽️🌿</div>
-        <div>Problem ID: 26234 • Smart India Hackathon • Category: Software-Only AI Cloud Platform</div>
-      </div>
-      <div>
-        <a href="https://github.com/shivanistalin2006-dot/ZeroPlate-AI" target="_blank" style="color: var(--emerald-400); text-decoration: none; font-weight: 600;">
-          GitHub Repository: ZeroPlate-AI
-        </a>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="showToastNotification('Passport sent to print queue!')">
+          <i data-lucide="printer"></i> Print Label
+        </button>
+        <button class="btn-primary" onclick="closePassportModal()">Done</button>
       </div>
     </div>
-  </footer>
+  </div>
 
+  <!-- High Risk Alerts Drawer (Requirement #7) -->
+  <div class="modal-backdrop" id="modalAlerts">
+    <div class="modal-box" style="max-width: 500px;">
+      <div class="modal-header" style="background: var(--amber-50);">
+        <strong style="color: var(--amber-900);">⚠️ High-Risk Food Waste Alerts</strong>
+        <button onclick="closeAlertsModal()" style="border: none; background: transparent; cursor: pointer; color: var(--text-muted); font-size: 18px;">&times;</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="padding: 12px; background: var(--rose-50); border: 1px solid var(--rose-200); border-radius: var(--radius-md);">
+          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; color: var(--rose-900);">
+            <span>Country Tomatoes (65 kg)</span>
+            <span class="badge badge-risk">2 Days Left</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); margin: 4px 0 8px;">Batch: BATCH-1042 • Cold Storage #2</p>
+          <div style="font-size: 12px; color: var(--text-main); font-weight: 600; margin-bottom: 8px;">
+            Recommended Action: Move to tonight's dinner menu for Tomato Rasam.
+          </div>
+          <button class="btn-primary" style="padding: 6px 12px; font-size: 11px; width: 100%; justify-content: center;" onclick="applyMenuAction('Tomatoes', 'Rasam')">
+            Apply to Today's Menu
+          </button>
+        </div>
+
+        <div style="padding: 12px; background: var(--rose-50); border: 1px solid var(--rose-200); border-radius: var(--radius-md);">
+          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; color: var(--rose-900);">
+            <span>Fresh Spinach (28 kg)</span>
+            <span class="badge badge-risk">18 Hours Left</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); margin: 4px 0 8px;">Batch: BATCH-SP33 • Crisper 03</p>
+          <div style="font-size: 12px; color: var(--text-main); font-weight: 600; margin-bottom: 8px;">
+            Recommended Action: Cook Keerai Dal / Kootu for lunch.
+          </div>
+          <button class="btn-primary" style="padding: 6px 12px; font-size: 11px; width: 100%; justify-content: center;" onclick="applyMenuAction('Spinach', 'Keerai Kootu')">
+            Apply to Today's Menu
+          </button>
+        </div>
+
+        <div style="padding: 12px; background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: var(--radius-md);">
+          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; color: var(--amber-900);">
+            <span>Pasteurized Milk (120 L)</span>
+            <span class="badge badge-expiring">1 Day Left</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); margin: 4px 0 8px;">Batch: BATCH-M201 • Chilled Cooler</p>
+          <div style="font-size: 12px; color: var(--text-main); font-weight: 600; margin-bottom: 8px;">
+            Recommended Action: Convert remaining volume to evening curd/buttermilk.
+          </div>
+          <button class="btn-primary" style="padding: 6px 12px; font-size: 11px; width: 100%; justify-content: center;" onclick="applyMenuAction('Milk', 'Curd & Buttermilk')">
+            Apply to Today's Menu
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT STATE & LOGIC ==================== -->
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
 
-    // Main Tab Switching
-    function switchMainTab(tab) {
-      document.getElementById('view-demo').style.display = tab === 'demo' ? 'block' : 'none';
-      document.getElementById('view-slides').style.display = tab === 'slides' ? 'block' : 'none';
-      document.getElementById('view-dossier').style.display = tab === 'dossier' ? 'block' : 'none';
-
-      const buttons = document.querySelectorAll('.nav-tab-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      if (tab === 'demo') buttons[0].classList.add('active');
-      if (tab === 'slides') buttons[1].classList.add('active');
-      if (tab === 'dossier') buttons[2].classList.add('active');
-      
-      lucide.createIcons();
-    }
-
-    // Module Simulator Switching
-    function switchModule(mod) {
-      const mods = ['forecast', 'inventory', 'quality', 'logistics', 'esg'];
-      mods.forEach(m => {
-        document.getElementById(`mod-${m}-content`).style.display = m === mod ? 'block' : 'none';
-        document.getElementById(`btn-mod-${m}`).classList.remove('active');
-      });
-      document.getElementById(`btn-mod-${mod}`).classList.add('active');
-      lucide.createIcons();
-    }
-
-    // Toggle options
-    let examActive = true;
-    let rainActive = false;
-    function toggleOption(id) {
-      const el = document.getElementById(id);
-      if (id === 'chk-exam') examActive = !examActive;
-      if (id === 'chk-rain') rainActive = !rainActive;
-      el.classList.toggle('active');
-      runForecastModel();
-    }
-
-    // AI Demand Model Simulation
-    function runForecastModel() {
-      const attendance = parseInt(document.getElementById('range-attendance').value);
-      const buffer = parseFloat(document.getElementById('range-buffer').value);
-      const meal = document.getElementById('sel-meal').value;
-
-      document.getElementById('lbl-attendance').innerText = `${attendance.toLocaleString()} Students`;
-      document.getElementById('lbl-buffer').innerText = `${buffer.toFixed(1)}%`;
-
-      let factor = 1.0;
-      if (meal === 'Breakfast') factor = 0.82;
-      if (meal === 'Lunch') factor = 0.94;
-      if (meal === 'Dinner') factor = 0.88;
-
-      if (examActive) factor -= 0.12; // Exam drop
-      if (rainActive) factor -= 0.08; // Rain drop
-
-      const predictedBase = Math.round(attendance * factor);
-      const recommendedPrep = Math.round(predictedBase * (1 + buffer / 100));
-      const wasteAvoidedKg = Math.round((attendance - recommendedPrep) * 0.42);
-
-      document.getElementById('out-prep-meals').innerText = `${recommendedPrep.toLocaleString()} Portions`;
-      document.getElementById('out-waste-avoided').innerText = `${Math.max(25, wasteAvoidedKg)} kg`;
-
-      // Ingredients
-      const rice = (recommendedPrep * 0.15).toFixed(1);
-      const dal = (recommendedPrep * 0.04).toFixed(1);
-      const veg = (recommendedPrep * 0.12).toFixed(1);
-      const oil = (recommendedPrep * 0.012).toFixed(1);
-      const spices = (recommendedPrep * 0.006).toFixed(1);
-      const cost = Math.round(recommendedPrep * 25);
-
-      document.getElementById('qty-rice').innerText = `${rice} kg`;
-      document.getElementById('qty-dal').innerText = `${dal} kg`;
-      document.getElementById('qty-veg').innerText = `${veg} kg`;
-      document.getElementById('qty-oil').innerText = `${oil} L`;
-      document.getElementById('qty-spices').innerText = `${spices} kg`;
-      document.getElementById('qty-cost').innerText = `₹${cost.toLocaleString()}`;
-    }
-
-    // ESG Model Simulation
-    function runEsgModel() {
-      const kg = parseInt(document.getElementById('range-esg-kg').value);
-      document.getElementById('lbl-esg-kg').innerText = `${kg.toLocaleString()} kg`;
-
-      const co2 = Math.round(kg * 2.5);
-      const waterLiters = kg * 1500;
-      const waterFormatted = (waterLiters / 1000000).toFixed(2) + " M L";
-      const inr = Math.round(kg * 120);
-      const meals = Math.round(kg * 3);
-
-      document.getElementById('val-esg-co2').innerText = `${co2.toLocaleString()} kg`;
-      document.getElementById('val-esg-water').innerText = waterFormatted;
-      document.getElementById('val-esg-inr').innerText = `₹${inr.toLocaleString()}`;
-      document.getElementById('val-esg-meals').innerText = `${meals.toLocaleString()} Meals`;
-    }
-
-    // 15-SLIDE PRESENTATION DECK DATA
-    const slidesData = [
-      {
-        title: "1. ZeroPlate AI: Vision & Overview",
-        subtitle: "Problem ID: 26234 — AI-Powered Smart Food Waste Reduction & Sustainable Redistribution",
-        bullets: [
-          "Core Thesis: Predict Smart. Waste Less. Feed More.",
-          "Software-First Ecosystem: Zero IoT hardware, zero physical scale dependencies.",
-          "Target Institutions: University mega-messes, corporate cafeterias, hotels, hospital canteens, and NGOs.",
-          "Closed-Loop Architecture: Predictive Demand Pre-Cooking + Computer Vision Verification + OR-Tools Dynamic Redistribution."
-        ],
-        notes: "Respected judges, we introduce ZeroPlate AI, a software-only, enterprise-grade AI ecosystem to end institutional food waste and eliminate hunger."
-      },
-      {
-        title: "2. The Indian Food Waste Paradox",
-        subtitle: "78.2 Million Tonnes Wasted While 190 Million Citizens Sleep Hungry",
-        bullets: [
-          "Macro Reality: 78.2 Million tonnes discarded annually in India (UNEP 2024 Index).",
-          "Economic Loss: ₹92,000 Crores ($11.1 Billion USD) squandered each year (ICAR).",
-          "Institutional Bleed: College mess halls suffer 15% to 22% overproduction daily due to arbitrary safety buffers.",
-          "Landfill Methane: 1 kg cooked food waste generates ~2.5 kg CO₂e in greenhouse landfill emissions."
-        ],
-        notes: "In India, food waste is an environmental and humanitarian disaster. While our nation ranks 111th in the Global Hunger Index, mega-messes throw out quintals of food every single day."
-      },
-      {
-        title: "3. The Critical Bottleneck: FSSAI 4-Hour Perishability",
-        subtitle: "Why Traditional Food Rescue Platforms Fail",
-        bullets: [
-          "Microbiological Perishability: Under FSSAI rules, cooked food held at 10°C–60°C must be consumed within 4 hours.",
-          "Communication Friction: Manual phone calls to find recipient shelters take 2–3 hours, leaving zero time for safe transit.",
-          "Information Asymmetry: Mess managers don't know real-time hunger capacity at nearby orphanages or shelters.",
-          "Hardware Failures: Physical IoT scales and smart bins fail due to kitchen steam, grease, calibration drift, and high capex."
-        ],
-        notes: "Cooked Indian food spoils rapidly. Traditional donation groups fail because coordinating volunteers takes hours. ZeroPlate AI matches NGOs algorithmically in under 90 seconds."
-      },
-      {
-        title: "4. The ZeroPlate AI 5-Module Solution",
-        subtitle: "A Cohesive, Software-Only Technological Framework",
-        bullets: [
-          "Module 1: AI Demand Forecasting — Predicts meal counts 24-48h ahead to prevent overproduction.",
-          "Module 2: Smart FEFO Inventory — Algorithmic stock rotation & near-expiry menu substitutions.",
-          "Module 3: Smartphone Computer Vision — YOLOv11 dish segmentation & EfficientNet freshness verification.",
-          "Module 4: NGO Redistribution & Dispatch — Google OR-Tools VRPTW ensures delivery under 3.5 hours.",
-          "Module 5: ESG & Sustainability Analytics — Auditable Scope 3 GHG & SEBI BRSR compliance ledger."
-        ],
-        notes: "Our architecture is divided into five specialized software modules spanning the entire lifecycle from raw procurement to predictive preparation and redistribution."
-      },
-      {
-        title: "5. Module 1: AI Demand Forecasting Engine",
-        subtitle: "Stopping Food Waste at the Cooking Vessel",
-        bullets: [
-          "Hybrid Ensemble: Stacks XGBoost, Neural Prophet, and Bi-LSTM models.",
-          "Multi-Variable Feature Ingestion: Class timetables, exam seasons, campus festival departures, and weather telemetry.",
-          "Dynamic Risk Buffer: Replaces arbitrary 15% buffers with an adaptive 3.5%–5.0% statistical buffer.",
-          "Recipe Decomposition: Instantly converts forecast headcount into exact kilogram bills for rice, dal, produce, and oil."
-        ],
-        notes: "Our forecasting model predicts exactly how many students will eat, factoring in exam drop-offs and rain. Kitchen staff receive an exact bill of ingredients 24 hours in advance."
-      },
-      {
-        title: "6. Module 2: Smart FEFO Inventory Optimization",
-        subtitle: "Zero-Hardware First-Expiry, First-Out Automation",
-        bullets: [
-          "Lot-Code Tracking: Tracks batch arrival, supplier quality, and expiry timestamps.",
-          "Algorithmic Menu Repurposing: When ingredients approach 48 hours to expiry, system suggests menu alterations (e.g. Tomato Rasam).",
-          "Hard Safety Lock: Expired stock is programmatically locked from use in cooking or donation.",
-          "Procurement Optimization: Minimizes over-purchasing and raw pantry spoilage by 25%."
-        ],
-        notes: "Over 30% of kitchen waste occurs before cooking. Our FEFO engine dynamically burns down near-expiry ingredients by recommending smart daily menu substitutions."
-      },
-      {
-        title: "7. Module 3: Smartphone CV Freshness Analysis",
-        subtitle: "Zero-Hardware Food Safety & Colorimetric Decay Tracking",
-        bullets: [
-          "YOLOv11-Nano: Fast, real-time segmentation of rice, dal, vegetables, and breads on standard smartphones.",
-          "EfficientNet-B4: Evaluates surface texture, moisture sheen, and oxidation in CIE L*a*b* color space.",
-          "Thermodynamic Decay Equation: Models microbial exponential holding thresholds using real-time ambient weather APIs.",
-          "Certified Sign-Off Gate: Mandatory certified chef digital approval paired with tamper-proof metadata checks."
-        ],
-        notes: "We turn existing kitchen smartphones into quality scanners. YOLOv11 segments dishes while EfficientNet evaluates color shift. Weather APIs calculate remaining safe hours."
-      },
-      {
-        title: "8. Module 4: Algorithmic NGO Redistribution",
-        subtitle: "Sub-90-Second Reverse Matching & Allocation",
-        bullets: [
-          "Multi-Factor Matching Score: Harmonizes Distance (35%), Dietary fit (25%), Shelter capacity (20%), and Verification (20%).",
-          "Concurrency Lock: Redis distributed lock (`SET NX EX`) ensures no two NGOs can claim the same batch.",
-          "Proximity Geofencing: Haversine filtering with OpenStreetMap routing validation.",
-          "Automated Push Notifications: Dispatches alerts to recipient coordinators instantly upon chef sign-off."
-        ],
-        notes: "When surplus is ready, our matching engine identifies verified NGOs within 15 km. Atomic database locking prevents race conditions and duplicate claiming."
-      },
-      {
-        title: "9. Module 5: Fleet Logistics with Google OR-Tools",
-        subtitle: "Vehicle Routing Problem with Time Windows (VRPTW)",
-        bullets: [
-          "Perishability-Constrained Routing: Enforces delivery strictly within 3.5 hours of cooking timestamp.",
-          "Google OR-Tools VRPTW Solver: Minimizes total kilometers, delivery duration, and fuel emissions.",
-          "Driver App Integration: Live turn-by-turn OSRM routing with status updates (Assigned -> Picked Up -> Delivered).",
-          "Emergency Rerouting: Traffic jam triggers automatically reroute food to nearest shelter or composting facility."
-        ],
-        notes: "We formulate surplus food transit as an operations research problem. Google OR-Tools solves the VRPTW equation to guarantee delivery well before the 4-hour microbial threshold."
-      },
-      {
-        title: "10. Module 6: ESG & Sustainability Accounting",
-        subtitle: "Auditable Carbon, Water & Economic Accounting Ledger",
-        bullets: [
-          "Carbon Avoidance: 2.5 kg CO₂e avoided per kg food diverted from landfill (IPCC Tier 1 standard).",
-          "Virtual Water Conserved: 1,500 Liters of agricultural freshwater saved per kg cooked grains & veggies.",
-          "Economic Capital Saved: ₹120 standard institutional meal value saved per kg.",
-          "SEBI BRSR Compliance: One-click exportable ESG sustainability audit reports with SHA-256 cryptographic hashes."
-        ],
-        notes: "ZeroPlate AI turns food waste reduction into auditable carbon credits. Institutions receive SEBI BRSR-compliant Scope 3 emissions certificates with cryptographic audit hashes."
-      },
-      {
-        title: "11. Software Architecture & Cloud Stack",
-        subtitle: "Modern, Scalable, Reactive Microservice Architecture",
-        bullets: [
-          "Frontend Web: React 19 + TypeScript + Vite + Tailwind CSS for responsive admin portal.",
-          "Mobile Client: Flutter cross-platform mobile app for kitchen chefs, NGOs, and delivery drivers.",
-          "Backend API: FastAPI (Python 3.11) with high-performance asynchronous REST endpoints.",
-          "Database Tier: PostgreSQL 16 + PostGIS for spatial queries, Redis 7.2 for caching and atomic locks."
-        ],
-        notes: "Our software architecture is cloud-native and horizontally scalable. It combines FastAPI, PostGIS, Redis distributed locking, and Flutter for zero-latency operations."
-      },
-      {
-        title: "12. Mathematical & Algorithmic Rigor",
-        subtitle: "Empirical Formulations Backed by Published Research",
-        bullets: [
-          "Ensemble Formulation: y_hat = w1*y_XGB + w2*y_Prophet + w3*y_LSTM (Huber loss minimization).",
-          "Colorimetric Delta E: sqrt((delta L)^2 + (delta a)^2 + (delta b)^2) for objective food discoloration.",
-          "Thermodynamic Decay: Arrhenius-style temperature time-decay calibrated to FSSAI 240-minute safe ceiling.",
-          "OR-Tools Objective: min sum(c_ij * x_ij) subject to capacity and time window constraints."
-        ],
-        notes: "Every claim in ZeroPlate AI is supported by mathematical formulations, from colorimetric delta E calculations to Arrhenius microbial decay equations."
-      },
-      {
-        title: "13. Business Model & Financial Viability",
-        subtitle: "Self-Sustaining Commercial & CSR Revenue Streams",
-        bullets: [
-          "B2B SaaS Subscription: ₹7,500/month per institutional kitchen (Colleges, Hotels, Hospitals).",
-          "Rapid ROI: Saves ₹1.5+ Lakhs monthly on groceries; achieves full payback in under 45 days.",
-          "CSR Sponsorships: Corporates sponsor electric delivery fleets under mandatory 2% Indian CSR spend.",
-          "Carbon Registry: Aggregated methane diversion certified under voluntary carbon offset markets."
-        ],
-        notes: "ZeroPlate AI is economically viable. A college mess saves ₹1.5 Lakhs every month by eliminating overproduction. Our ₹7,500 subscription offers an instant 20x ROI."
-      },
-      {
-        title: "14. UN SDG Alignment & Impact Metrics",
-        subtitle: "Direct Alignment with Global Sustainability Agendas",
-        bullets: [
-          "SDG 2: Zero Hunger — Eliminates nutritional gaps in vulnerable community shelters.",
-          "SDG 12: Responsible Consumption — Halves institutional food waste through pre-cooking demand shaping.",
-          "SDG 13: Climate Action — Prevents fugitive methane emissions from municipal organic landfills.",
-          "SDG 17: Partnerships — Connects government bodies, academic institutions, and grassroots charities."
-        ],
-        notes: "ZeroPlate AI directly fulfills United Nations Sustainable Development Goals 2, 12, 13, and 17, providing verifiable metrics for institutional sustainability accreditations."
-      },
-      {
-        title: "15. Hackathon Roadmap & Conclusion",
-        subtitle: "From Validated Prototype to Nationwide Deployment",
-        bullets: [
-          "Phase 1 (Done): Working prototype, 26 REST APIs, 11/11 automated tests passing, verified algorithms.",
-          "Phase 2 (Months 1–3): Pilot deployment across 20 college mess halls across Tamil Nadu.",
-          "Phase 3 (Months 4–6): State-wide logistics onboarding with electric delivery fleets.",
-          "Phase 4 (Year 1): National expansion in partnership with FSSAI and Ministry of Consumer Affairs."
-        ],
-        notes: "In conclusion, ZeroPlate AI is not a mere concept—it is a working, tested, and validated software platform ready to transform institutional dining across India. Thank you."
-      }
+    // Mock Inventory State (Frontend-Only, Zero Backend)
+    let inventory = [
+      { id: '1', batchId: 'BATCH-1042', name: 'Country Tomatoes', category: 'Vegetables', quantity: 65, unit: 'kg', expiryDate: '2026-10-02', daysLeft: 2, supplier: 'ABC Farms', location: 'Chennai', storage: 'Cold Storage Room #2', temp: '12°C', risk: 'High', status: 'Expiring Soon' },
+      { id: '2', batchId: 'BATCH-B104', name: 'Sona Masoori Rice', category: 'Grains', quantity: 450, unit: 'kg', expiryDate: '2026-12-15', daysLeft: 76, supplier: 'Sri Krishna Mills', location: 'Thanjavur', storage: 'Dry Grain Silo A', temp: '24°C', risk: 'Low', status: 'Fresh' },
+      { id: '3', batchId: 'BATCH-M201', name: 'Pasteurized Fresh Milk', category: 'Dairy', quantity: 120, unit: 'Liters', expiryDate: '2026-10-01', daysLeft: 1, supplier: 'Aavin Dairy', location: 'Madhavaram', storage: 'Chilled Walk-in Cooler', temp: '4°C', risk: 'High', status: 'High Risk' },
+      { id: '4', batchId: 'BATCH-SP33', name: 'Fresh Spinach (Keerai)', category: 'Vegetables', quantity: 28, unit: 'kg', expiryDate: '2026-10-01', daysLeft: 1, supplier: 'Nilgiris Organics', location: 'Ooty', storage: 'Crisper Unit 03', temp: '8°C', risk: 'High', status: 'High Risk' },
+      { id: '5', batchId: 'BATCH-P088', name: 'Malai Paneer', category: 'Dairy', quantity: 42, unit: 'kg', expiryDate: '2026-10-03', daysLeft: 3, supplier: 'MilkyMist Dairy', location: 'Erode', storage: 'Cold Storage Room #1', temp: '3°C', risk: 'Medium', status: 'Expiring Soon' },
+      { id: '6', batchId: 'BATCH-DL12', name: 'Toor Dal (Premium)', category: 'Pulses', quantity: 180, unit: 'kg', expiryDate: '2026-12-30', daysLeft: 91, supplier: 'AgroPulse India', location: 'Latur', storage: 'Dry Pantry Racks', temp: '22°C', risk: 'Low', status: 'Fresh' },
+      { id: '7', batchId: 'BATCH-ON99', name: 'Bellary Red Onions', category: 'Vegetables', quantity: 240, unit: 'kg', expiryDate: '2026-10-18', daysLeft: 18, supplier: 'Deccan Produce', location: 'Nashik', storage: 'Ventilated Crates', temp: '20°C', risk: 'Low', status: 'Fresh' },
+      { id: '8', batchId: 'BATCH-CO55', name: 'Sunflower Cooking Oil', category: 'Oils & Spices', quantity: 85, unit: 'Liters', expiryDate: '2027-01-20', daysLeft: 112, supplier: 'SunGold Refineries', location: 'Chennai', storage: 'Dry Store Basement', temp: '25°C', risk: 'Low', status: 'Fresh' }
     ];
 
-    let currentSlide = 0;
-    function updateSlide() {
-      const s = slidesData[currentSlide];
-      document.getElementById('slide-counter').innerText = `Slide ${currentSlide + 1} of ${slidesData.length}`;
-      document.getElementById('slide-title').innerText = s.title;
-      document.getElementById('slide-subtitle').innerText = s.subtitle;
-      
-      const ul = document.getElementById('slide-bullets');
-      ul.innerHTML = '';
-      s.bullets.forEach(b => {
-        const li = document.createElement('li');
-        li.innerHTML = `<i data-lucide="check-circle-2" style="color: var(--emerald-400); flex-shrink: 0; margin-top: 3px;"></i> <span>${b}</span>`;
-        ul.appendChild(li);
+    // Mock AI Insights State (Requirement #4)
+    const insights = [
+      { id: 'ins-1', title: 'Tomatoes likely to expire within 2 days', desc: 'Country Tomatoes (Batch BATCH-1042, 65 kg) will exceed freshness threshold in 48 hours.', tag: 'Urgent', action: 'Suggested action: Move near-expiry items to today\'s menu (Tomato Rasam / Soup).', impact: 'Prevents 65 kg waste • Saves ₹3,900' },
+      { id: 'ins-2', title: 'Prioritize Batch B104 for kitchen usage', desc: 'FEFO algorithm identified 450 kg Sona Masoori Rice as next priority for daily cooking.', tag: 'Optimization', action: 'Tag Batch B104 for today\'s lunch production.', impact: 'Zero grain spoilage compliance' },
+      { id: 'ins-3', title: 'Milk consumption is higher than average this week', desc: 'Daily dairy usage spiked by 18%. Remaining stock is 120 Liters expiring in 24 hours.', tag: 'Consumption', action: 'Convert remaining 40L to evening curd/buttermilk.', impact: 'Prevents batch lapse' },
+      { id: 'ins-4', title: 'Suggested action: Move near-expiry items to today\'s menu', desc: 'Fresh Spinach (Batch BATCH-SP33, 28 kg) has 18 hours of freshness remaining.', tag: 'Urgent', action: 'Cook Keerai Dal / Kootu for dinner tonight.', impact: 'Saves 28 kg produce' }
+    ];
+
+    // Navigation Switcher
+    function enterDashboard() {
+      document.getElementById('viewLanding').style.display = 'none';
+      document.getElementById('viewApp').style.display = 'flex';
+      switchTab('dashboard');
+      showToastNotification('Welcome to ZeroPlate AI Dashboard! Live demo active.');
+    }
+
+    function exitToLanding() {
+      document.getElementById('viewApp').style.display = 'none';
+      document.getElementById('viewLanding').style.display = 'flex';
+    }
+
+    function switchTab(tab) {
+      const tabs = ['dashboard', 'inventory', 'insights', 'analytics', 'qr', 'reports'];
+      tabs.forEach(t => {
+        const el = document.getElementById(`tabContent-${t}`);
+        const btn = document.getElementById(`nav-${t}`);
+        if (el) el.style.display = (t === tab) ? 'block' : 'none';
+        if (btn) {
+          if (t === tab) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
       });
 
-      document.getElementById('slide-speaker-notes').innerText = s.notes;
+      const titles = {
+        dashboard: { t: 'Ecosystem Dashboard', s: 'Real-time institutional food inventory & waste prevention metrics' },
+        inventory: { t: 'Smart Food Inventory', s: 'First-Expiry, First-Out (FEFO) batch tracking and kitchen rotation' },
+        insights: { t: 'AI Smart Inventory Intelligence', s: 'Simulated machine learning recommendations & automated menu substitutions' },
+        analytics: { t: 'Waste Analytics & Impact', s: 'Historical waste reduction trends, category breakdown & savings' },
+        qr: { t: 'Smart Batch Passport & QR Traceability', s: 'Digital food batch authentication & farm-to-fork origin' },
+        reports: { t: 'Audit & Compliance Reports', s: 'Audit-ready food utilization and economic conservation statements' }
+      };
+
+      if (titles[tab]) {
+        document.getElementById('pageTitleDisplay').innerText = titles[tab].t;
+        document.getElementById('pageSubDisplay').innerText = titles[tab].s;
+      }
+
       lucide.createIcons();
     }
 
-    function nextSlide() {
-      if (currentSlide < slidesData.length - 1) {
-        currentSlide++;
-        updateSlide();
+    // Render Inventory Table
+    function renderInventoryTable(items) {
+      const tbody = document.getElementById('inventoryTableBody');
+      tbody.innerHTML = '';
+
+      if (items.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; padding: 32px; color: var(--text-muted);">No matching inventory items found.</td></tr>`;
+        return;
       }
+
+      items.forEach(item => {
+        let badgeClass = 'badge-fresh';
+        if (item.status === 'Expiring Soon') badgeClass = 'badge-expiring';
+        if (item.status === 'High Risk') badgeClass = 'badge-risk';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${item.name}</strong></td>
+          <td style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">${item.batchId}</td>
+          <td><span style="background: #f1f5f9; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">${item.category}</span></td>
+          <td><strong>${item.quantity} ${item.unit}</strong></td>
+          <td>
+            <div><strong>${item.expiryDate}</strong></div>
+            <div style="font-size: 11px; color: ${item.daysLeft <= 2 ? 'var(--rose-700)' : 'var(--text-muted)'}; font-weight: 600;">${item.daysLeft} days left</div>
+          </td>
+          <td>
+            <div>${item.supplier}</div>
+            <div style="font-size: 10px; color: var(--text-faint);">${item.location}</div>
+          </td>
+          <td>
+            <div>${item.storage}</div>
+            <div style="font-size: 10px; color: #0284c7; font-weight: bold;">${item.temp}</div>
+          </td>
+          <td><span style="font-weight: bold; color: ${item.risk === 'High' ? 'var(--rose-700)' : 'var(--emerald-700)'};">${item.risk}</span></td>
+          <td><span class="badge ${badgeClass}">${item.status}</span></td>
+          <td style="text-align: right;">
+            <button class="btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="viewPassportById('${item.batchId}')">
+              <i data-lucide="qr-code" style="width: 12px; height: 12px;"></i> Passport
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update KPI
+      const totalKg = inventory.reduce((a, b) => a + b.quantity, 0);
+      document.getElementById('kpi-total-inventory').innerHTML = `${totalKg.toLocaleString()} <span style="font-size: 14px; color: var(--text-muted);">kg</span>`;
+      
+      const expiring = inventory.filter(i => i.status === 'Expiring Soon' || i.status === 'High Risk').length;
+      document.getElementById('kpi-expiring-count').innerHTML = `${expiring} <span style="font-size: 14px; color: var(--text-muted);">batches</span>`;
+
+      lucide.createIcons();
     }
 
-    function prevSlide() {
-      if (currentSlide > 0) {
-        currentSlide--;
-        updateSlide();
-      }
+    // Filter Inventory
+    function filterInventory() {
+      const q = document.getElementById('inventorySearch').value.toLowerCase();
+      const cat = document.getElementById('categoryFilter').value;
+      const st = document.getElementById('statusFilter').value;
+
+      const filtered = inventory.filter(item => {
+        const matchesQ = item.name.toLowerCase().includes(q) || item.batchId.toLowerCase().includes(q) || item.supplier.toLowerCase().includes(q);
+        const matchesCat = (cat === 'All' || item.category === cat);
+        const matchesSt = (st === 'All' || item.status === st);
+        return matchesQ && matchesCat && matchesSt;
+      });
+
+      renderInventoryTable(filtered);
     }
 
-    // TECHNICAL DOSSIER CONTENT PHASES
-    const dossierPhases = {
-      1: `
-        <h3>Phase 1: Problem Understanding, Indian Statistics & Research Gap</h3>
-        <p><strong>1.1 Macro Realities:</strong> According to the UNEP Food Waste Index Report (2024), Indian households discard approximately 78.2 million tonnes of food annually (~55 kg per capita). In institutional kitchens (universities, corporate canteens, hotel banquets), overproduction rates range from 15% to 22% daily.</p>
-        <p><strong>1.2 Economic & Environmental Toll:</strong> ICAR and the Ministry of Agriculture estimate post-harvest and post-cooking food waste at ₹92,000 Crores ($11.1B USD) annually. Wasting 1 kg of cooked food generates 2.5 kg CO₂e in landfill methane emissions and squanders 1,500 to 2,500 Liters of agricultural freshwater.</p>
-        <p><strong>1.3 The Research Gap:</strong> Traditional platforms (Robin Hood Army, Feeding India) are purely reactive—they only step in hours after food has spoiled. Hardware solutions (Winnow, Leanpath) are expensive, vulnerable to kitchen grease/steam, and suffer operational resistance. ZeroPlate AI provides a software-only, zero-hardware solution operating on both pre-cooking prevention and sub-90-second redistribution.</p>
-      `,
-      2: `
-        <h3>Phase 2: Proposed 5 Modular Solutions</h3>
-        <p><strong>Module 1: AI Demand Forecasting</strong> — Employs a stacked generalization ensemble (XGBoost + Neural Prophet + Bi-LSTM) to forecast meal demand 24-48h in advance based on attendance, academic timetables, exam drop-offs, and weather.</p>
-        <p><strong>Module 2: Smart FEFO Inventory</strong> — Digital First-Expiry, First-Out ledger that triggers automated menu substitution recommendations (e.g. repurposing tomatoes nearing 48h expiry into rasam/soup) to burn down stock before spoilage.</p>
-        <p><strong>Module 3: Computer Vision Quality Assurance</strong> — Zero-hardware smartphone analysis using YOLOv11 for dish segmentation, EfficientNet-B4 for colorimetric surface decay, and ambient weather APIs for thermodynamic holding countdowns.</p>
-        <p><strong>Module 4: NGO Redistribution & Smart Logistics</strong> — Proximity reverse-matching engine that allocates surplus within 90 seconds and uses Google OR-Tools VRPTW solver to route EV delivery vehicles strictly within 3.5 hours.</p>
-        <p><strong>Module 5: ESG & Sustainability Analytics</strong> — Converts saved food into auditable metrics (CO₂e avoided, water conserved, rupees saved) compliant with SEBI BRSR and ISO 14064 standards.</p>
-      `,
-      4: `
-        <h3>Phase 4: Software Architecture & Technology Stack</h3>
-        <p><strong>Client Tier:</strong> React 19 + TypeScript + Vite + Tailwind CSS for institutional web administration; Flutter for cross-platform Android/iOS mobile clients (Kitchen Staff, NGOs, Delivery Drivers).</p>
-        <p><strong>Application Tier:</strong> FastAPI (Python 3.11) with asynchronous event loop, JWT Bearer Token authentication via Firebase Auth / Supabase.</p>
-        <p><strong>Data & Optimization Tier:</strong> PostgreSQL 16 with PostGIS extension for sub-second spatial queries (ST_DWithin), Redis 7.2 for caching and atomic concurrency locks, AWS S3 / Cloudflare R2 for tamper-proof photo audit trails.</p>
-        <p><strong>Mapping & Operations Research:</strong> OpenStreetMap (OSRM) and Google OR-Tools for solving Vehicle Routing Problems with Time Windows (VRPTW).</p>
-      `,
-      5: `
-        <h3>Phase 5: Workflow & Data Flow Diagrams</h3>
-        <p><strong>DFD Level 0 (Context):</strong> Kitchen Managers submit expected headcounts and receive recipe preparation bills. Post-service surplus is photographed and verified via Computer Vision. Verified listings are broadcast to NGOs. Recipient NGO claims the consignment with atomic locking. Delivery partner receives turn-by-turn route. ESG ledger is updated.</p>
-        <div class="code-block">
-Kitchen -> [Headcount, Weather] -> AI Forecaster -> [Recommended Batch Bill] -> Kitchen Cooking
-Kitchen -> [Surplus Photo] -> CV Quality Engine (YOLO+EfficientNet) -> [Certified Safe] -> Marketplace
-Marketplace -> [Geo Radius 15km] -> Matched NGOs -> [Atomic Claim] -> Redis Lock Acquired
-Dispatch -> Google OR-Tools (VRPTW) -> Driver Turn-by-Turn OSRM -> Delivery < 3.5 Hours -> ESG Ledger
+    // Render Insights Cards
+    function renderInsights() {
+      const box = document.getElementById('insightsContainer');
+      box.innerHTML = '';
+
+      insights.forEach(ins => {
+        let badgeClass = 'badge-fresh';
+        if (ins.tag === 'Urgent') badgeClass = 'badge-risk';
+        if (ins.tag === 'Consumption') badgeClass = 'badge-expiring';
+
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.style.marginBottom = '0';
+        div.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span class="badge ${badgeClass}">${ins.tag} Recommendation</span>
+            <span style="font-size: 11px; color: var(--text-faint);">Real-time</span>
+          </div>
+          <h3 style="font-size: 15px; font-weight: 800; margin-bottom: 6px;">${ins.title}</h3>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">${ins.desc}</p>
+          <div style="padding: 10px; background: #fafbfc; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 12px; color: var(--emerald-800); font-weight: 600; margin-bottom: 12px;">
+            💡 ${ins.action}
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 11px; font-weight: bold; color: var(--text-muted);">${ins.impact}</span>
+            <button class="btn-primary" style="padding: 6px 12px; font-size: 11px;" onclick="showToastNotification('Action applied: &quot;${ins.action}&quot;')">
+              Apply Action
+            </button>
+          </div>
+        `;
+        box.appendChild(div);
+      });
+      lucide.createIcons();
+    }
+
+    function refreshInsights() {
+      const icon = document.getElementById('refreshIcon');
+      icon.style.transition = 'transform 0.8s ease';
+      icon.style.transform = 'rotate(360deg)';
+      setTimeout(() => {
+        icon.style.transform = 'rotate(0deg)';
+        showToastNotification('AI inventory analysis recomputed with latest pantry metrics!');
+      }, 800);
+    }
+
+    // Modals
+    function openAddModal() {
+      document.getElementById('modalAdd').classList.add('open');
+    }
+    function closeAddModal() {
+      document.getElementById('modalAdd').classList.remove('open');
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('addName').value;
+      const cat = document.getElementById('addCategory').value;
+      const exp = document.getElementById('addExpiry').value;
+      const qty = parseInt(document.getElementById('addQuantity').value);
+      const storage = document.getElementById('addStorage').value;
+      const sup = document.getElementById('addSupplier').value || 'Regional Producer';
+
+      const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+      const batchId = `BATCH-${randomSuffix}`;
+
+      // Calculate days
+      const diff = Math.max(1, Math.ceil((new Date(exp) - new Date('2026-09-30')) / (1000 * 60 * 60 * 24)));
+      let status = 'Fresh';
+      let risk = 'Low';
+      if (diff <= 2) { status = 'High Risk'; risk = 'High'; }
+      else if (diff <= 5) { status = 'Expiring Soon'; risk = 'Medium'; }
+
+      const newItem = {
+        id: String(Date.now()),
+        batchId,
+        name,
+        category: cat,
+        quantity: qty,
+        unit: 'kg',
+        expiryDate: exp,
+        daysLeft: diff,
+        supplier: sup,
+        location: 'Chennai Hub',
+        storage: storage,
+        temp: storage.includes('Cold') ? '12°C' : '22°C',
+        risk,
+        status
+      };
+
+      inventory.unshift(newItem);
+      renderInventoryTable(inventory);
+      closeAddModal();
+      showToastNotification(`Registered new batch #${batchId} (${name}, ${qty} kg) into FEFO inventory!`);
+      document.getElementById('addItemForm').reset();
+    }
+
+    function openPassportModal() {
+      viewPassportById('BATCH-1042');
+    }
+
+    function viewPassportById(bId) {
+      const item = inventory.find(i => i.batchId === bId) || inventory[0];
+      const body = document.getElementById('passportBody');
+      body.innerHTML = `
+        <div style="background: var(--emerald-50); border: 1px solid var(--emerald-200); padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <strong style="font-size: 16px; color: #0f172a;">${item.name}</strong>
+              <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${item.batchId}</div>
+            </div>
+            <span class="badge ${item.status === 'Fresh' ? 'badge-fresh' : 'badge-expiring'}">${item.status}</span>
+          </div>
         </div>
-      `,
-      6: `
-        <h3>Phase 6: Mathematical Formulations of AI Models</h3>
-        <p><strong>6.1 Hybrid Ensemble Demand:</strong></p>
-        <div class="code-block">y_hat = w1 * y_XGB(X_t) + w2 * y_Prophet(t) + w3 * y_LSTM(X_{t-k:t})
-Recommended_Prep = ceil( y_hat * (1 + beta_dynamic) )
-where beta_dynamic = beta_base + sigma_forecast * I_exam - delta_holiday</div>
-        <p><strong>6.2 Colorimetric Freshness (CIE L*a*b*):</strong></p>
-        <div class="code-block">Delta_E = sqrt( (L_t - L_0)^2 + (a_t - a_0)^2 + (b_t - b_0)^2 )
-Freshness_Index = [ 1 - (alpha * (Delta_E / Delta_E_max) + (1-alpha)*(1 - P_fresh)) ] * 100</div>
-        <p><strong>6.3 Thermodynamic Safe Holding Time:</strong></p>
-        <div class="code-block">t_remaining = max(0, 240 - Delta_t_elapsed * exp( (E_a / R) * (1/T_std - 1/T_ambient) ))</div>
-        <p><strong>6.4 Google OR-Tools VRPTW Objective:</strong></p>
-        <div class="code-block">min sum( c_ij * x_ijk ) subject to t_ik + s_i + transit_time(i,j) <= t_jk <= 210 minutes</div>
-      `,
-      7: `
-        <h3>Phase 7: PostgreSQL + PostGIS Schema Design</h3>
-        <p>Fully normalized production database tables:</p>
-        <div class="code-block">
-CREATE TABLE institutions (id SERIAL PRIMARY KEY, name VARCHAR(150), type VARCHAR(50), location GEOMETRY(Point, 4326), daily_meal_capacity INT);
-CREATE TABLE inventory_items (id SERIAL PRIMARY KEY, institution_id INT REFERENCES institutions(id), name VARCHAR(100), quantity NUMERIC, expiry_date DATE, status VARCHAR(20));
-CREATE TABLE demand_predictions (id SERIAL PRIMARY KEY, institution_id INT, target_date DATE, meal_period VARCHAR(20), predicted_meals INT, recommended_prep INT, buffer_percent NUMERIC);
-CREATE TABLE surplus_listings (id SERIAL PRIMARY KEY, institution_id INT, food_name VARCHAR(150), quantity_kg NUMERIC, portions INT, prep_timestamp TIMESTAMPTZ, cv_freshness_score NUMERIC, status VARCHAR(30));
-CREATE TABLE donations (id SERIAL PRIMARY KEY, surplus_listing_id INT UNIQUE REFERENCES surplus_listings(id), ngo_id INT, claimed_portions INT, status VARCHAR(30));
-CREATE TABLE route_assignments (id SERIAL PRIMARY KEY, donation_id INT UNIQUE, delivery_partner_id INT, pickup_location GEOMETRY(Point, 4326), dropoff_location GEOMETRY(Point, 4326), est_duration_mins INT, status VARCHAR(30));
-CREATE TABLE esg_reports (id SERIAL PRIMARY KEY, institution_id INT, total_waste_prevented_kg NUMERIC, co2e_avoided_kg NUMERIC, water_saved_liters NUMERIC, financial_savings_inr NUMERIC, audit_hash VARCHAR(64));
-        </div>
-      `,
-      8: `
-        <h3>Phase 8: Novelty, Business Model & Top Jury Defense Answers</h3>
-        <p><strong>8.1 Novelty:</strong> The only closed-loop platform that uses post-cooking actuals to dynamically retrain pre-cooking predictive forecasting; zero-hardware quality checks; perishability-constrained VRPTW dispatch.</p>
-        <p><strong>8.2 Business Model:</strong> B2B SaaS for institutional kitchens (₹7,500/month with 20x ROI from grocery savings); Corporate CSR sponsorships for NGO logistics; Verified carbon offset registry credits.</p>
-        <p><strong>8.3 Top Jury Defense:</strong></p>
-        <p><em>Q: How do you verify food safety without chemical strips?</em><br>
-        <strong>A:</strong> We enforce FSSAI cold/hot-holding protocol. Cooked food held under 3.5 hours, verified by smartphone CV for color and moisture syneresis, is microbiologically safe. We enforce mandatory human chef digital sign-off.</p>
-        <p><em>Q: What if two NGOs claim food at the same time?</em><br>
-        <strong>A:</strong> Redis distributed locks (SET NX EX 10) combined with PostgreSQL row-level locks (SELECT ... FOR UPDATE) prevent double-claiming with 100% ACID consistency.</p>
-      `
-    };
 
-    function loadDossierPhase(phase) {
-      document.getElementById('dossier-content-body').innerHTML = dossierPhases[phase] || '';
-      const btns = document.querySelectorAll('.dossier-btn');
-      btns.forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; margin-bottom: 16px;">
+          <div style="padding: 10px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+            <span style="color: var(--text-muted); display: block;">Certified Supplier</span>
+            <strong>${item.supplier}</strong>
+          </div>
+          <div style="padding: 10px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+            <span style="color: var(--text-muted); display: block;">Source Origin</span>
+            <strong>${item.location}</strong>
+          </div>
+          <div style="padding: 10px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+            <span style="color: var(--text-muted); display: block;">Net Quantity</span>
+            <strong>${item.quantity} ${item.unit}</strong>
+          </div>
+          <div style="padding: 10px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+            <span style="color: var(--text-muted); display: block;">Expiry Date</span>
+            <strong style="color: var(--rose-700);">${item.expiryDate} (${item.daysLeft}d left)</strong>
+          </div>
+          <div style="padding: 10px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+            <span style="color: var(--text-muted); display: block;">Storage Unit</span>
+            <strong>${item.storage} (${item.temp})</strong>
+          </div>
+          <div style="padding: 10px; background: #fafbfc; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+            <span style="color: var(--text-muted); display: block;">Cryptographic Integrity</span>
+            <strong style="color: var(--emerald-700);">FSSAI Verified Safe</strong>
+          </div>
+        </div>
+
+        <div style="font-size: 11px; color: var(--text-muted); padding: 8px; background: #f1f5f9; border-radius: var(--radius-sm); font-family: var(--font-mono);">
+          Hash: 9a7b4f2c8d1e345091726a8d7e9b01c... (SHA-256)
+        </div>
+      `;
+      document.getElementById('modalPassport').classList.add('open');
+      lucide.createIcons();
+    }
+    function closePassportModal() {
+      document.getElementById('modalPassport').classList.remove('open');
     }
 
-    // Initial Execution
-    runForecastModel();
-    runEsgModel();
-    updateSlide();
-    document.getElementById('dossier-content-body').innerHTML = dossierPhases[1];
+    function openAlertsModal() {
+      document.getElementById('modalAlerts').classList.add('open');
+    }
+    function closeAlertsModal() {
+      document.getElementById('modalAlerts').classList.remove('open');
+    }
+
+    function applyMenuAction(item, recipe) {
+      closeAlertsModal();
+      showToastNotification(`Chef notified! ${item} scheduled for today's ${recipe} preparation.`);
+    }
+
+    // Reports Download
+    function downloadReport() {
+      showToastNotification('Demo report generated successfully. Ready for SIH presentation.');
+    }
+
+    // Toast Notification System
+    function showToastNotification(msg) {
+      const box = document.getElementById('toastBox');
+      document.getElementById('toastText').innerText = msg;
+      box.style.display = 'block';
+      setTimeout(() => {
+        box.style.display = 'none';
+      }, 4000);
+    }
+
+    // Initial Setup
+    renderInventoryTable(inventory);
+    renderInsights();
   </script>
+
 </body>
 </html>
