@@ -31,7 +31,7 @@ from .seed_data import seed_database
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="AMUDHAI (அமுதை) AI API",
+    title="ZeroPlate AI API",
     description="AI-Powered Smart Food Waste Reduction and Sustainable Redistribution Ecosystem",
     version="2.4.0"
 )
@@ -59,8 +59,9 @@ def on_startup():
 def health_check():
     return {
         "status": "healthy",
-        "app": "AMUDHAI (அமுதை) AI Ecosystem",
-        "mission": "Predict Smart. Waste Less. Feed More.",
+        "app": "ZeroPlate AI Ecosystem",
+        "tagline": "Smart Food. Zero Waste.",
+        "full_title": "AI-Powered Smart Food Waste Reduction and Sustainable Redistribution Ecosystem",
         "timestamp": datetime.utcnow().isoformat()
     }
 
@@ -726,7 +727,7 @@ def download_sustainability_csv():
         "2026-09-28,Financial Savings,170400,INR,Factor INR 120/kg\n"
         "2026-09-28,Food Waste Reduction Rate,35.45,Percent,((Baseline-Current)/Baseline)*100\n"
     )
-    return PlainTextResponse(content=csv_data, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=amudhai_sustainability_report.csv"})
+    return PlainTextResponse(content=csv_data, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=zeroplate_sustainability_report.csv"})
 
 # ==============================================================================
 # NOTIFICATIONS
@@ -781,5 +782,5 @@ if os.path.exists(frontend_dist_dir):
         if os.path.exists(index_file):
             with open(index_file, "r", encoding="utf-8") as f:
                 return PlainTextResponse(content=f.read(), media_type="text/html")
-        return PlainTextResponse("AMUDHAI (அமுதை) AI Platform", media_type="text/plain")
+        return PlainTextResponse("ZeroPlate AI Platform", media_type="text/plain")
 

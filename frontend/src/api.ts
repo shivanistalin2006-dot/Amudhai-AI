@@ -1,4 +1,4 @@
-// API Service Client for AMUDHAI AI Ecosystem
+// API Service Client for ZeroPlate AI Ecosystem
 
 const API_BASE = '/api';
 

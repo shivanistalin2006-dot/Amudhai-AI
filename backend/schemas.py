@@ -80,6 +80,8 @@ class SurplusListingCreate(BaseModel):
     verified_by: Optional[str] = "FSSAI Food Safety In-Charge"
     contact_phone: str
     est_value_inr: Optional[float] = 0.0
+    batch_passport_id: Optional[int] = None
+    batch_number: Optional[str] = None
 
 class DonationAcceptRequest(BaseModel):
     ngo_id: int
@@ -118,3 +120,87 @@ class ProcessingBatchCreate(BaseModel):
     energy_consumption_kwh: float = 40.0
     date: str
     notes: Optional[str] = None
+
+# ==============================================================================
+# SMART INVENTORY INTELLIGENCE & TRACEABILITY SCHEMAS
+# ==============================================================================
+
+class BatchPassportCreate(BaseModel):
+    institution_id: int = 1
+    batch_number: Optional[str] = None
+    ingredient_name: str
+    category: str
+    initial_quantity: float
+    unit: str = "kg"
+    source_origin: Optional[str] = "Coimbatore Organic Cooperative, TN"
+    supplier_name: Optional[str] = None
+    purchase_date: str
+    expiry_date: str
+    storage_conditions: Optional[str] = "Insulated Cold Unit (4°C, 85% RH)"
+    current_location: Optional[str] = "Central Chiller 1 - Bay A"
+    safety_status: Optional[str] = "Verified Safe"
+    notes: Optional[str] = None
+
+class BatchMovementCreate(BaseModel):
+    event_type: str
+    quantity_delta: float
+    location: str
+    performed_by: str
+    notes: Optional[str] = None
+    related_entity_type: Optional[str] = None
+    related_entity_id: Optional[int] = None
+
+class FoodWasteCreate(BaseModel):
+    institution_id: int = 1
+    batch_passport_id: Optional[int] = None
+    ingredient_name: str
+    food_category: str
+    quantity_kg: float
+    unit: str = "kg"
+    waste_stage: str
+    reason: str
+    kitchen_name: Optional[str] = "Loyola Main Kitchen"
+    logged_by: Optional[str] = "Chef S. Ramanathan"
+    action_taken: Optional[str] = "Composted for Organic Garden"
+    notes: Optional[str] = None
+
+class SupplierCreate(BaseModel):
+    name: str
+    category: str
+    contact_person: str
+    phone: str
+    email: str
+    address: str
+    delivery_lead_days: int = 2
+    min_order_qty: float = 20.0
+    rating: Optional[float] = 4.8
+
+class PurchaseOrderItemSchema(BaseModel):
+    ingredient_name: str
+    current_usable_stock: float = 0.0
+    predicted_demand: float = 0.0
+    safety_stock: float = 0.0
+    recommended_reorder_qty: float = 0.0
+    confirmed_qty: float
+    unit: str = "kg"
+    unit_price_inr: float = 0.0
+
+class PurchaseOrderCreate(BaseModel):
+    institution_id: int = 1
+    supplier_id: int
+    order_date: Optional[str] = None
+    expected_delivery_date: Optional[str] = None
+    items: List[PurchaseOrderItemSchema]
+    notes: Optional[str] = None
+
+class PurchaseOrderStatusUpdate(BaseModel):
+    status: str
+    notes: Optional[str] = None
+
+class MenuExecuteRequest(BaseModel):
+    recommendation_id: Optional[int] = None
+    recipe_id: int
+    servings: int = 500
+    meal_period: str = "Lunch"
+    confirmed_by: str = "Chef In-Charge"
+

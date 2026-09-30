@@ -39,7 +39,7 @@ export const LogisticsView: React.FC<LogisticsViewProps> = ({ currentUser, lang 
   const handleStatusTransition = async (deliveryId: number, nextStatus: string) => {
     setUpdating(true);
     try {
-      await api.updateDeliveryStatus(deliveryId, nextStatus, proofNotes || 'Status updated via Amudhai Delivery Fleet Portal.');
+      await api.updateDeliveryStatus(deliveryId, nextStatus, proofNotes || 'Status updated via ZeroPlate Delivery Fleet Portal.');
       await loadDeliveries();
       // Update selected
       const updated = deliveries.find(d => d.id === deliveryId);

@@ -2,7 +2,7 @@
 
 **Problem ID:** 26234  
 **Title:** AI-Powered Smart Food Waste Reduction & Sustainable Redistribution Ecosystem  
-**Project Code-Name:** **AMUDHAI (அமுதை)** — *"Predict Smart. Waste Less. Feed More."*  
+**Project Code-Name:** **ZeroPlate AI** — *"Smart Food. Zero Waste."*  
 **Category:** Software-Only Solution (Zero Hardware / Zero IoT)  
 
 ---
@@ -33,7 +33,7 @@ India presents one of the most acute food paradoxes in the modern developing wor
 ## 1.3 Identified Research & Technical Gap
 Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, ShareTheMeal) operate on a purely **reactive model**—donations are logged only *after* food has already become surplus and has sat for several hours. 
 
-| Feature Vector | Existing Platforms (Feeding India, ShareTheMeal) | Hardware Solutions (Winnow, Leanpath) | **AMUDHAI (SIH 26234 Proposal)** |
+| Feature Vector | Existing Platforms (Feeding India, ShareTheMeal) | Hardware Solutions (Winnow, Leanpath) | **ZeroPlate AI (SIH 26234 Proposal)** |
 | :--- | :--- | :--- | :--- |
 | **Intervention Point** | Reactive (Post-Waste) | In-Kitchen Waste Weighing | **Proactive & Reactive (Demand-Shaped Pre-Cooking + Real-Time Redistribution)** |
 | **Hardware Dependency** | None | High (Proprietary Scales, Cameras) | **Zero-Hardware (Software & Smartphone CV Only)** |
@@ -48,7 +48,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
 
 ```
 +-----------------------------------------------------------------------------------------+
-|                                    AMUDHAI ECOSYSTEM                                    |
+|                                    ZeroPlate AI ECOSYSTEM                                    |
 +-----------------------------------------------------------------------------------------+
                                              |
     +-------------------+--------------------+--------------------+-------------------+
@@ -95,7 +95,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
 ---
 
 ### SLIDE 1: Title & Vision
-- **Slide Title:** AMUDHAI (அமுதை): AI-Powered Food Waste Reduction & Sustainable Redistribution Ecosystem
+- **Slide Title:** ZeroPlate AI: AI-Powered Smart Food Waste Reduction & Sustainable Redistribution Ecosystem
 - **Subtitle:** Problem ID: 26234 | Category: Software-Only AI & Cloud Architecture
 - **Visual Description:** Minimalist deep emerald green background with glowing golden wheat ear and neural node icon. Clean split layout showing institutional kitchen on the left and community food bank on the right, connected by AI cloud data streams.
 - **Key Points:**
@@ -103,7 +103,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
   - Core Thesis: *"Predict Smart. Waste Less. Feed More."*
   - Zero-Hardware, Software-Only Cloud Platform
 - **Speaker Notes:**
-  > "Respected judges, every day in India, while 190 million people sleep hungry, over 78 million tonnes of food is discarded, and institutional kitchens waste up to 20% of their prepared meals due to unscientific overproduction and logistical friction. We present AMUDHAI—an end-to-end, zero-hardware, AI-powered ecosystem that attacks food waste at both ends: predicting demand before cooking, and routing safe surplus within minutes using computer vision and operations research."
+  > "Respected judges, every day in India, while 190 million people sleep hungry, over 78 million tonnes of food is discarded, and institutional kitchens waste up to 20% of their prepared meals due to unscientific overproduction and logistical friction. We present ZeroPlate AI—an end-to-end, zero-hardware, AI-powered ecosystem that attacks food waste at both ends: predicting demand before cooking, and routing safe surplus within minutes using computer vision and operations research."
 
 ---
 
@@ -121,25 +121,25 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
 
 ### SLIDE 3: Why Existing Approaches Fail: The 4-Hour Perishability Chasm
 - **Slide Title:** The Critical Bottleneck: FSSAI 4-Hour Window vs. Communication Latency
-- **Visual Description:** Timeline diagram showing the 4-hour hot-holding decay curve. Top track shows existing manual process taking 3.5 hours just to locate an NGO (leaving 30 mins to transport—leading to spoiled food). Bottom track shows AMUDHAI automating matching in 90 seconds and dispatching in 15 minutes.
+- **Visual Description:** Timeline diagram showing the 4-hour hot-holding decay curve. Top track shows existing manual process taking 3.5 hours just to locate an NGO (leaving 30 mins to transport—leading to spoiled food). Bottom track shows ZeroPlate AI automating matching in 90 seconds and dispatching in 15 minutes.
 - **Key Points:**
   - FSSAI Hot-Holding Rule: Cooked food must be consumed within 4 hours if kept between $10^\circ\text{C}$ and $60^\circ\text{C}$.
   - Failure of Existing Apps: Reactive, manual phone calls, no capacity verification, volunteer burnout.
   - Failure of IoT/Hardware: Expensive, steam/grease damage in commercial kitchens, uncalibrated probes.
 - **Speaker Notes:**
-  > "Why haven't existing charity platforms solved this? Because of the physics of cooked food. Microorganisms multiply exponentially between 10 and 60 degrees Celsius. Under FSSAI regulations, you have a strict 4-hour window from preparation to consumption. Existing platforms take 2 to 3 hours just negotiating by phone whether an orphanage can accept 50 meals. AMUDHAI eliminates manual negotiation entirely through real-time geospatial reverse-matching in under 90 seconds."
+  > "Why haven't existing charity platforms solved this? Because of the physics of cooked food. Microorganisms multiply exponentially between 10 and 60 degrees Celsius. Under FSSAI regulations, you have a strict 4-hour window from preparation to consumption. Existing platforms take 2 to 3 hours just negotiating by phone whether an orphanage can accept 50 meals. ZeroPlate AI eliminates manual negotiation entirely through real-time geospatial reverse-matching in under 90 seconds."
 
 ---
 
-### SLIDE 4: The AMUDHAI Solution: A Unified Software-Only Ecosystem
-- **Slide Title:** AMUDHAI Architecture: Zero Hardware, Pure Algorithmic Intelligence
+### SLIDE 4: The ZeroPlate AI Solution: A Unified Software-Only Ecosystem
+- **Slide Title:** ZeroPlate AI Architecture: Zero Hardware, Pure Algorithmic Intelligence
 - **Visual Description:** Flow diagram illustrating the 5 modules: 1. Predictive Demand -> 2. FEFO Inventory -> 3. Smartphone CV Freshness -> 4. OpenStreetMap VRPTW Routing -> 5. ESG Carbon & Water Ledger.
 - **Key Points:**
   - 100% Software Solution: Uses existing smartphones, cloud microservices, and open GIS data.
   - Multi-stakeholder coordination: Kitchen Managers, NGOs, Delivery Drivers, ESG Auditors.
   - Dual-phase intervention: Preventive (Pre-Cooking) + Curative (Post-Preparation Redistribution).
 - **Speaker Notes:**
-  > "AMUDHAI is intentionally engineered as a zero-hardware system. No smart bins, no proprietary scales, no IoT sensors that break in greasy commercial kitchens. We harness smartphone cameras already in workers' pockets, cloud-based computer vision, gradient boosted predictive models, and OpenStreetMap combinatorial optimization."
+  > "ZeroPlate AI is intentionally engineered as a zero-hardware system. No smart bins, no proprietary scales, no IoT sensors that break in greasy commercial kitchens. We harness smartphone cameras already in workers' pockets, cloud-based computer vision, gradient boosted predictive models, and OpenStreetMap combinatorial optimization."
 
 ---
 
@@ -164,7 +164,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
   - Algorithmic Menu Repurposing: Suggests recipe substitutions using raw ingredients nearing 48-hour expiration.
   - Hard Safety Barrier: Prevents expired inventory from being selected for meal preparation or marked for donation.
 - **Speaker Notes:**
-  > "In institutional pantries, raw material waste accounts for nearly 30% of total losses due to improper stock rotation. AMUDHAI enforces an algorithmic FEFO system. If 40 kg of country tomatoes are within 48 hours of expiration, the engine automatically recommends adjusting tomorrow's lunch menu to incorporate tomato rasam or puree, burning down stock before spoilage occurs."
+  > "In institutional pantries, raw material waste accounts for nearly 30% of total losses due to improper stock rotation. ZeroPlate AI enforces an algorithmic FEFO system. If 40 kg of country tomatoes are within 48 hours of expiration, the engine automatically recommends adjusting tomorrow's lunch menu to incorporate tomato rasam or puree, burning down stock before spoilage occurs."
 
 ---
 
@@ -189,7 +189,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
   - Capacity Balancing: Prevents overwhelming a 50-person shelter with a 200-portion surplus.
   - Concurrency Lock: Database transaction guarantees that only one NGO can claim an available batch, eliminating double-claiming.
 - **Speaker Notes:**
-  > "The moment surplus is verified, AMUDHAI's matching algorithm evaluates all verified NGOs within a 15 km radius. It computes a multi-factor score factoring in distance, vehicle access, current shelter occupancy, and accepted food categories. An atomic database lock ensures that multiple NGOs cannot claim the same consignment, resolving the race conditions prevalent in manual groups."
+  > "The moment surplus is verified, ZeroPlate AI's matching algorithm evaluates all verified NGOs within a 15 km radius. It computes a multi-factor score factoring in distance, vehicle access, current shelter occupancy, and accepted food categories. An atomic database lock ensures that multiple NGOs cannot claim the same consignment, resolving the race conditions prevalent in manual groups."
 
 ---
 
@@ -226,7 +226,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
   - Economic Value: ₹120 standard baseline value per kg cooked institutional meal.
   - Enterprise Compliance: One-click CSV and PDF exports for annual corporate CSR and ESG reporting.
 - **Speaker Notes:**
-  > "Institutions adopt AMUDHAI not just out of goodwill, but for regulatory compliance. Under SEBI's Business Responsibility and Sustainability Reporting (BRSR) framework, Indian enterprises must report Scope 3 supply chain emissions. AMUDHAI generates ISO 14064-compliant carbon and water audit reports, turning food waste reduction into tangible corporate sustainability credits."
+  > "Institutions adopt ZeroPlate AI not just out of goodwill, but for regulatory compliance. Under SEBI's Business Responsibility and Sustainability Reporting (BRSR) framework, Indian enterprises must report Scope 3 supply chain emissions. ZeroPlate AI generates ISO 14064-compliant carbon and water audit reports, turning food waste reduction into tangible corporate sustainability credits."
 
 ---
 
@@ -269,7 +269,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
   - Corporate CSR Sponsorship: Large enterprises sponsor NGO logistics under mandatory Indian CSR 2% spend.
   - UN SDG Direct Impact: Addresses Zero Hunger, Responsible Consumption, and Climate Action.
 - **Speaker Notes:**
-  > "Is AMUDHAI financially viable? Absolutely. A college mess spending ₹15 Lakhs monthly on groceries saves over ₹1.5 Lakhs every month by cutting overproduction by just 10 percent. A monthly subscription of ₹7,500 gives them a 20x return on investment. Furthermore, corporate CSR foundations fund the last-mile electric delivery logistics, creating an economically self-sustaining loop."
+  > "Is ZeroPlate AI financially viable? Absolutely. A college mess spending ₹15 Lakhs monthly on groceries saves over ₹1.5 Lakhs every month by cutting overproduction by just 10 percent. A monthly subscription of ₹7,500 gives them a 20x return on investment. Furthermore, corporate CSR foundations fund the last-mile electric delivery logistics, creating an economically self-sustaining loop."
 
 ---
 
@@ -285,7 +285,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
   - Mentorship & Validation: Validated with commercial kitchen operators and certified chefs.
   - Final Call: *"Predict Smart. Waste Less. Feed More."*
 - **Speaker Notes:**
-  > "To conclude, AMUDHAI is not an abstract concept or a UI mockup. We have built an end-to-end, working cloud platform with verified machine learning models, database concurrency safeguards, and automated ESG reporting. We invite the jury to test our live prototype. Every grain matters, every meal counts. Thank you."
+  > "To conclude, ZeroPlate AI is not an abstract concept or a UI mockup. We have built an end-to-end, working cloud platform with verified machine learning models, database concurrency safeguards, and automated ESG reporting. We invite the jury to test our live prototype. Every grain matters, every meal counts. Thank you."
 
 ---
 
@@ -353,7 +353,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
 |                            | ----------------------------------------->  |                    |
 +----------------------------+                                             |                    |
                                                                            |                    |
-+----------------------------+   [Active Surplus Notifications, Matches]   |      AMUDHAI       |
++----------------------------+   [Active Surplus Notifications, Matches]   |      ZeroPlate AI       |
 |                            | <-----------------------------------------  |     ECOSYSTEM      |
 |    NGO / Food Bank /       |                                             |       CORE         |
 |      Night Shelter         |   [Donation Claim / Acceptance Request]     |                    |
@@ -381,7 +381,7 @@ Existing volunteer food donation apps (e.g., Robin Hood Army, Feeding India, Sha
 # PHASE 6: MATHEMATICAL & ALGORITHMIC FORMULATIONS OF AI MODELS
 
 ## 6.1 Hybrid Ensemble Meal Demand Forecasting
-To overcome the limitations of single-algorithm predictions in institutional catering, AMUDHAI employs a **Stacked Generalization Ensemble** combining **XGBoost** (for capturing non-linear interactions between weather and campus events), **Neural Prophet** (for multi-frequency daily, weekly, and semester seasonality), and a **Bidirectional LSTM** (for capturing sequential dependencies in consecutive days' attendance).
+To overcome the limitations of single-algorithm predictions in institutional catering, ZeroPlate AI employs a **Stacked Generalization Ensemble** combining **XGBoost** (for capturing non-linear interactions between weather and campus events), **Neural Prophet** (for multi-frequency daily, weekly, and semester seasonality), and a **Bidirectional LSTM** (for capturing sequential dependencies in consecutive days' attendance).
 
 $$\hat{y}_t = w_1 \cdot \hat{y}_{\text{XGB}}(X_t) + w_2 \cdot \hat{y}_{\text{Prophet}}(t) + w_3 \cdot \hat{y}_{\text{LSTM}}(X_{t-\tau:t})$$
 
@@ -605,7 +605,7 @@ CREATE TABLE esg_reports (
 # PHASE 8: NOVELTY, FEASIBILITY, BUSINESS MODEL, ROADMAP & JURY DEFENSE
 
 ## 8.1 Novelty Matrix
-1. **First End-to-End Predictive Food Loop:** Existing systems are either exclusively pre-cooking menu planners or exclusively post-cooking charitable rescue platforms. AMUDHAI closes the loop: real post-cooking leftovers retrain the pre-cooking forecasting model daily.
+1. **First End-to-End Predictive Food Loop:** Existing systems are either exclusively pre-cooking menu planners or exclusively post-cooking charitable rescue platforms. ZeroPlate AI closes the loop: real post-cooking leftovers retrain the pre-cooking forecasting model daily.
 2. **Zero-Hardware Quality Verification:** Replaces costly, vulnerable IoT sensors with computer vision colorimetry and ambient temperature thermodynamic decay modeling.
 3. **Mathematically Bound Redistribution Window:** Solves VRPTW specifically constrained by microbial exponential growth timelines ($T \le 240 \text{ min}$).
 
@@ -632,7 +632,7 @@ CREATE TABLE esg_reports (
 
 ## 8.4 Production GitHub Repository Structure
 ```
-Amudhai-AI/
+ZeroPlate AI-AI/
 ├── .github/
 │   └── workflows/
 │       ├── backend_ci.yml
@@ -683,7 +683,7 @@ Amudhai-AI/
 ## 8.5 Top 10 SIH Jury Defense Questions & Authoritative Answers
 
 #### Q1: "How can you claim to test food safety without laboratory sensors or chemical test strips?"
-**Answer:** "We explicitly do not claim to replace microbiological laboratory testing. What AMUDHAI does is enforce the **FSSAI Cold & Hot-Chain Safe-Holding Protocol**. Microorganisms like *Bacillus cereus* and *Staphylococcus aureus* require specific time-temperature windows to produce toxins. If a food item is cooked at 1:00 PM, kept in thermal insulated containers, verified via smartphone CV for surface degradation and moisture syneresis, and delivered before 4:30 PM (under 3.5 hours), it mathematically complies with safety holding thresholds. Furthermore, we maintain a mandatory human chef digital sign-off and complete immutable audit logging."
+**Answer:** "We explicitly do not claim to replace microbiological laboratory testing. What ZeroPlate AI does is enforce the **FSSAI Cold & Hot-Chain Safe-Holding Protocol**. Microorganisms like *Bacillus cereus* and *Staphylococcus aureus* require specific time-temperature windows to produce toxins. If a food item is cooked at 1:00 PM, kept in thermal insulated containers, verified via smartphone CV for surface degradation and moisture syneresis, and delivered before 4:30 PM (under 3.5 hours), it mathematically complies with safety holding thresholds. Furthermore, we maintain a mandatory human chef digital sign-off and complete immutable audit logging."
 
 #### Q2: "What prevents kitchen staff from uploading a fake or old photo to pass the CV freshness test?"
 **Answer:** "Our mobile application enforces live in-app camera capture exclusively, blocking uploads from device photo galleries. Every photo is validated with hardware EXIF timestamps, real-time GPS coordinates matching the institution's geofence, and local ambient light frequency checks. Photos with mismatched metadata or cryptographic hashes are instantly rejected."
@@ -707,7 +707,8 @@ Amudhai-AI/
 **Answer:** "Our Google OR-Tools routing engine continuously polls real-time OSRM traffic telemetry. If predicted transit delay causes arrival to project past 3 hours and 30 minutes from cooking, an automated reroute trigger fires: the consignment is either redirected to a closer emergency shelter or a high-priority push notification is sent to mark the batch for cattle feed / bio-gas composting, preventing unsafe human consumption."
 
 #### Q9: "Can this solution integrate with existing government schemes like PM POSHAN or Akshaya Patra?"
-**Answer:** "Yes. AMUDHAI's backend is architected on open RESTful APIs with JSON schemas conforming to National Digital Health & Urban Mission standards. It can ingest student enrollment lists from central databases and export compliance reports directly to municipal food safety authorities."
+**Answer:** "Yes. ZeroPlate AI's backend is architected on open RESTful APIs with JSON schemas conforming to National Digital Health & Urban Mission standards. It can ingest student enrollment lists from central databases and export compliance reports directly to municipal food safety authorities."
 
 #### Q10: "What is your unfair advantage over existing open-source hackathon projects?"
-**Answer:** "Most hackathon projects deliver either a static landing page or a standalone model script. AMUDHAI is an integrated, working full-stack ecosystem: we have a live FastAPI backend with 26 REST endpoints, a responsive React 19 + Tailwind v4 interface, an automated 11-test verification suite, PostGIS spatial mapping, and production-ready database migrations, already verified and pushed to GitHub."
+**Answer:** "Most hackathon projects deliver either a static landing page or a standalone model script. ZeroPlate AI is an integrated, working full-stack ecosystem: we have a live FastAPI backend with 26 REST endpoints, a responsive React 19 + Tailwind v4 interface, an automated 11-test verification suite, PostGIS spatial mapping, and production-ready database migrations, already verified and pushed to GitHub."
+

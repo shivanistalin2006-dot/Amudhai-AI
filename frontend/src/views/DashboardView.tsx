@@ -8,6 +8,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, 
   CartesianGrid, AreaChart, Area, PieChart, Pie, Cell, Legend 
 } from 'recharts';
+import { ZeroPlateLogo } from '../components/ZeroPlateLogo';
 
 interface DashboardViewProps {
   summaryData: any;
@@ -33,7 +34,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="flex flex-col items-center space-y-3">
           <div className="w-8 h-8 border-3 border-[#2E8059] border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-xs text-slate-500 font-medium">Loading Amudhai Live Ecosystem Data...</p>
+          <p className="text-xs text-slate-500 font-medium">Loading ZeroPlate AI Live Ecosystem Data...</p>
         </div>
       </div>
     );
@@ -101,20 +102,35 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Banner & Filters */}
-      <div className="bg-white rounded-2xl p-5 border border-[#E2ECE5] shadow-xs flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        <div>
-          <div className="flex items-center space-x-2">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#C6E6D2] text-[#174C3C]">
-              Smart Food Protocol
-            </span>
-            <span className="text-xs text-slate-500">Live Synchronized Data</span>
+      <div className="bg-white rounded-3xl p-5 md:p-6 border border-[#E2ECE5] shadow-xs flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 relative overflow-hidden">
+        {/* Subtle decorative golden/emerald accent line */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#174C3C] via-[#D5AD58] to-[#2E8059]" />
+
+        <div className="flex items-start gap-4">
+          <div className="hidden sm:block p-2 bg-[#F7F8F2] rounded-2xl border border-[#D5AD58]/40 shadow-xs ring-2 ring-[#C6E6D2]/30 shrink-0">
+            <ZeroPlateLogo size={46} />
           </div>
-          <h2 className="text-xl font-bold text-[#174C3C] mt-1">
-            {lang === 'en' ? 'Ecosystem Sustainability & Redistribution Hub' : 'உணவு கழிவு தடுப்பு & மறுபகிர்வு மேலாண்மை'}
-          </h2>
-          <p className="text-xs text-slate-600 mt-0.5">
-            Real-time telemetry from Loyola Mega Mess, Hotel Annapoorna, and 5 verified NGOs.
-          </p>
+
+          <div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#174C3C] text-[#F7F8F2] border border-[#D5AD58]/50 flex items-center gap-1 shadow-xs">
+                <Sparkles className="w-3 h-3 text-[#D5AD58]" />
+                ZeroPlate AI
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#C6E6D2]/50 text-[#174C3C]">
+                Smart Food. Zero Waste.
+              </span>
+              <span className="text-xs text-slate-400">Live Synchronized Telemetry</span>
+            </div>
+
+            <h2 className="text-xl md:text-2xl font-extrabold text-[#174C3C] mt-1.5 tracking-tight">
+              {lang === 'en' ? 'Ecosystem Sustainability & Redistribution Hub' : 'உணவு கழிவு தடுப்பு & மறுபகிர்வு மேலாண்மை'}
+            </h2>
+
+            <p className="text-xs text-slate-600 mt-1 max-w-2xl leading-relaxed">
+              AI-Powered Smart Food Waste Reduction and Sustainable Redistribution Ecosystem. Real-time telemetry from Loyola Mega Mess, Hotel Annapoorna, and verified NGO food banks.
+            </p>
+          </div>
         </div>
 
         {/* Filter Controls */}

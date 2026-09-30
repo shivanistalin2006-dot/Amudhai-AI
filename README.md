@@ -1,9 +1,10 @@
-# AMUDHAI (அமுதை) 🌾✨
+# ZeroPlate AI 🍽️🌿
 
 ## AI-Powered Smart Food Waste Reduction and Sustainable Redistribution Ecosystem
 
+> **Tagline:** **Smart Food. Zero Waste.**  
 > *"Every Grain Matters. Every Meal Counts."*  
-> **Mission:** **Predict Smart. Waste Less. Feed More.**
+> **Full Title:** **AI-Powered Smart Food Waste Reduction and Sustainable Redistribution Ecosystem**
 
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI_0.115-009688.svg?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/Frontend-React_19_Vite_TS-61DAFB.svg?style=flat&logo=react)](https://react.dev)
@@ -15,7 +16,7 @@
 
 ## 📌 Project Overview & Vision
 
-**AMUDHAI (அமுதை)** is an enterprise-grade AI food sustainability ecosystem built to eliminate institutional food waste and bridge food accessibility. It connects college mess halls, hotels, catering kitchens, food processing factories, NGOs, food banks, shelters, and cold-chain delivery fleets into an autonomous, synchronized network.
+**ZeroPlate AI** is an enterprise-grade AI food sustainability ecosystem built to eliminate institutional food waste and bridge food accessibility. It connects college mess halls, hotels, catering kitchens, food processing factories, NGOs, food banks, shelters, and cold-chain delivery fleets into an autonomous, synchronized network.
 
 Built around four core principles:
 1. **Prevent food waste before it happens** through machine learning demand forecasting.
@@ -34,7 +35,7 @@ The platform features role-based access control with one-click demo role switchi
 | **Institution / Kitchen Admin** | *Loyola College Mega Mess*, *Hotel Annapoorna Grand* | Manage production, run AI demand forecasting, track FEFO inventory, publish surplus food, review ESG reports. |
 | **NGO / Food Bank** | *Akshaya Food Bank*, *Annai Teresa Shelter*, *FeedNeedy* | Discover nearby surplus food, review safety & pickup deadlines, accept/reject donations, track meal arrivals. |
 | **Delivery Partner** | *GreenExpress Eco-Van*, *SwiftEco Cargo Scooter* | View assigned dispatches, navigate GPS routes, update status (`Assigned` → `Picked Up` → `In Transit` → `Delivered`), record proof notes. |
-| **Platform Administrator** | *Amudhai Ecosystem HQ* | Oversee institutions, verify NGOs, manage fleet, review ecosystem-wide telemetry. |
+| **Platform Administrator** | *ZeroPlate Ecosystem HQ* | Oversee institutions, verify NGOs, manage fleet, review ecosystem-wide telemetry. |
 
 ---
 
@@ -148,7 +149,7 @@ You can use the in-app **Quick Switch Demo Role** dropdown in the top navbar, or
 | **Hotel / Kitchen Admin** | `hotel_admin` | `hotel123` | Hotel Annapoorna Grand |
 | **NGO / Food Bank** | `ngo_user` | `ngo123` | Akshaya Food Bank Chennai |
 | **Delivery Driver** | `delivery_driver` | `driver123` | GreenExpress Eco-Van 01 |
-| **Platform Admin** | `platform_admin` | `super123` | Amudhai Ecosystem HQ |
+| **Platform Admin** | `platform_admin` | `super123` | ZeroPlate Ecosystem HQ |
 
 ---
 
@@ -162,7 +163,7 @@ python backend/test_api_and_dom.py
 
 ### Verified Test Results:
 ```text
-Running AMUDHAI Ecosystem End-to-End Verification Test Suite...
+Running ZeroPlate AI Ecosystem End-to-End Verification Test Suite...
 
   [PASS] GET /api/health
   [PASS] GET /api/dashboard/summary KPIs & Recharts Data
@@ -198,5 +199,5 @@ Running AMUDHAI Ecosystem End-to-End Verification Test Suite...
 
 ## 📄 License & Credits
 
-Built with ❤️ by **Shivani Stalin** for **AMUDHAI (அமுதை)**.  
+Built with ❤️ by **Shivani Stalin** for **ZeroPlate AI**.  
 Repository: [https://github.com/shivanistalin2006-dot/Amudhai-AI](https://github.com/shivanistalin2006-dot/Amudhai-AI)

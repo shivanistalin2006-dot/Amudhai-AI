@@ -263,3 +263,196 @@ class Notification(Base):
     link = Column(String(100), nullable=True)
     is_read = Column(Boolean, default=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
+
+# ==============================================================================
+# SMART INVENTORY INTELLIGENCE, BATCH PASSPORTS & TRACEABILITY
+# ==============================================================================
+
+class BatchPassport(Base):
+    __tablename__ = "batch_passports"
+
+    id = Column(Integer, primary_key=True, index=True)
+    institution_id = Column(Integer, ForeignKey("institutions.id"), nullable=False, default=1)
+    batch_number = Column(String(60), unique=True, index=True, nullable=False)
+    ingredient_name = Column(String(100), index=True, nullable=False)
+    category = Column(String(50), nullable=False)  # "Vegetables", "Grains & Rice", "Dairy", "Pulses & Legumes", "Spices & Oils"
+    initial_quantity = Column(Float, nullable=False)
+    current_quantity = Column(Float, nullable=False)
+    unit = Column(String(20), default="kg")
+    source_origin = Column(String(150), default="Local Farmer Cooperative, TN")
+    supplier_name = Column(String(100), nullable=True)
+    purchase_date = Column(String(20), nullable=False)
+    expiry_date = Column(String(20), index=True, nullable=False)
+    storage_conditions = Column(String(150), default="Insulated Cold Unit (4°C, 85% RH)")
+    current_location = Column(String(150), default="Central Chiller 1 - Bay A")
+    qr_code_payload = Column(Text, nullable=True)
+    safety_status = Column(String(30), default="Verified Safe")  # "Verified Safe", "Inspection Required", "Quarantined", "Recalled"
+    fefo_priority = Column(Integer, default=1)
+    risk_level = Column(String(20), default="Low Risk")  # "Low Risk", "Medium Risk", "High Risk"
+    risk_reasons = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    movement_events = relationship("BatchMovementEvent", back_populates="batch_passport", cascade="all, delete-orphan", order_by="desc(BatchMovementEvent.timestamp)")
+    waste_records = relationship("FoodWasteRecord", back_populates="batch_passport")
+
+class BatchMovementEvent(Base):
+    __tablename__ = "batch_movement_events"
+
+    id = Column(Integer, primary_key=True, index=True)
+    batch_passport_id = Column(Integer, ForeignKey("batch_passports.id"), nullable=False, index=True)
+    event_type = Column(String(60), nullable=False)  # "Procurement Inward", "Storage Relocation", "Kitchen Production", "Partial Consumption", "Surplus Listed", "Donation Claimed", "Fleet Dispatched", "Delivered & Handed Over", "Waste Logged"
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    quantity_delta = Column(Float, default=0.0)
+    quantity_after = Column(Float, default=0.0)
+    location = Column(String(150), nullable=False)
+    performed_by = Column(String(100), nullable=False)
+    related_entity_type = Column(String(50), nullable=True)
+    related_entity_id = Column(Integer, nullable=True)
+    notes = Column(Text, nullable=True)
+    verification_hash = Column(String(64), nullable=True)
+
+    batch_passport = relationship("BatchPassport", back_populates="movement_events")
+
+# ==============================================================================
+# SUPPLIERS & PROCUREMENT INTELLIGENCE
+# ==============================================================================
+
+class Supplier(Base):
+    __tablename__ = "suppliers"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(120), unique=True, index=True, nullable=False)
+    category = Column(String(50), nullable=False)  # "Fresh Produce", "Grains & Pulses", "Dairy", "Spices & Oils"
+    contact_person = Column(String(100), nullable=False)
+    phone = Column(String(20), nullable=False)
+    email = Column(String(100), nullable=False)
+    address = Column(String(255), nullable=False)
+    rating = Column(Float, default=4.8)
+    delivery_lead_days = Column(Integer, default=2)
+    min_order_qty = Column(Float, default=20.0)
+    is_verified = Column(Boolean, default=True)
+    availability_status = Column(String(20), default="Available")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    price_history = relationship("SupplierPriceHistory", back_populates="supplier", cascade="all, delete-orphan")
+    purchase_orders = relationship("PurchaseOrder", back_populates="supplier")
+
+class SupplierPriceHistory(Base):
+    __tablename__ = "supplier_price_history"
+
+    id = Column(Integer, primary_key=True, index=True)
+    supplier_id = Column(Integer, ForeignKey("suppliers.id"), nullable=False)
+    ingredient_name = Column(String(100), nullable=False)
+    unit_price_inr = Column(Float, nullable=False)
+    effective_date = Column(String(20), nullable=False)
+    unit = Column(String(20), default="kg")
+
+    supplier = relationship("Supplier", back_populates="price_history")
+
+class PurchaseOrder(Base):
+    __tablename__ = "purchase_orders"
+
+    id = Column(Integer, primary_key=True, index=True)
+    po_number = Column(String(50), unique=True, index=True, nullable=False)
+    institution_id = Column(Integer, ForeignKey("institutions.id"), nullable=False)
+    supplier_id = Column(Integer, ForeignKey("suppliers.id"), nullable=False)
+    order_date = Column(String(20), nullable=False)
+    expected_delivery_date = Column(String(20), nullable=False)
+    status = Column(String(30), default="Draft")  # "Draft", "Pending Approval", "Ordered", "Received", "Cancelled"
+    total_cost_inr = Column(Float, default=0.0)
+    auto_generated_by_ai = Column(Boolean, default=True)
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    items = relationship("PurchaseOrderItem", back_populates="purchase_order", cascade="all, delete-orphan")
+    supplier = relationship("Supplier", back_populates="purchase_orders")
+
+class PurchaseOrderItem(Base):
+    __tablename__ = "purchase_order_items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    purchase_order_id = Column(Integer, ForeignKey("purchase_orders.id"), nullable=False)
+    ingredient_name = Column(String(100), nullable=False)
+    current_usable_stock = Column(Float, default=0.0)
+    predicted_demand = Column(Float, default=0.0)
+    safety_stock = Column(Float, default=0.0)
+    recommended_reorder_qty = Column(Float, default=0.0)
+    confirmed_qty = Column(Float, default=0.0)
+    unit = Column(String(20), default="kg")
+    unit_price_inr = Column(Float, default=0.0)
+    total_price_inr = Column(Float, default=0.0)
+
+    purchase_order = relationship("PurchaseOrder", back_populates="items")
+
+# ==============================================================================
+# WASTE ORIGIN ANALYTICS
+# ==============================================================================
+
+class FoodWasteRecord(Base):
+    __tablename__ = "food_waste_records"
+
+    id = Column(Integer, primary_key=True, index=True)
+    institution_id = Column(Integer, ForeignKey("institutions.id"), nullable=False)
+    batch_passport_id = Column(Integer, ForeignKey("batch_passports.id"), nullable=True)
+    ingredient_name = Column(String(100), nullable=False)
+    food_category = Column(String(50), nullable=False)
+    quantity_kg = Column(Float, nullable=False)
+    unit = Column(String(20), default="kg")
+    waste_stage = Column(String(60), nullable=False)  # "Storage loss", "Preparation loss", "Cooking loss", "Plate leftovers", "Expired or spoiled ingredients", "Processing and production losses"
+    reason = Column(String(150), nullable=False)
+    date_time = Column(DateTime, default=datetime.utcnow)
+    kitchen_name = Column(String(100), default="Loyola Main Kitchen")
+    financial_loss_inr = Column(Float, default=0.0)
+    co2e_impact_kg = Column(Float, default=0.0)
+    water_loss_liters = Column(Float, default=0.0)
+    logged_by = Column(String(100), default="Chef In-Charge")
+    action_taken = Column(String(150), default="Composted for Campus Garden")
+    notes = Column(Text, nullable=True)
+
+    batch_passport = relationship("BatchPassport", back_populates="waste_records")
+
+# ==============================================================================
+# SMART MENU & INGREDIENT RECIPES
+# ==============================================================================
+
+class Recipe(Base):
+    __tablename__ = "recipes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(120), unique=True, index=True, nullable=False)
+    category = Column(String(50), default="Lunch")
+    dietary_type = Column(String(50), default="Vegetarian")  # "Vegetarian", "Vegan", "Jain", "Regular"
+    allergens = Column(String(150), default="Gluten-Free, Nut-Free")
+    servings_base = Column(Integer, default=100)
+    prep_time_mins = Column(Integer, default=45)
+    instructions = Column(Text, nullable=True)
+
+    ingredients = relationship("RecipeIngredient", back_populates="recipe", cascade="all, delete-orphan")
+
+class RecipeIngredient(Base):
+    __tablename__ = "recipe_ingredients"
+
+    id = Column(Integer, primary_key=True, index=True)
+    recipe_id = Column(Integer, ForeignKey("recipes.id"), nullable=False)
+    ingredient_name = Column(String(100), nullable=False)
+    qty_per_100_servings = Column(Float, nullable=False)
+    unit = Column(String(20), default="kg")
+    is_critical = Column(Boolean, default=True)
+
+    recipe = relationship("Recipe", back_populates="ingredients")
+
+class MenuRecommendation(Base):
+    __tablename__ = "menu_recommendations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    institution_id = Column(Integer, ForeignKey("institutions.id"), nullable=False)
+    recipe_id = Column(Integer, ForeignKey("recipes.id"), nullable=False)
+    meal_period = Column(String(20), default="Lunch")
+    target_servings = Column(Integer, default=500)
+    rationale = Column(Text, nullable=False)
+    priority_score = Column(Float, default=95.0)
+    status = Column(String(20), default="Recommended")  # "Recommended", "Accepted", "Executed", "Dismissed"
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    recipe = relationship("Recipe")
+

@@ -11,6 +11,8 @@ import { LogisticsView } from './views/LogisticsView';
 import { FoodProcessingView } from './views/FoodProcessingView';
 import { SustainabilityView } from './views/SustainabilityView';
 import { SettingsView } from './views/SettingsView';
+import { Footer } from './components/Footer';
+import { LoginModal } from './components/LoginModal';
 import { api, User } from './api';
 
 export function App() {
@@ -28,6 +30,7 @@ export function App() {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const [lang, setLang] = useState<'en' | 'ta'>('en');
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
 
   // Shared Data States
   const [summaryData, setSummaryData] = useState<any>(null);
@@ -62,21 +65,38 @@ export function App() {
     loadNotifications();
   }, []);
 
+  useEffect(() => {
+    const tabTitles: Record<string, string> = {
+      dashboard: 'Dashboard & Hub',
+      forecast: 'AI Demand Forecaster',
+      inventory: 'Smart FEFO Inventory',
+      quality: 'Food Quality & IoT',
+      surplus: 'Surplus Redistribution',
+      ngos: 'Verified NGO Network',
+      logistics: 'Fleet Dispatch',
+      processing: 'Food Upcycling Units',
+      sustainability: 'ESG Sustainability Audit',
+      settings: 'Platform Settings',
+    };
+    const page = tabTitles[activeTab] || 'Ecosystem';
+    document.title = `ZeroPlate AI | ${page} - Smart Food. Zero Waste.`;
+  }, [activeTab]);
+
   const handleSwitchUser = async (username: string, role: string) => {
     const orgMap: Record<string, string> = {
       kitchen_admin: 'Loyola College Mega Mess',
       hotel_admin: 'Hotel Annapoorna Grand',
       ngo_user: 'Akshaya Food Bank Chennai',
       delivery_driver: 'Murugan K. (GreenExpress 01)',
-      platform_admin: 'Amudhai Ecosystem HQ',
+      platform_admin: 'ZeroPlate Ecosystem HQ',
     };
 
     const newUser: User = {
       id: username === 'kitchen_admin' ? 1 : username === 'ngo_user' ? 3 : username === 'delivery_driver' ? 4 : 5,
       username,
-      email: `${username}@amudhai.eco`,
+      email: `${username}@zeroplate.ai`,
       role: role as any,
-      organization_name: orgMap[username] || 'Amudhai Partner',
+      organization_name: orgMap[username] || 'ZeroPlate Partner',
       phone: '+91 98400 00000',
     };
 
@@ -145,6 +165,8 @@ export function App() {
           }}
           lang={lang}
           setLang={setLang}
+          onToggleMobile={() => setMobileOpen(!mobileOpen)}
+          onOpenLogin={() => setIsLoginModalOpen(true)}
         />
 
         {/* View Router */}
@@ -212,6 +234,18 @@ export function App() {
             />
           )}
         </main>
+
+        {/* Global Footer */}
+        <Footer lang={lang} onNavigate={setActiveTab} />
+
+        {/* Dedicated ZeroPlate AI Login Modal */}
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+          currentUser={currentUser}
+          onSwitchUser={handleSwitchUser}
+          lang={lang}
+        />
       </div>
     </div>
   );

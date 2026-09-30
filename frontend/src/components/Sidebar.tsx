@@ -5,6 +5,7 @@ import {
   ChevronLeft, ChevronRight, Menu 
 } from 'lucide-react';
 import { User } from '../api';
+import { ZeroPlateLogo } from './ZeroPlateLogo';
 
 interface SidebarProps {
   currentUser: User;
@@ -113,18 +114,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Brand Header */}
         <div className="flex items-center justify-between h-16 px-4 border-b border-[#2E8059]/30">
           <div className="flex items-center space-x-3 overflow-hidden">
-            <img
-              src="/logo.jpg"
-              alt="Amudhai Logo"
-              className="w-10 h-10 rounded-xl object-cover ring-2 ring-[#D5AD58]/60 shadow-md shrink-0"
-            />
+            <ZeroPlateLogo size={36} theme="dark" />
             {!collapsed && (
               <div className="flex flex-col truncate">
                 <span className="font-extrabold text-base tracking-wide text-white flex items-center gap-1.5">
-                  AMUDHAI <span className="text-xs font-normal text-[#C6E6D2]">அமுதை</span>
+                  ZEROPLATE <span className="text-xs font-semibold px-1.5 py-0.5 rounded bg-[#2E8059] text-white border border-[#D5AD58]/40">AI</span>
                 </span>
-                <span className="text-[10px] text-[#C6E6D2]/80 truncate">
-                  Smart Food Ecosystem
+                <span className="text-[10px] text-[#D5AD58] font-semibold tracking-wide truncate">
+                  Smart Food. Zero Waste.
                 </span>
               </div>
             )}
@@ -169,12 +166,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Mission Footer */}
         {!collapsed && (
-          <div className="p-4 mx-3 mb-4 rounded-xl bg-[#2E8059]/20 border border-[#2E8059]/30 text-center">
-            <p className="text-[11px] font-semibold text-[#D5AD58]">
-              "Every Grain Matters. Every Meal Counts."
+          <div className="p-3.5 mx-3 mb-4 rounded-xl bg-[#2E8059]/25 border border-[#D5AD58]/30 text-center shadow-xs">
+            <p className="text-[11px] font-bold text-[#D5AD58] tracking-wide">
+              "Smart Food. Zero Waste."
             </p>
-            <p className="text-[9px] text-[#C6E6D2]/70 mt-1">
-              FSSAI & Sustainable Food Protocol
+            <p className="text-[9px] text-[#C6E6D2]/80 mt-1">
+              ZeroPlate AI Autonomous Network
             </p>
           </div>
         )}
